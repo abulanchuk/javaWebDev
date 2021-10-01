@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 public class Validator {
     Pattern pattern = Pattern.compile("([+-]?[0-9]*[.][0-9]*)|([+-]?[0-9]+[Ee][+-]?[0-9]+)");
-    static Logger Logger = LogManager.getLogger();
+    static Logger logger = LogManager.getLogger();
+
     public boolean isValid(String line) {
         if (line.equals(".")) {
             return false;
@@ -18,7 +19,7 @@ public class Validator {
         Matcher matcher = pattern.matcher(line);
         boolean isValid = matcher.matches();
 
-        Logger.log(Level.INFO, "edu.epam.pretask.validator: " + line + ": " + isValid);
+        logger.log(Level.INFO, "edu.epam.pretask.validator: " + line + ": " + isValid);
         return isValid;
 
     }

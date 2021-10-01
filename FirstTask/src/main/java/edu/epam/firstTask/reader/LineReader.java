@@ -1,4 +1,4 @@
-package edu.epam.pretask.reader;
+package edu.epam.firstTask.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,9 +13,8 @@ public class LineReader {
 
         Path path = Paths.get(pathToFile);
         try (BufferedReader reader = Files.newBufferedReader(path)) {
-
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null){
                 lines.add(line);
             }
         }
