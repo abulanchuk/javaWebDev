@@ -1,0 +1,34 @@
+package edu.epam.firsttask;
+
+import edu.epam.firsttask.entity.CustomArray;
+import edu.epam.firsttask.factory.CustomArrayFactory;
+import edu.epam.firsttask.sorting.Sorting;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
+
+public class SortingTest {
+    Sorting sorter = new Sorting();
+
+    CustomArray inputArray = CustomArrayFactory.fromIngeters(2, -1, -3, 4, -7);
+    CustomArray referenceArray = CustomArrayFactory.fromIngeters(-7, -3, -1, 2, 4);
+
+    @Test
+    public void testSelectionSort() {
+        CustomArray sortedArray = sorter.selectionSort(inputArray);
+        assertEquals(sortedArray.getArray(), referenceArray.getArray());
+    }
+
+    @Test
+    public void testShellSort() {
+        CustomArray sortedArray = sorter.shellSort(inputArray);
+        assertEquals(sortedArray.getArray(), referenceArray.getArray());
+    }
+
+    @Test
+    public void testSortByInserts() {
+        CustomArray sortedArray = sorter.sortByInserts(inputArray);
+        assertEquals(sortedArray.getArray(), referenceArray.getArray());
+
+    }
+}
