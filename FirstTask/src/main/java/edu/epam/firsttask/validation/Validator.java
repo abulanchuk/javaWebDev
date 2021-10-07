@@ -8,15 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
-    static Logger logger = LogManager.getRootLogger();
-    private static final Pattern REG_EXP = Pattern.compile("^-?\\d+(\\s(-?\\d+))*$");
-
+    static Logger logger = LogManager.getLogger(Validator.class);
+    private static final Pattern STRING_FORMAT_CHECKER = Pattern.compile("^-?\\d+(\\s(-?\\d+))*$");
 
     public boolean isValid(String line){
-        Matcher matcher = REG_EXP.matcher(line);
+        Matcher matcher = STRING_FORMAT_CHECKER.matcher(line);
         boolean isValid = matcher.matches();
 
-        logger.log(Level.INFO, "edu.epam.firstTask.validator: " + line + ": " + isValid);
+        logger.log(Level.INFO, line + ": " + isValid);
         return isValid;
     }
 }

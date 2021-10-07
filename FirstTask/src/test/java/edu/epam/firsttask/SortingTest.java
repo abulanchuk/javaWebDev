@@ -10,8 +10,8 @@ import static org.testng.Assert.*;
 public class SortingTest {
     Sorting sorter = new Sorting();
 
-    CustomArray inputArray = CustomArrayFactory.fromIngeters(2, -1, -3, 4, -7);
-    CustomArray referenceArray = CustomArrayFactory.fromIngeters(-7, -3, -1, 2, 4);
+    CustomArray inputArray = CustomArrayFactory.fromIntegers(2, -1, -3, 4, -7);
+    CustomArray referenceArray = CustomArrayFactory.fromIntegers(-7, -3, -1, 2, 4);
 
     @Test
     public void testSelectionSort() {

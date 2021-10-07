@@ -13,7 +13,7 @@ public class ParserTest {
     @Test
     public void testFromString() throws SymbolException {
         String line = "123 56 4 8";
-        CustomArray numbers = CustomArrayFactory.fromIngeters(123, 56, 4, 8);
+        CustomArray numbers = CustomArrayFactory.fromIntegers(123, 56, 4, 8);
         CustomArray parsedNumbers = Parser.fromString(line);
         assertEquals(numbers.getArray(), parsedNumbers.getArray());
     }

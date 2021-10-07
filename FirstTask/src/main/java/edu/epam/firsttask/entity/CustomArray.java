@@ -24,4 +24,14 @@ public class CustomArray {
     public void set(int i, int newValue) {
         this.array[i] = newValue;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i : array) {
+            stringBuilder.append(i).append(" ");
+        }
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
+    }
 }

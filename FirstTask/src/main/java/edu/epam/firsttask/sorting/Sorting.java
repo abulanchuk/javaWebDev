@@ -2,7 +2,15 @@ package edu.epam.firsttask.sorting;
 
 import edu.epam.firsttask.entity.CustomArray;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.Arrays;
+
 public class Sorting {
+    static Logger logger = LogManager.getLogger(Sorting.class);
+
     public CustomArray selectionSort(CustomArray array) {
         int[] integerArray = array.getArray();
 
@@ -19,6 +27,7 @@ public class Sorting {
             integerArray[idxMin] = integerArray[i];
             integerArray[i] = min;
         }
+        logger.log(Level.INFO,Arrays.toString(new CustomArray[]{array}) + "Selection Sorting array: " + Arrays.toString(integerArray));
         return new CustomArray(integerArray);
     }
 
@@ -34,8 +43,8 @@ public class Sorting {
                     i = -1;
                 }
             }
-
         }
+        logger.log(Level.INFO, Arrays.toString(new CustomArray[]{array}) + "\nShell's sorting array: " + Arrays.toString(integerArray));
         return new CustomArray(integerArray);
     }
 
@@ -43,16 +52,20 @@ public class Sorting {
         int[] integerArray = array.getArray();
         for (int i = 0; i < integerArray.length; i++) {
             int value = integerArray[i];
+
             int j = i - 1;
-            for (; j >= 0; j--) {
-                if (value < integerArray[j]) {
-                    integerArray[j + 1] = integerArray[j];
-                } else {
+            while (j >= 0) {
+                if (value >= integerArray[j]) {
                     break;
                 }
+
+                integerArray[j + 1] = integerArray[j];
+                j--;
             }
             integerArray[j + 1] = value;
         }
+
+        logger.log(Level.INFO, Arrays.toString(new CustomArray[]{array}) + "\nArray sorting by inserts: " + Arrays.toString(integerArray));
         return new CustomArray(integerArray);
     }
 }

@@ -1,1 +1,36 @@
-INFO	2021-10-04 23:41:15,742	0	root	[main]	edu.epam.firstTask.validator: 12 11 11 111: true
+INFO	2021-10-06 23:32:34,727	0	edu.epam.firsttask.validation.Validator	[main]	12n 14 34: false
+INFO	2021-10-06 23:32:34,730	3	edu.epam.firsttask.validation.Validator	[main]	12, 140 34: false
+INFO	2021-10-06 23:32:34,731	4	edu.epam.firsttask.validation.Validator	[main]	12 14 34: true
+INFO	2021-10-06 23:38:11,577	0	edu.epam.firsttask.validation.Validator	[main]	12 11 11 111: true
+INFO	2021-10-06 23:38:11,583	6	edu.epam.firsttask.validation.Validator	[main]	123 433 4: true
+INFO	2021-10-06 23:38:11,592	15	edu.epam.firsttask.operator.Operator	[main]	The maximum value is: 323
+INFO	2021-10-06 23:38:11,594	17	edu.epam.firsttask.operator.Operator	[main]	The sum of elements is: 366
+INFO	2021-10-06 23:38:11,595	18	edu.epam.firsttask.operator.Operator	[main]	The average number of elements is: 91
+INFO	2021-10-06 23:38:11,595	18	edu.epam.firsttask.operator.Operator	[main]	The sum of elements is: 366
+INFO	2021-10-06 23:38:11,595	18	edu.epam.firsttask.operator.Operator	[main]	Number of negative elements: 1
+INFO	2021-10-06 23:38:11,595	18	edu.epam.firsttask.operator.Operator	[main]	The minimum value is: -12
+INFO	2021-10-06 23:38:11,595	18	edu.epam.firsttask.operator.Operator	[main]	Number of positive elements: 3
+INFO	2021-10-06 23:38:11,596	19	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements: [12, 323, 23, 32]
+INFO	2021-10-06 23:38:11,605	28	edu.epam.firsttask.sorting.Sorting	[main]	[-12 323 23 32 
+]Selection Sorting array: [-12, 23, 32, 323]
+INFO	2021-10-06 23:38:11,606	29	edu.epam.firsttask.sorting.Sorting	[main]	[-12 323 23 32 
+]
+Shell's sorting array: [-12, 23, 32, 323]
+INFO	2021-10-06 23:38:11,606	29	edu.epam.firsttask.sorting.Sorting	[main]	[-12 323 23 32 
+]
+Array sorting by inserts: [-12, 23, 32, 323]
+INFO	2021-10-07 13:05:41,585	0	edu.epam.firsttask.operator.Operator	[main]	The minimum value is (use IntStream): 1
+INFO	2021-10-07 13:06:00,104	0	edu.epam.firsttask.operator.Operator	[main]	The minimum value is (use IntStream): -2
+INFO	2021-10-07 13:06:28,555	0	edu.epam.firsttask.operator.Operator	[main]	The sum of elements is: 67
+INFO	2021-10-07 13:08:10,650	0	edu.epam.firsttask.operator.Operator	[main]	The average number of elements is: 18400.4
+INFO	2021-10-07 13:10:28,040	0	edu.epam.firsttask.operator.Operator	[main]	Number of positive elements: 92004
+INFO	2021-10-07 13:12:40,232	0	edu.epam.firsttask.operator.Operator	[main]	Number of positive elements: 4
+INFO	2021-10-07 13:14:35,960	0	edu.epam.firsttask.operator.Operator	[main]	Number of negative elements: 1
+INFO	2021-10-07 14:02:04,464	0	edu.epam.firsttask.operator.Operator	[main]	The average number of elements is (use IntStream): OptionalDouble[18400.4]
+INFO	2021-10-07 14:03:32,759	0	edu.epam.firsttask.operator.Operator	[main]	The average number of elements is (use IntStream): 18400.4
+INFO	2021-10-07 16:08:35,521	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [java.util.stream.IntPipeline$Head@6a400542]
+INFO	2021-10-07 16:10:40,721	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [I@6a400542
+INFO	2021-10-07 16:11:14,701	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [I@1700915
+INFO	2021-10-07 16:14:55,551	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [I@6a400542
+INFO	2021-10-07 16:15:16,804	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [I@654f0d9c
+INFO	2021-10-07 16:16:00,598	0	edu.epam.firsttask.operator.Operator	[main]	Array after replacing negative elements (use IntStream): [I@67d48005

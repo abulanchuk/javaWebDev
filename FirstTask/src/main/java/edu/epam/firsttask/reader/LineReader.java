@@ -7,9 +7,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import edu.epam.firsttask.exception.InvalidPathFormatException;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class LineReader {
-    public static ArrayList<String> readLines(String pathToFile) throws IOException {
+    static Logger logger = LogManager.getLogger(LineReader.class);
+
+    public static ArrayList<String> readLines(String pathToFile) throws IOException, InvalidPathFormatException {
         ArrayList<String> linesOfFile = new ArrayList<>();
+
+        if (pathToFile == null || pathToFile.isEmpty()) {
+            logger.log(Level.INFO, "File is not found");
+            throw new InvalidPathFormatException("File is not found");
+        }
 
         Path path = Paths.get(pathToFile);
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -22,10 +34,3 @@ public class LineReader {
     }
 }
 
-/// String s = "123 444 311 111";
-/// Parser p = new Parser();
-/// int[] arr = p.parse(s);
-/// CustomArray array = new CustomArray(arr);
-
-/// Factory f = new Factory();
-/// CustomArray a = f.fromIntegers(1, 2, 3, 4);
