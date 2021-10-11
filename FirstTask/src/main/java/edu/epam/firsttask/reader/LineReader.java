@@ -19,7 +19,7 @@ public class LineReader {
         ArrayList<String> linesOfFile = new ArrayList<>();
 
         if (pathToFile == null || pathToFile.isEmpty()) {
-            logger.log(Level.INFO, "File is not found");
+            logger.log(Level.ERROR, "File is not found");
             throw new InvalidPathFormatException("File is not found");
         }
 

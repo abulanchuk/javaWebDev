@@ -1,12 +1,12 @@
 package edu.epam.firsttask;
 
-import edu.epam.firsttask.validation.Validator;
+import edu.epam.firsttask.validation.impl.ValidatorImpl;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class ValidatorTest {
-    Validator validator = new Validator();
+public class ValidatorImplTest {
+    ValidatorImpl validator = new ValidatorImpl();
 
     @Test
     public void testIsValid() {

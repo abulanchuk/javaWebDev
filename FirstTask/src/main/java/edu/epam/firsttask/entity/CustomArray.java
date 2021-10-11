@@ -1,5 +1,7 @@
 package edu.epam.firsttask.entity;
 
+import edu.epam.firsttask.exception.IntArrayOutOfBoundsError;
+
 import java.util.Arrays;
 
 public class CustomArray {
@@ -9,7 +11,10 @@ public class CustomArray {
         this.array = array;
     }
 
-    public int get(int i) {
+    public int get(int i) throws IntArrayOutOfBoundsError {
+        if (i >= array.length || i < 0) {
+            throw new IntArrayOutOfBoundsError("Out of legal index:" + i);
+        }
         return array[i];
     }
 

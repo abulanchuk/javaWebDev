@@ -1,34 +1,35 @@
-package edu.epam.firsttask.operator;
+package edu.epam.firsttask.operator.impl;
 
 import edu.epam.firsttask.entity.CustomArray;
+import edu.epam.firsttask.operator.Operator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
-public class OperatorWithStream {
-    static Logger logger = LogManager.getLogger(Operator.class);
+public class OperatorWithStreamImpl implements Operator {
+    static Logger logger = LogManager.getLogger(OperatorImpl.class);
 
-    public int findMinValue(CustomArray array) {
-        // TODO: empty array?
-        int minValue = Arrays.stream(array.getArray())
-                .min()
-                .getAsInt();
+    @Override
+    public OptionalInt findMinValue(CustomArray array) {
+        OptionalInt minValue = Arrays.stream(array.getArray())
+                .min();
         logger.log(Level.INFO, "The minimum value is (use IntStream): " + minValue);
         return minValue;
     }
 
-    public int findMaxValue(CustomArray array) {
-        int maxValue = Arrays.stream(array.getArray())
-                .max()
-                .getAsInt();
+    @Override
+    public OptionalInt findMaxValue(CustomArray array) {
+        OptionalInt maxValue = Arrays.stream(array.getArray())
+                .max();
         logger.log(Level.INFO, "The maximum value is (use IntStream): " + maxValue);
         return maxValue;
     }
 
+    @Override
     public long sumOfElements(CustomArray array) {
         long sum = Arrays.stream(array.getArray())
                 .sum();
@@ -36,14 +37,15 @@ public class OperatorWithStream {
         return sum;
     }
 
-    public double findAverageNumber(CustomArray array) {
-        double avarage = Arrays.stream(array.getArray())
-                .average()
-                .getAsDouble();
-        logger.log(Level.INFO, "The average number of elements is (use IntStream): " + avarage);
-        return avarage;
+    @Override
+    public OptionalDouble findAverageNumber(CustomArray array) {
+        OptionalDouble averageNumber = Arrays.stream(array.getArray())
+                .average();
+        logger.log(Level.INFO, "The average number of elements is (use IntStream): " + averageNumber);
+        return averageNumber;
     }
 
+    @Override
     public long countPositiveNumbers(CustomArray array) {
         long positiveCounter = Arrays.stream(array.getArray())
                 .filter(n -> n > 0).count();
@@ -51,6 +53,7 @@ public class OperatorWithStream {
         return positiveCounter;
     }
 
+    @Override
     public long countNegativeNumbers(CustomArray array) {
         long negativeCounter = Arrays.stream(array.getArray())
                 .filter(n -> n < 0)
@@ -59,12 +62,15 @@ public class OperatorWithStream {
         return negativeCounter;
     }
 
+    @Override
     public CustomArray replaceNegativeWithPositive(CustomArray array) {
         int[] integerArray = array.getArray();
-        //IntStream stream1 = Arrays.stream(integerArray);
-        int [] stream1 = Arrays.stream(integerArray).map(Math::abs).toArray();
+        int[] stream = Arrays.stream(integerArray)
+                .map(Math::abs)
+                .toArray();
 
-        logger.log(Level.INFO, "Array after replacing negative elements (use IntStream): " + stream1);
-        return new CustomArray(stream1);
+        CustomArray customArray = new CustomArray(stream);
+        logger.log(Level.INFO, "Array after replacing negative elements (use IntStream): " + customArray);
+        return customArray;
     }
 }

@@ -2,59 +2,63 @@ package edu.epam.firsttask;
 
 import edu.epam.firsttask.entity.CustomArray;
 import edu.epam.firsttask.factory.CustomArrayFactory;
-import edu.epam.firsttask.operator.Operator;
+import edu.epam.firsttask.operator.impl.OperatorImpl;
 import org.testng.annotations.Test;
+
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
-public class OperatorTest {
-    Operator operator = new Operator();
+public class OperatorImplTest {
+    OperatorImpl operator = new OperatorImpl();
 
     @Test
     public void testFindMinValueFirst() {
         CustomArray array = CustomArrayFactory.fromIntegers(1, 2, 3, 4, 5);
-        int minimum = operator.findMinValue(array);
+        OptionalInt minimum = operator.findMinValue(array);
 
-        assertEquals(minimum, 1);
+        assertEquals(minimum.getAsInt(), 1);
     }
 
     @Test
     public void testFindMinValueLast() {
         CustomArray array = CustomArrayFactory.fromIntegers(1, 20, 3, 4, -2);
-        int minimum = operator.findMinValue(array);
+        OptionalInt minimum = operator.findMinValue(array);
 
-        assertEquals(minimum, -2);
+        assertEquals(minimum.getAsInt(), -2);
     }
 
     @Test
     public void testFindMinValueInACenter() {
         CustomArray array = CustomArrayFactory.fromIntegers(1, -2, 3, 4, 5);
-        int minimum = operator.findMinValue(array);
+        OptionalInt minimum = operator.findMinValue(array);
 
-        assertEquals(minimum, -2);
+        assertEquals(minimum.getAsInt(), -2);
     }
 
     @Test
     public void testFindMaxValueFirst() {
         CustomArray array = CustomArrayFactory.fromIntegers(1234, -2, 3, 4, 5);
-        int maximum = operator.findMaxValue(array);
+        OptionalInt maximum = operator.findMaxValue(array);
 
-        assertEquals(maximum, 1234);
+        assertEquals(maximum.getAsInt(), 1234);
     }
 
     @Test
     public void testFindMaxValueLast() {
         CustomArray array = CustomArrayFactory.fromIntegers(12, -2, 3, 4, 500);
-        int maximum = operator.findMaxValue(array);
+        OptionalInt maximum = operator.findMaxValue(array);
 
-        assertEquals(maximum, 500);
+        assertEquals(maximum.getAsInt(), 500);
     }
 
     @Test
     public void testFindMaxValueInACenter() {
         CustomArray array = CustomArrayFactory.fromIntegers(12, -2, 3000, 4, 500);
-        int maximum = operator.findMaxValue(array);
-        assertEquals(maximum, 3000);
+        OptionalInt maximum = operator.findMaxValue(array);
+
+        assertEquals(maximum.getAsInt(), 3000);
     }
 
     @Test
@@ -68,15 +72,15 @@ public class OperatorTest {
     @Test
     public void testFindAverageNumber() {
         CustomArray array = CustomArrayFactory.fromIntegers(12000, -2, 30000, 4, 50000);
-         double average = operator.findAverageNumber(array);
+         OptionalDouble average = operator.findAverageNumber(array);
 
-        assertEquals(average, 18400.4);
+        assertEquals(average.getAsDouble(), 18400.4);
     }
 
     @Test
     public void testCountPositiveNumbers() {
         CustomArray array = CustomArrayFactory.fromIntegers(12000, -2, 30000, 4, 50000);
-        int positiveNum = operator.countPositiveNumbers(array);
+        long positiveNum = operator.countPositiveNumbers(array);
 
         assertEquals(positiveNum, 4);
     }
@@ -84,7 +88,7 @@ public class OperatorTest {
     @Test
     public void testCountNegativeNumbers() {
         CustomArray array = CustomArrayFactory.fromIntegers(12000, -2, 30000, 4, 50000);
-        int negativeNum = operator.countNegativeNumbers(array);
+        long negativeNum = operator.countNegativeNumbers(array);
 
         assertEquals(negativeNum, 1);
     }

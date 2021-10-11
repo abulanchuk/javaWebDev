@@ -2,28 +2,31 @@ package edu.epam.firsttask;
 
 import edu.epam.firsttask.entity.CustomArray;
 import edu.epam.firsttask.factory.CustomArrayFactory;
-import edu.epam.firsttask.operator.OperatorWithStream;
+import edu.epam.firsttask.operator.impl.OperatorWithStreamImpl;
 import org.testng.annotations.Test;
+
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 import static org.testng.Assert.*;
 
-public class OperatorWithStreamTest {
-    OperatorWithStream operator = new OperatorWithStream();
+public class OperatorWithStreamImplTest {
+    OperatorWithStreamImpl operator = new OperatorWithStreamImpl();
 
     @Test
     public void testFindMinValue() {
         CustomArray array = CustomArrayFactory.fromIntegers(1, 2, 3, 4, 5);
-        int minimum = operator.findMinValue(array);
+        OptionalInt minimum = operator.findMinValue(array);
 
-        assertEquals(minimum, 1);
+        assertEquals(minimum.getAsInt(), 1);
     }
 
     @Test
     public void testFindMaxValue() {
         CustomArray array = CustomArrayFactory.fromIntegers(1, 20, 3, 4, -2);
-        int minimum = operator.findMinValue(array);
+        OptionalInt minimum = operator.findMinValue(array);
 
-        assertEquals(minimum, -2);
+        assertEquals(minimum.getAsInt(), -2);
     }
 
     @Test
@@ -37,9 +40,9 @@ public class OperatorWithStreamTest {
     @Test
     public void testFindAverageNumber() {
         CustomArray array = CustomArrayFactory.fromIntegers(12000, -2, 30000, 4, 50000);
-        double average = operator.findAverageNumber(array);
+        OptionalDouble average = operator.findAverageNumber(array);
 
-        assertEquals(average, 18400.4);
+        assertEquals(average.getAsDouble(), 18400.4);
     }
 
     @Test
