@@ -4,23 +4,23 @@ import edu.epam.task2.exception.InvalidNumberOfPointsError;
 
 public class CustomCube {
     CustomPoint[] points;
-    int id;
+    int shapeId;
 
-    public CustomCube(CustomPoint[] points, int id) throws InvalidNumberOfPointsError {
+    public CustomCube(CustomPoint[] points, int shapeId) throws InvalidNumberOfPointsError {
         if (points.length != 8) {
             throw new InvalidNumberOfPointsError(8, points.length);
         }
 
         this.points = points;
-        this.id = id;
+        this.shapeId = shapeId;
     }
 
     public CustomPoint[] getPoints() {
         return points;
     }
 
-    public int getId() {
-        return id;
+    public int getShapeId() {
+        return shapeId;
     }
 
     public CustomPoint getPoint(int index){

@@ -6,12 +6,13 @@ import edu.epam.task2.exception.InvalidNumberOfPointsError;
 
 public class CubeFromOnePointAndLength {
 
-    public CustomCube createCubeFromOnePoint(CustomPoint point0, double length, int id) throws InvalidNumberOfPointsError {
+    public CustomCube createCubeFromOnePoint(CustomPoint point0, double length, int id) {
         double x0 = point0.getX();
         double y0 = point0.getY();
         double z0 = point0.getZ();
 
         CustomPoint[] points = new CustomPoint[]{
+                new CustomPoint(x0, y0, z0),
                 new CustomPoint(x0, y0 + length, z0),
                 new CustomPoint(x0 + length, y0 + length, z0),
                 new CustomPoint(x0 + length, y0, z0),

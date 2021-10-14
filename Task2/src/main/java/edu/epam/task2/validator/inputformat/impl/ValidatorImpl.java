@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ValidatorImpl implements Validator {
     static Logger logger = LogManager.getLogger(ValidatorImpl.class);
-    private static final String STRING_FORMAT_COORDINATE = "^-?\\d+(\\s+(-?\\d+)){2}$";
+    private static final String STRING_FORMAT_COORDINATE = "^-?\\d+(\\s+(-?\\d+)){2}\\s+(\\d+)$";
 
     @Override
     public boolean isValid(String line) {

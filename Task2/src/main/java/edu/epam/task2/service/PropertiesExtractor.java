@@ -1,11 +1,16 @@
 package edu.epam.task2.service;
 
 import edu.epam.task2.entity.CustomCube;
+import edu.epam.task2.exception.DoesNotCrossAxisException;
 
-public class PropertiesExtractor {
-    public double getEdgeLength(CustomCube cube) {
-        double firstPointX = cube.getPoint(0).getX();
-        double secondPointX = cube.getPoint(3).getX();
-        return secondPointX - firstPointX;
-    }
+public interface PropertiesExtractor {
+    double getEdgeLength(CustomCube cube);
+
+    double countArea(CustomCube cube);
+
+    double countVolume(CustomCube cube);
+
+    double getVolumesRatio(CustomCube cube) throws DoesNotCrossAxisException;
+
+    boolean checkIfTheFigureIsOnTheCoordinatePlane(CustomCube cube);
 }
