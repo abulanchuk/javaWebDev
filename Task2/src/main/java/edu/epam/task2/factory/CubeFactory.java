@@ -4,7 +4,7 @@ import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
 import edu.epam.task2.exception.InvalidNumberOfPointsError;
 
-public class CubeFromOnePointAndLength {
+public class CubeFactory {
 
     public CustomCube createCubeFromOnePoint(CustomPoint point0, double length, int id) {
         double x0 = point0.getX();
@@ -24,5 +24,9 @@ public class CubeFromOnePointAndLength {
 
         CustomCube cube = new CustomCube(points, id);
         return cube;
+    }
+
+    public CustomCube createFromPoints (CustomPoint[] points, int shapeId){
+        return new CustomCube(points, shapeId);
     }
 }
