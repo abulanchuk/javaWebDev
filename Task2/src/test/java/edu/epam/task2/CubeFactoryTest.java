@@ -23,8 +23,8 @@ public class CubeFactoryTest {
         CustomPoint point = new CustomPoint(0, 0, 0);
         double length = 4.0;
         CubeFactory cubeFactory = new CubeFactory();
-        CustomCube cubeFromMethod = cubeFactory.createCubeFromOnePoint(point, length, 1);
-        CustomCube cube = new CustomCube(correctPoints, 1);
+        CustomCube cubeFromMethod = cubeFactory.createCubeFromOnePoint(point, length);
+        CustomCube cube = new CustomCube(correctPoints);
        assertEquals(cubeFromMethod,cube);
     }
 

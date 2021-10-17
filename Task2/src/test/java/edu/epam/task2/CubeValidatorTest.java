@@ -33,14 +33,14 @@ public class CubeValidatorTest {
 
     @Test
     public void testIsCubeCorrect() {
-        CustomCube cube = new CustomCube(correctPoints, 1);
+        CustomCube cube = new CustomCube(correctPoints);
         boolean isCorrect = cubeValidator.isCube(cube);
         assertTrue(isCorrect);
     }
 
     @Test
     public void testIsCubeIncorrect() {
-        CustomCube cube = new CustomCube(incorrectPoints, 1);
+        CustomCube cube = new CustomCube(incorrectPoints);
         boolean isCorrect = cubeValidator.isCube(cube);
         assertFalse(isCorrect);
     }

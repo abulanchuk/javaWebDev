@@ -25,6 +25,7 @@ public class CustomPoint {
 
     @Override
     public boolean equals(Object o) {
+        //TODO
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -37,6 +38,7 @@ public class CustomPoint {
 
     @Override
     public int hashCode() {
+        //TODO
         int result;
         long temp;
         temp = Double.doubleToLongBits(x);

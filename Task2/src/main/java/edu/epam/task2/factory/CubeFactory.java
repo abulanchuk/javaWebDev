@@ -6,7 +6,7 @@ import edu.epam.task2.exception.InvalidNumberOfPointsError;
 
 public class CubeFactory {
 
-    public CustomCube createCubeFromOnePoint(CustomPoint point0, double length, int id) {
+    public CustomCube createCubeFromOnePoint(CustomPoint point0, double length) {
         double x0 = point0.getX();
         double y0 = point0.getY();
         double z0 = point0.getZ();
@@ -22,11 +22,11 @@ public class CubeFactory {
                 new CustomPoint(x0 + length, y0, z0 + length)
         };
 
-        CustomCube cube = new CustomCube(points, id);
+        CustomCube cube = new CustomCube(points);
         return cube;
     }
 
-    public CustomCube createFromPoints (CustomPoint[] points, int shapeId){
-        return new CustomCube(points, shapeId);
+    public CustomCube createFromPoints (CustomPoint[] points){
+        return new CustomCube(points);
     }
 }

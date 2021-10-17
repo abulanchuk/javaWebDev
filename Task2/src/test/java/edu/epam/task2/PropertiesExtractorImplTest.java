@@ -19,7 +19,7 @@ public class PropertiesExtractorImplTest {
             new CustomPoint(4, 4, 3),
             new CustomPoint(4, 0, 3)
     };
-    CustomCube cube = new CustomCube(correctPoints, 1);
+    CustomCube cube = new CustomCube(correctPoints);
 
     PropertiesExtractorImpl propertiesExtractor = new PropertiesExtractorImpl();
 

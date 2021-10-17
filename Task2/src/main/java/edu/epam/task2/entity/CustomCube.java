@@ -1,27 +1,27 @@
 package edu.epam.task2.entity;
 
 import edu.epam.task2.exception.InvalidNumberOfPointsError;
+import edu.epam.task2.util.IdGenerator;
 
 import java.util.Arrays;
 
 public class CustomCube {
     CustomPoint[] points;
-    int shapeId;
+    long shapeId = IdGenerator.generateId();
 
-    public CustomCube(CustomPoint[] points, int shapeId) throws InvalidNumberOfPointsError {
+    public CustomCube(CustomPoint[] points) throws InvalidNumberOfPointsError {
         if (points.length != 8) {
             throw new InvalidNumberOfPointsError(8, points.length);
         }
 
         this.points = points;
-        this.shapeId = shapeId;
     }
 
     public CustomPoint[] getPoints() {
         return points;
     }
 
-    public int getShapeId() {
+    public long getShapeId() {
         return shapeId;
     }
 

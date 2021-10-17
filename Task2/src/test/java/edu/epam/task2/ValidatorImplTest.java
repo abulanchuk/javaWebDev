@@ -10,7 +10,7 @@ public class ValidatorImplTest {
 
     @Test
     public void testIsValid() {
-        String line = "45    65 343";
+        String line = "45    65 343 4";
         boolean resultFromMethod = validator.isValid(line);
         assertTrue(resultFromMethod);
     }
@@ -22,9 +22,9 @@ public class ValidatorImplTest {
     }
 
     @Test
-    public void testIsNotValidFourNumbers() {
+    public void testIsValidFourNumbers() {
         String line = "45    65 343 554";
         boolean resultFromMethod = validator.isValid(line);
-        assertFalse(resultFromMethod);
+        assertTrue(resultFromMethod);
     }
 }
