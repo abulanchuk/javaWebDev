@@ -25,7 +25,7 @@ public class CustomPoint {
 
     @Override
     public boolean equals(Object o) {
-        //TODO
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -36,17 +36,35 @@ public class CustomPoint {
         return Double.compare(point.z, z) == 0;
     }
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     @Override
     public int hashCode() {
-        //TODO
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(x);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(z);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = 1;
+        result = (int) (31 * result + x);
+        result = (int) (31 * result + y);
+        result = (int) (31 * result + z);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Point {");
+        sb.append("x=").append(x);
+        sb.append(", y=").append(y);
+        sb.append(", z=").append(z);
+        sb.append('}');
+        return sb.toString();
     }
 }
