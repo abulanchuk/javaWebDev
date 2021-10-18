@@ -1,4 +1,4 @@
-package edu.epam.task2.wareHouse;
+package edu.epam.task2.warehouse;
 
 public class CubeInfo {
     private double area;

@@ -1,18 +1,25 @@
 package edu.epam.task2.entity;
 
 import edu.epam.task2.exception.InvalidNumberOfPointsError;
+import edu.epam.task2.observer.Observable;
+import edu.epam.task2.observer.Observer;
 import edu.epam.task2.util.IdGenerator;
 
-public class CustomCube {
-    long customCubeId = IdGenerator.generateId();
-    CustomPoint[] points;
+import java.util.ArrayList;
+import java.util.List;
 
+public class CustomCube implements Observable {
+    long customCubeId;
+    CustomPoint[] points;
+    List<Observer> observers;
 
     public CustomCube(CustomPoint[] points) throws InvalidNumberOfPointsError {
         if (points.length != 8) {
             throw new InvalidNumberOfPointsError(8, points.length);
         }
         this.points = points;
+        customCubeId = IdGenerator.generateId();
+        observers = new ArrayList<>();
     }
 
     public CustomPoint[] getPoints() {
@@ -26,6 +33,17 @@ public class CustomCube {
     public CustomPoint getPoint(int index) {
         //TODO: check index
         return points[index];
+    }
+
+    public void setPoint(CustomPoint point, int index) {
+        points[index] = point;
+        notifyObservers();
+    }
+
+    public void setPoints(CustomPoint[] points) {
+        // TODO: check array length
+        this.points = points;
+        notifyObservers();
     }
 
     @Override
@@ -45,9 +63,25 @@ public class CustomCube {
         }
         return true;
     }
-     public  void notifyObservers(){
-//TODO
-     }
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        if (observers.isEmpty()) {
+            return;
+        }
+        for (Observer observer : observers) {
+            observer.cubeChanged(this);
+        }
+    }
 
     @Override
     public int hashCode() {
