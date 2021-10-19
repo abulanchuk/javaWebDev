@@ -24,7 +24,7 @@ public class Warehouse {
         return instance;
     }
 
-    public void putShapeParameters(long shapeId, double area, double volume) {
+    public void putCubeParameters(long shapeId, double area, double volume) {
         CubeInfo cubeInfo = new CubeInfo(area, volume);
         cubeInfo.setArea(area);
         cubeInfo.setVolume(volume);
