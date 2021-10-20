@@ -3,8 +3,17 @@ package edu.epam.task2.factory;
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
 import edu.epam.task2.exception.InvalidNumberOfPointsError;
+import edu.epam.task2.warehouse.Warehouse;
 
 public class CubeFactory {
+    private static CubeFactory instance;
+
+    public static CubeFactory getInstance() {
+        if (instance == null) {
+            instance = new CubeFactory();
+        }
+        return instance;
+    }
 
     public CustomCube createCubeFromOnePoint(CustomPoint point0, double length) {
         double x0 = point0.getX();
@@ -23,6 +32,8 @@ public class CubeFactory {
         };
 
         CustomCube cube = new CustomCube(points);
+
+
         return cube;
     }
 
