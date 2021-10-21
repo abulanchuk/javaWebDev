@@ -10,11 +10,15 @@ import org.apache.log4j.Logger;
 import java.util.Arrays;
 
 
-public class ParserImpl implements Parser {
-    static Logger logger = LogManager.getLogger(ParserImpl.class);
+public class CubeParserImpl implements Parser {
+   private static Logger logger = LogManager.getLogger(CubeParserImpl.class);
     private static final String SPLIT_REGEX = "\\s+";
 
     public double[] convertStringToDoubles(String line) throws SymbolException {
+        if(line.isEmpty()){
+            logger.log(Level.ERROR, "The file is empty. Fix this" +line);
+            throw new SymbolException("The file is empty. Fix this");
+        }
         ValidatorImpl validator = new ValidatorImpl();
         if (!validator.isValid(line)) {
             logger.log(Level.ERROR, "Wrong format" + line);

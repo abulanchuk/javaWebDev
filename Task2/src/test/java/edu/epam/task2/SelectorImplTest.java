@@ -1,8 +1,12 @@
-package edu.epam.task2.selector.impl;
+package edu.epam.task2;
 
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
 import edu.epam.task2.factory.CubeFactory;
+import edu.epam.task2.selector.impl.AreaFromRangeSelectorImpl;
+import edu.epam.task2.selector.impl.IdSelectorImpl;
+import edu.epam.task2.selector.impl.PointInARangeImpl;
+import edu.epam.task2.selector.impl.VolumeSelectorImpl;
 import edu.epam.task2.warehouse.Warehouse;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -18,7 +22,7 @@ public class SelectorImplTest {
     @BeforeTest
     public void setUp() {
         cube = CubeFactory.getInstance().createCubeFromOnePoint(new CustomPoint(0, 0, 0), 4);
-        Warehouse.getInstance().putCubeParameters(cube.getCustomCubeId(), 96, 64);
+        Warehouse.getInstance().putCubeParameters(cube.getCustomCubeId(), 96, 64,4);
     }
 
     @Test

@@ -11,8 +11,9 @@ public class WarehouseUpdaterImpl implements Observer {
         PropertiesExtractorImpl propertiesExtractor = new PropertiesExtractorImpl();
         double volume = propertiesExtractor.countVolume(cube);
         double area = propertiesExtractor.countArea(cube);
+        double edgeLength = propertiesExtractor.getEdgeLength(cube);
 
         Warehouse warehouse = Warehouse.getInstance();
-        warehouse.updateParameters(cube.getCustomCubeId(), area, volume);
+        warehouse.updateParameters(cube.getCustomCubeId(), area, volume, edgeLength);
     }
 }

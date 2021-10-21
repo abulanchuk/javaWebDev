@@ -2,8 +2,7 @@ package edu.epam.task2.factory;
 
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
-import edu.epam.task2.exception.InvalidNumberOfPointsError;
-import edu.epam.task2.warehouse.Warehouse;
+
 
 public class CubeFactory {
     private static CubeFactory instance;

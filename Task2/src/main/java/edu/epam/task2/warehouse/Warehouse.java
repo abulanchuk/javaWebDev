@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 public class Warehouse {
     static Logger logger = LogManager.getLogger(Warehouse.class);
-    Map<Long, CubeInfo> cubeParameters;
+    private Map<Long, CubeInfo> cubeParameters;
     private static Warehouse instance;
 
     private Warehouse() {
@@ -24,10 +24,11 @@ public class Warehouse {
         return instance;
     }
 
-    public void putCubeParameters(long shapeId, double area, double volume) {
-        CubeInfo cubeInfo = new CubeInfo(area, volume);
+    public void putCubeParameters(long shapeId, double area, double volume, double edgeLength) {
+        CubeInfo cubeInfo = new CubeInfo(area, volume, edgeLength);
         cubeInfo.setArea(area);
         cubeInfo.setVolume(volume);
+        cubeInfo.setEdgeLength(edgeLength);
         cubeParameters.put(shapeId, cubeInfo);
     }
 
@@ -39,14 +40,16 @@ public class Warehouse {
         return cubeParameters.get(shapeId);
     }
 
-    public boolean updateParameters(long sphereId, double area, double volume) {
-        CubeInfo sphereParameter = cubeParameters.get(sphereId);
-        if (sphereParameter == null) {
+    public boolean updateParameters(long sphereId, double area, double volume, double ribLength) {
+        CubeInfo cubeParameter = cubeParameters.get(sphereId);
+        if (cubeParameter == null) {
             logger.log(Level.ERROR, "not found a cube with such id");
             return false;
         }
-        sphereParameter.setArea(area);
-        sphereParameter.setVolume(volume);
+        cubeParameter.setArea(area);
+        cubeParameter.setVolume(volume);
+        cubeParameter.setEdgeLength(ribLength);
+
         return true;
     }
 

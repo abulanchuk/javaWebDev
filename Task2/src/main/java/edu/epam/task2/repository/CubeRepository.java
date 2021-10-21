@@ -5,10 +5,7 @@ import edu.epam.task2.selector.Selector;
 import edu.epam.task2.service.PropertiesExtractor;
 import edu.epam.task2.service.impl.PropertiesExtractorImpl;
 
-import java.util.List;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CubeRepository {
     private Set<CustomCube> cubes;
@@ -44,5 +41,9 @@ public class CubeRepository {
 
     public List<CustomCube> select(Selector selector) {
         return cubes.stream().filter(selector::shouldSelect).toList();
+    }
+
+    public List<CustomCube> sort(Comparator<? super CustomCube> comparator) {
+        return cubes.stream().sorted(comparator).toList();
     }
 }

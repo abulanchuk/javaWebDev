@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LineReader {
-    static Logger logger = LogManager.getLogger(LineReader.class);
+    private static Logger logger = LogManager.getLogger(LineReader.class);
 
     public static List<String> readLines(String pathToFile) throws InvalidPathFormatException {
 
         if (pathToFile == null || pathToFile.isEmpty()) {
-            logger.log(Level.INFO, "File is not found");
+            logger.log(Level.ERROR, "File is not found" + pathToFile);
             throw new InvalidPathFormatException("File is not found");
         }
         Path path = Paths.get(pathToFile);
