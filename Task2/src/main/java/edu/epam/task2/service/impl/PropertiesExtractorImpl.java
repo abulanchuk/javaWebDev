@@ -5,7 +5,16 @@ import edu.epam.task2.entity.CustomPoint;
 import edu.epam.task2.exception.DoesNotCrossAxisException;
 import edu.epam.task2.service.PropertiesExtractor;
 
-public class PropertiesExtractorImpl implements PropertiesExtractor {
+
+public class  PropertiesExtractorImpl implements PropertiesExtractor {
+    private static PropertiesExtractorImpl instance;
+
+    public static PropertiesExtractorImpl getInstance() {
+        if (instance == null) {
+            instance = new PropertiesExtractorImpl();
+        }
+        return instance;
+    }
     @Override
     public double getEdgeLength(CustomCube cube) {
         double firstPointX = cube.getPoint(0).getX();

@@ -40,7 +40,7 @@ public class Warehouse {
         return cubeParameters.get(shapeId);
     }
 
-    public boolean updateParameters(long sphereId, double area, double volume, double ribLength) {
+    public boolean updateParameters(long sphereId, double area, double volume, double edgeLength) {
         CubeInfo cubeParameter = cubeParameters.get(sphereId);
         if (cubeParameter == null) {
             logger.log(Level.ERROR, "not found a cube with such id");
@@ -48,7 +48,7 @@ public class Warehouse {
         }
         cubeParameter.setArea(area);
         cubeParameter.setVolume(volume);
-        cubeParameter.setEdgeLength(ribLength);
+        cubeParameter.setEdgeLength(edgeLength);
 
         return true;
     }

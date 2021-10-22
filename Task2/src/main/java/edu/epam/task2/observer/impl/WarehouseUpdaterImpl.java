@@ -8,7 +8,7 @@ import edu.epam.task2.warehouse.Warehouse;
 public class WarehouseUpdaterImpl implements Observer {
     @Override
     public void cubeChanged(CustomCube cube) {
-        PropertiesExtractorImpl propertiesExtractor = new PropertiesExtractorImpl();
+        PropertiesExtractorImpl propertiesExtractor = PropertiesExtractorImpl.getInstance();
         double volume = propertiesExtractor.countVolume(cube);
         double area = propertiesExtractor.countArea(cube);
         double edgeLength = propertiesExtractor.getEdgeLength(cube);

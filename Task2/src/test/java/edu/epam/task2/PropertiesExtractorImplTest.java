@@ -21,7 +21,7 @@ public class PropertiesExtractorImplTest {
     };
     CustomCube cube = new CustomCube(correctPoints);
 
-    PropertiesExtractorImpl propertiesExtractor = new PropertiesExtractorImpl();
+    PropertiesExtractorImpl propertiesExtractor = PropertiesExtractorImpl.getInstance();
 
     @Test
     public void testGetEdgeLength() {
