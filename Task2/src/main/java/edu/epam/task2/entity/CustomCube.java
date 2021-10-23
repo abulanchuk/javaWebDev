@@ -6,6 +6,7 @@ import edu.epam.task2.observer.Observer;
 import edu.epam.task2.util.IdGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomCube implements Observable {
@@ -14,10 +15,7 @@ public class CustomCube implements Observable {
     List<Observer> observers;
 
     public CustomCube(CustomPoint[] points) throws InvalidNumberOfPointsError {
-        if (points.length != 8) {
-            throw new InvalidNumberOfPointsError(8, points.length);
-        }
-        this.points = points;
+        setPoints(points);
         customCubeId = IdGenerator.generateId();
         observers = new ArrayList<>();
     }
@@ -31,7 +29,6 @@ public class CustomCube implements Observable {
     }
 
     public CustomPoint getPoint(int index) {
-        //TODO: check index
         return points[index];
     }
 
@@ -41,7 +38,9 @@ public class CustomCube implements Observable {
     }
 
     public void setPoints(CustomPoint[] points) {
-        // TODO: check array length
+        if (points.length != 8) {
+            throw new InvalidNumberOfPointsError(8, points.length);
+        }
         this.points = points;
         notifyObservers();
     }
@@ -62,6 +61,14 @@ public class CustomCube implements Observable {
             }
         }
         return true;
+    }
+
+    public boolean equalsWithId(Object o){
+        if(!equals(o)){
+            return false;
+        }
+        CustomCube cube = (CustomCube) o;
+        return this.customCubeId ==cube.customCubeId;
     }
 
     @Override
@@ -85,7 +92,13 @@ public class CustomCube implements Observable {
 
     @Override
     public int hashCode() {
-        //TODO
-        return 0;
+        int result = 1;
+
+        for (CustomPoint point: points) {
+            result += (31 * result) + point.hashCode();
+        }
+
+        result += (31 * result) + Long.hashCode(customCubeId);
+        return result;
     }
 }
