@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns = "http://www.w3.org/2001/XMLSchema"
+        targetNamespace="candies"
+        xmlns:tns ="candies"
+        elementFormDefault="qualified">
+    <element name="candies">
+        <complexType>
+            <sequence>
+                <element ref="tns:candies" minOccurs="2" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+<complexType name="candy">
+    <sequence>
+        <element name="nameOfSweet">
+            <simpleType>
+                <restriction base="string">
+                    <minLength value="3"/>
+                    <maxLength value="25"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+        <element name="energy">
+            <simpleType>
+                <restriction base="int">
+                    <minLength value="50"/>
+                    <maxLength value="1000"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+        <element name="type">
+            <simpleType>
+                <restriction base="string">
+                    <minLength value="5"/>
+                    <maxLength value="30"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+        <element name="ingredients">
+            <simpleType>
+                <restriction base="string">
+                    <minLength value="20"/>
+                    <maxLength value="150"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+        <element name="value">
+            <simpleType>
+                <restriction base="string">
+                    <minLength value="10"/>
+                    <maxLength value="30"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+        <element name="production">
+            <simpleType>
+                <restriction base="string">
+                    <minLength value="2"/>
+                    <maxLength value="30"/>
+                </restriction>
+            </simpleType>
+        </element>
+
+    </sequence>
+</complexType>
+
+</schema>
