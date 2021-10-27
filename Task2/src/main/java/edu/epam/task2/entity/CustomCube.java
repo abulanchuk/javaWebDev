@@ -40,6 +40,7 @@ public class CustomCube implements Observable {
         if (points.length != 8) {
             throw new InvalidNumberOfPointsError(8, points.length);
         }
+        
         this.points = points;
         notifyObservers();
     }
