@@ -10,73 +10,92 @@
         </complexType>
     </element>
 
+
     <complexType name="candy">
         <sequence>
-            <element name="nameOfSweet">
+            <element name="name" type="string"/>
+            <element name="packingTime" type="date"/>
+            <element name="energy" type="positiveInteger"/>
+            <element name="type">
                 <simpleType>
                     <restriction base="string">
-                        <minLength value="3"/>
-                        <maxLength value="25"/>
+                        <enumeration value="chocolate"/>
+                        <enumeration value="lollipop"/>
+                        <enumeration value="marmalade"/>
+                        <enumeration value="nuts"/>
                     </restriction>
                 </simpleType>
             </element>
+            <element name="sugar" type="positiveInteger"/>
+            <element name="butter" type="positiveInteger"/>
+            <element name="filled" type="boolean"/>
+            <element name="value" type="tns:value" />
+            <element name="production" type="tns:production"/>
+        </sequence>
+        <attribute name="id" type="tns:candyId" use="required"/>
+    </complexType>
 
-            <element name="packingTime" type="date" />
 
 
-            <element name="energy">
-                <simpleType>
-                    <restriction base="int">
-                        <minLength value="50"/>
-                        <maxLength value="1000"/>
-                    </restriction>
-                </simpleType>
-            </element>
+    <complexType name="chocolate">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="packingTime" type="date"/>
+            <element name="energy" type="positiveInteger"/>
 
             <element name="type">
                 <simpleType>
                     <restriction base="string">
-                        <enumeration value="candy"/>
-                        <enumeration value="chocolate"/>
+                        <enumeration value="milk"/>
+                        <enumeration value="dark"/>
                     </restriction>
                 </simpleType>
             </element>
 
-            <element name="ingredients">
-                <simpleType>
-                    <restriction base="string">
-                        <minLength value="20"/>
-                        <maxLength value="250"/>
-                    </restriction>
-                </simpleType>
-            </element>
-
-            <element name="value">
-                <simpleType>
-                    <restriction base="string">
-                        <minLength value="10"/>
-                        <maxLength value="90"/>
-                    </restriction>
-                </simpleType>
-            </element>
-
-            <element name="production">
-                <simpleType>
-                    <restriction base="string">
-                        <enumeration value="Kommunarka"/>
-                        <enumeration value="Ferrero"/>
-                        <enumeration value="Storck"/>
-                        <enumeration value="Mars Incorporated"/>
-                        <enumeration value="Alfred Ritter GmbH and Co. KG"/>
-                        <enumeration value="Roshen"/>
-                        <enumeration value="Mondelēz International"/>
-                    </restriction>
-                </simpleType>
-            </element>
-
+            <element name="ingredients" type="string"/>
+            <element name="value" type="tns:value" />
+            <element name="production" type="tns:production"/>
         </sequence>
         <attribute name="id" type="tns:candyId" use="required"/>
     </complexType>
+
+    <complexType name="value">
+        <sequence>
+            <element name="protein">
+                <simpleType>
+                    <restriction base="double">
+                        <minInclusive value="0"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="fats">
+                <simpleType>
+                    <restriction base="double">
+                        <minInclusive value="0"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="carbohydrates">
+                <simpleType>
+                    <restriction base="double">
+                        <minInclusive value="0"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="production">
+        <restriction base="string">
+            <enumeration value="Kommunarka"/>
+            <enumeration value="Ferrero"/>
+            <enumeration value="Storck"/>
+            <enumeration value="Mars Incorporated"/>
+            <enumeration value="Alfred Ritter GmbH and Co. KG"/>
+            <enumeration value="Roshen"/>
+            <enumeration value="Mondelēz International"/>
+        </restriction>
+    </simpleType>
 
     <simpleType name="candyId">
         <restriction base="ID">
@@ -85,4 +104,5 @@
     </simpleType>
 
     <element name="candy" type="tns:candy"/>
+    <element name="chocolate" type="tns:chocolate"/>
 </schema>

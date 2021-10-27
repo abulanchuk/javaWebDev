@@ -2,183 +2,255 @@
 <candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:c="http://www.task3.org/candies"
          xsi:schemaLocation="http://www.task3.org/candies candies.xsd">
-    <c:candy id="ch1">
-        <nameOfSweet>Alenka</nameOfSweet>
+    <c:chocolate id="ch1">
+        <name>Alenka</name>
         <packingTime>2021-05-21</packingTime>
         <energy>560</energy>
-        <type>chocolate</type>
+        <type>milk</type>
         <ingredients>cocoa beans, cocoa butter, whole milk powder, powdered sugar, vanillin, flavors</ingredients>
-        <value>Proteins 7.1 g, Fats 35.6 g, Carbohydrates 52.4 g</value>
+        <value>
+            <protein>7.1</protein>
+            <fats>35.6</fats>
+            <carbohydrates>52.4</carbohydrates>
+        </value>
         <production>Kommunarka</production>
-    </c:candy>
+    </c:chocolate>
 
     <c:candy id="c1">
-        <nameOfSweet>Ferrero Rocher</nameOfSweet>
+        <name>Ferrero Rocher</name>
         <packingTime>2021-04-01</packingTime>
         <energy>603</energy>
-        <type>candy</type>
-        <ingredients>cocoa butter, cocoa liquor, sugar, skimmed milk powder</ingredients>
-        <value>Proteins 8 g, Fats 43 g, Carbohydrates 44 g</value>
+        <type>chocolate</type>
+        <sugar>15</sugar>
+        <butter>10</butter>
+        <filled>true</filled>
+        <value>
+            <protein>8</protein>
+            <fats>43</fats>
+            <carbohydrates>44</carbohydrates>
+        </value>
         <production>Ferrero</production>
     </c:candy>
 
-    <c:candy id="ch2">
-        <nameOfSweet>Mersi</nameOfSweet>
+    <c:chocolate id="ch2">
+        <name>Mersi</name>
         <packingTime>2020-12-21</packingTime>
         <energy>560</energy>
-        <type>chocolate</type>
+        <type>dark</type>
         <ingredients>sugar, cocoa butter, cream powder, whole milk powder, cocoa mass, lactose, natural roasted ground
             coffee, table salt, vanilla extract
         </ingredients>
-        <value>Proteins 7.6 g, Fats 37.2 g, Carbohydrates 50.8 g</value>
+        <value>
+            <protein>7.6</protein>
+            <fats>37.2</fats>
+            <carbohydrates>50.8</carbohydrates>
+        </value>
         <production>Storck</production>
-    </c:candy>
+    </c:chocolate>
 
     <c:candy id="c2">
-        <nameOfSweet>Mamba</nameOfSweet>
+        <name>Mamba</name>
         <packingTime>2021-10-22</packingTime>
         <energy>389</energy>
-        <type>candy</type>
-        <ingredients>glucose syrup, sugar, palm fat, acidity regulator citric acid, flavors (orange, cherry, raspberry,
-            strawberry), carrot juice concentrate, caramel sugar syrup
-        </ingredients>
-        <value>Proteins 0.5 g, Fats 5.4 g, Carbohydrates 85.4 g</value>
+        <type>marmalade</type>
+        <sugar>16</sugar>
+        <butter>3</butter>
+        <filled>false</filled>
+        <value>
+            <protein>0.5</protein>
+            <fats>5.4</fats>
+            <carbohydrates>85.4</carbohydrates>
+        </value>
         <production>Storck</production>
     </c:candy>
 
     <c:candy id="c3">
-        <nameOfSweet>Red had</nameOfSweet>
+        <name>Red had</name>
         <packingTime>2012-04-11</packingTime>
         <energy>538</energy>
-        <type>candy</type>
-        <ingredients>sugar, molasses, chocolate glaze, confectionery fat, table salt</ingredients>
-        <value>Proteins 6.6 g, Fats 30.9 g, Carbohydrates 58.3 g</value>
+        <type>chocolate</type>
+        <sugar>13</sugar>
+        <butter>10</butter>
+        <filled>false</filled>
+        <value>
+            <protein>6.6</protein>
+            <fats>30.9</fats>
+            <carbohydrates>58.3</carbohydrates>
+        </value>
         <production>Kommunarka</production>
     </c:candy>
 
     <c:candy id="c4">
-        <nameOfSweet>Bear in the meadow</nameOfSweet>
+        <name>Bear in the meadow</name>
         <packingTime>2020-06-17</packingTime>
         <energy>543</energy>
-        <type>candy</type>
-        <ingredients>chocolate glaze (sugar, cocoa mass, cocoa butter, vanilla flavor), sugar, almonds, cocoa butter,
-            waffle
-        </ingredients>
-        <value>Proteins 7.2 g, Fats 32.6 g, Carbohydrates 54.9 g</value>
+        <type>chocolate</type>
+        <sugar>20</sugar>
+        <butter>12</butter>
+        <filled>false</filled>
+        <value>
+            <protein>7.2</protein>
+            <fats>32.6</fats>
+            <carbohydrates>54.9</carbohydrates>
+        </value>
         <production>Kommunarka</production>
     </c:candy>
 
     <c:candy id="c5">
-        <nameOfSweet>Raffaello</nameOfSweet>
+        <name>Raffaello</name>
         <packingTime>2010-07-25</packingTime>
         <energy>543</energy>
-        <type>candy</type>
-        <ingredients>waffle, almonds with a mixture of vegetable oil, skim milk and sugar, coconut</ingredients>
-        <value>Proteins 9.3 g, Fats 47.7 g, Carbohydrates 36.8 g</value>
+        <type>chocolate</type>
+        <sugar>25</sugar>
+        <butter>20</butter>
+        <filled>true</filled>
+        <value>
+            <protein>9.3</protein>
+            <fats>47.7</fats>
+            <carbohydrates>36.8</carbohydrates>
+        </value>
         <production>Ferrero</production>
     </c:candy>
 
-    <c:candy id="ch3">
-        <nameOfSweet>Alpen Gold</nameOfSweet>
+    <c:chocolate id="ch3">
+        <name>Alpen Gold</name>
         <packingTime>2011-03-01</packingTime>
         <energy>522</energy>
-        <type>chocolate</type>
+        <type>milk</type>
         <ingredients>sugar, cocoa liquor, cocoa butter, whole milk powder, whey powder, milk fat, emulsifiers, vanillin
             flavor
         </ingredients>
-        <value>Proteins 5.4 g, Fats 28 g, Carbohydrates 62 g</value>
+        <value>
+            <protein>5.4</protein>
+            <fats>28</fats>
+            <carbohydrates>62</carbohydrates>
+        </value>
         <production>Ferrero</production>
-    </c:candy>
+    </c:chocolate>
 
     <c:candy id="c6">
-        <nameOfSweet>Snickers</nameOfSweet>
+        <name>Snickers</name>
         <packingTime>1997-04-15</packingTime>
         <energy>250</energy>
-        <type>candy</type>
-        <ingredients>peanuts, glucose syrup, sugar, palm oil, skim milk powder, salt, egg white powder, vanillin,
-            chocolate
-        </ingredients>
-        <value>Proteins 3.5 g, Fats 13 g, Carbohydrates 30 g</value>
+        <type>nuts</type>
+        <sugar>17</sugar>
+        <butter>18</butter>
+        <filled>false</filled>
+        <value>
+            <protein>3.5</protein>
+            <fats>13</fats>
+            <carbohydrates>30</carbohydrates>
+        </value>
         <production>Mars Incorporated</production>
     </c:candy>
 
     <c:candy id="c7">
-        <nameOfSweet>Bounty</nameOfSweet>
+        <name>Bounty</name>
         <packingTime>2010-10-10</packingTime>
         <energy>485</energy>
-        <type>candy</type>
-        <ingredients>sugar, cocoa butter, whole milk powder, cocoa mass, lactose, milk fat, emulsifier, vanillin,
-            skimmed milk powder
-        </ingredients>
-        <value>Proteins 3.1 g, Fats 25.3 g, Carbohydrates 60 g</value>
+        <type>chocolate</type>
+        <sugar>24</sugar>
+        <butter>16</butter>
+        <filled>false</filled>
+        <value>
+            <protein>3.1</protein>
+            <fats>25.3</fats>
+            <carbohydrates>60</carbohydrates>
+        </value>
         <production>Mars Incorporated</production>
     </c:candy>
 
-    <c:candy id="ch4">
-        <nameOfSweet>Ritter sport</nameOfSweet>
+    <c:chocolate id="ch4">
+        <name>Ritter sport</name>
         <packingTime>2021-05-24</packingTime>
         <energy>572</energy>
-        <type>chocolate</type>
+        <type>dark</type>
         <ingredients>cocoa mass, Sugar, cocoa butter, milk fat, natural flavor</ingredients>
-        <value>Proteins 5 g, Fats 37 g, Carbohydrates 53 g</value>
+        <value>
+            <protein>5</protein>
+            <fats>37</fats>
+            <carbohydrates>53</carbohydrates>
+        </value>
         <production>Alfred Ritter GmbH and Co. KG</production>
-    </c:candy>
+    </c:chocolate>
 
     <c:candy id="c8">
-        <nameOfSweet>Crazy bee</nameOfSweet>
+        <name>Crazy bee</name>
         <packingTime>2021-12-14</packingTime>
         <energy>318</energy>
-        <type>candy</type>
-        <ingredients>Starch syrup, granulated sugar, a mixture of lactic acid and citric acid, trisodium citrate;
-            thickener E1422, flavors: identical to natural: "Strawberry", "Cherry", "Forest berry", "Grapefruit"
-        </ingredients>
-        <value>Proteins 0 g, Fats 0.2 g, Carbohydrates 79 g</value>
+        <type>marmalade</type>
+        <sugar>19</sugar>
+        <butter>2</butter>
+        <filled>true</filled>
+        <value>
+            <protein>0</protein>
+            <fats>0.2</fats>
+            <carbohydrates>79</carbohydrates>
+        </value>
         <production>Roshen</production>
     </c:candy>
 
     <c:candy id="c9">
-        <nameOfSweet>Grillash</nameOfSweet>
+        <name>Grillash</name>
         <packingTime>2018-08-23</packingTime>
         <energy>418</energy>
-        <type>candy</type>
-        <ingredients>sugar, chocolate glaze, apple puree, waffles, roasted peanuts</ingredients>
-        <value>Proteins 4.4 g, Fats 13.8 g, Carbohydrates 68.6 g</value>
+        <type>nuts</type>
+        <sugar>15</sugar>
+        <butter>12</butter>
+        <filled>false</filled>
+        <value>
+            <protein>4.4</protein>
+            <fats>13.8</fats>
+            <carbohydrates>68.6</carbohydrates>
+        </value>
         <production>Kommunarka</production>
     </c:candy>
 
     <c:candy id="c10">
-        <nameOfSweet>bird milk</nameOfSweet>
+        <name>bird milk</name>
         <packingTime>2021-11-18</packingTime>
         <energy>230</energy>
-        <type>candy</type>
-        <ingredients>sugar, butter from cow's milk, molasses, cocoa mass, whole condensed milk with sugar, cocoa butter,
-            gelling agent agar, dry egg white
-        </ingredients>
-        <value>Proteins 5.8 g, Fats 12.8 g, Carbohydrates 23 g</value>
+        <type>chocolate</type>
+        <sugar>27</sugar>
+        <butter>18</butter>
+        <filled>false</filled>
+        <value>
+            <protein>5.8</protein>
+            <fats>12.8</fats>
+            <carbohydrates>23</carbohydrates>
+        </value>
         <production>Kommunarka</production>
     </c:candy>
 
     <c:candy id="c11">
-        <nameOfSweet>Ballet</nameOfSweet>
+        <name>Chupa Chups</name>
         <packingTime>1987-04-13</packingTime>
         <energy>538</energy>
-        <type>candy</type>
-        <ingredients>powdered sugar, cocoa powder, powdered sugar, confectionery fat, waffle, whipping paste, cocoa
-            powder, roasted peanuts, skimmed milk powder, cookie crumbs
-        </ingredients>
-        <value>Proteins 8.7 g, Fats 34.3 g, Carbohydrates 49.5 g</value>
+        <type>lollipop</type>
+        <sugar>30</sugar>
+        <butter>1</butter>
+        <filled>false</filled>
+        <value>
+            <protein>8.7</protein>
+            <fats>34.3</fats>
+            <carbohydrates>49.5</carbohydrates>
+        </value>
         <production>Kommunarka</production>
     </c:candy>
 
-    <c:candy id="ch5">
-        <nameOfSweet>Milka</nameOfSweet>
+    <c:chocolate id="ch5">
+        <name>Milka</name>
         <packingTime>2021-09-17</packingTime>
         <energy>532</energy>
-        <type>chocolate</type>
+        <type>milk</type>
         <ingredients>sugar, cocoa butter, cocoa mass, whole milk powder, skimmed milk powder, milk fat, nut paste
             (hazelnuts)
         </ingredients>
-        <value>Proteins 6.1 g, Fats 29 g, Carbohydrates 59 g</value>
+        <value>
+            <protein>6.1</protein>
+            <fats>29</fats>
+            <carbohydrates>59</carbohydrates>
+        </value>
         <production>Mondelēz International</production>
-    </c:candy>
+    </c:chocolate>
 </candies>
