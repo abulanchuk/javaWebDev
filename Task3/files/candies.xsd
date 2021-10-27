@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<schema xmlns = "http://www.w3.org/2001/XMLSchema"
-        targetNamespace="candies"
-        xmlns:tns ="candies"
-        elementFormDefault="qualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.task3.org/candies" xmlns:tns="http://www.task3.org/candies">
+
     <element name="candies">
         <complexType>
             <sequence>
@@ -11,63 +10,79 @@
         </complexType>
     </element>
 
-<complexType name="candy">
-    <sequence>
-        <element name="nameOfSweet">
-            <simpleType>
-                <restriction base="string">
-                    <minLength value="3"/>
-                    <maxLength value="25"/>
-                </restriction>
-            </simpleType>
-        </element>
+    <complexType name="candy">
+        <sequence>
+            <element name="nameOfSweet">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="3"/>
+                        <maxLength value="25"/>
+                    </restriction>
+                </simpleType>
+            </element>
 
-        <element name="energy">
-            <simpleType>
-                <restriction base="int">
-                    <minLength value="50"/>
-                    <maxLength value="1000"/>
-                </restriction>
-            </simpleType>
-        </element>
+            <element name="packingTime" type="date" />
 
-        <element name="type">
-            <simpleType>
-                <restriction base="string">
-                    <minLength value="5"/>
-                    <maxLength value="30"/>
-                </restriction>
-            </simpleType>
-        </element>
 
-        <element name="ingredients">
-            <simpleType>
-                <restriction base="string">
-                    <minLength value="20"/>
-                    <maxLength value="150"/>
-                </restriction>
-            </simpleType>
-        </element>
+            <element name="energy">
+                <simpleType>
+                    <restriction base="int">
+                        <minLength value="50"/>
+                        <maxLength value="1000"/>
+                    </restriction>
+                </simpleType>
+            </element>
 
-        <element name="value">
-            <simpleType>
-                <restriction base="string">
-                    <minLength value="10"/>
-                    <maxLength value="30"/>
-                </restriction>
-            </simpleType>
-        </element>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="candy"/>
+                        <enumeration value="chocolate"/>
+                    </restriction>
+                </simpleType>
+            </element>
 
-        <element name="production">
-            <simpleType>
-                <restriction base="string">
-                    <minLength value="2"/>
-                    <maxLength value="30"/>
-                </restriction>
-            </simpleType>
-        </element>
+            <element name="ingredients">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="20"/>
+                        <maxLength value="250"/>
+                    </restriction>
+                </simpleType>
+            </element>
 
-    </sequence>
-</complexType>
+            <element name="value">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="10"/>
+                        <maxLength value="90"/>
+                    </restriction>
+                </simpleType>
+            </element>
 
+            <element name="production">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Kommunarka"/>
+                        <enumeration value="Ferrero"/>
+                        <enumeration value="Storck"/>
+                        <enumeration value="Mars Incorporated"/>
+                        <enumeration value="Alfred Ritter GmbH and Co. KG"/>
+                        <enumeration value="Roshen"/>
+                        <enumeration value="Mondelēz International"/>
+                    </restriction>
+                </simpleType>
+            </element>
+
+        </sequence>
+        <attribute name="id" type="tns:candyId" use="required"/>
+    </complexType>
+
+    <simpleType name="candyId">
+        <restriction base="ID">
+            <pattern value="\w{1,30}"/>
+        </restriction>
+    </simpleType>
+
+    <element name="candy" type="tns:candy"/>
 </schema>
