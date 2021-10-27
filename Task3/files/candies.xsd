@@ -5,58 +5,63 @@
     <element name="candies">
         <complexType>
             <sequence>
-                <element ref="tns:candies" minOccurs="2" maxOccurs="unbounded"/>
+                <element ref="tns:sweet" minOccurs="2" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
 
-
-    <complexType name="candy">
+    <complexType name="baseSweetsType" abstract="true">
         <sequence>
             <element name="name" type="string"/>
             <element name="packingTime" type="date"/>
             <element name="energy" type="positiveInteger"/>
-            <element name="type">
-                <simpleType>
-                    <restriction base="string">
-                        <enumeration value="chocolate"/>
-                        <enumeration value="lollipop"/>
-                        <enumeration value="marmalade"/>
-                        <enumeration value="nuts"/>
-                    </restriction>
-                </simpleType>
-            </element>
             <element name="sugar" type="positiveInteger"/>
             <element name="butter" type="positiveInteger"/>
-            <element name="filled" type="boolean"/>
-            <element name="value" type="tns:value" />
+            <element name="value" type="tns:value"/>
             <element name="production" type="tns:production"/>
+
         </sequence>
         <attribute name="id" type="tns:candyId" use="required"/>
     </complexType>
 
+    <complexType name="candyType">
+        <complexContent>
+            <extension base="tns:baseSweetsType">
+                <sequence>
+                    <element name="typeOfCandy">
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="chocolate"/>
+                                <enumeration value="lollipop"/>
+                                <enumeration value="marmalade"/>
+                                <enumeration value="nuts"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="filled" type="boolean"/>
+                </sequence>
+                <attribute name="packaging" type="tns:packagingType" use="optional" default="black"/>
+
+            </extension>
+        </complexContent>
+    </complexType>
 
 
-    <complexType name="chocolate">
-        <sequence>
-            <element name="name" type="string"/>
-            <element name="packingTime" type="date"/>
-            <element name="energy" type="positiveInteger"/>
-
-            <element name="type">
-                <simpleType>
-                    <restriction base="string">
-                        <enumeration value="milk"/>
-                        <enumeration value="dark"/>
-                    </restriction>
-                </simpleType>
-            </element>
-
-            <element name="ingredients" type="string"/>
-            <element name="value" type="tns:value" />
-            <element name="production" type="tns:production"/>
-        </sequence>
-        <attribute name="id" type="tns:candyId" use="required"/>
+    <complexType name="chocolateType">
+        <complexContent>
+            <extension base="tns:baseSweetsType">
+                <sequence>
+                    <element name="type">
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="milk"/>
+                                <enumeration value="dark"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
     </complexType>
 
     <complexType name="value">
@@ -97,12 +102,23 @@
         </restriction>
     </simpleType>
 
+    <simpleType name="packagingType">
+        <restriction base="string">
+            <enumeration value="black"/>
+            <enumeration value="blue"/>
+            <enumeration value="yellow"/>
+            <enumeration value="white"/>
+            <enumeration value="grey"/>
+        </restriction>
+    </simpleType>
+
     <simpleType name="candyId">
         <restriction base="ID">
             <pattern value="\w{1,30}"/>
         </restriction>
     </simpleType>
 
-    <element name="candy" type="tns:candy"/>
-    <element name="chocolate" type="tns:chocolate"/>
+    <element name="sweet" type="tns:baseSweetsType" abstract="true"/>
+    <element name="candy" type="tns:candyType" substitutionGroup="tns:sweet"/>
+    <element name="chocolate" type="tns:chocolateType" substitutionGroup="tns:sweet"/>
 </schema>

@@ -6,7 +6,6 @@ import edu.epam.task2.observer.Observer;
 import edu.epam.task2.util.IdGenerator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomCube implements Observable {

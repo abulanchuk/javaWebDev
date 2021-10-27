@@ -19,3 +19,5 @@ x
 Hsrc/main/java/edu/epam/firsttask/exception/IntArrayOutOfBoundsError.java,4\4\441b11b9321b4b1589af4c77632f8db2da974b76
 p
 @src/main/java/edu/epam/firsttask/operator/impl/OperatorImpl.java,1\9\190bb50112de0c799b4f7e8606901be94845d099
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d

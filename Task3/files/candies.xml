@@ -2,255 +2,255 @@
 <candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:c="http://www.task3.org/candies"
          xsi:schemaLocation="http://www.task3.org/candies candies.xsd">
+
     <c:chocolate id="ch1">
         <name>Alenka</name>
         <packingTime>2021-05-21</packingTime>
         <energy>560</energy>
-        <type>milk</type>
-        <ingredients>cocoa beans, cocoa butter, whole milk powder, powdered sugar, vanillin, flavors</ingredients>
+        <sugar>30</sugar>
+        <butter>20</butter>
         <value>
             <protein>7.1</protein>
             <fats>35.6</fats>
             <carbohydrates>52.4</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <type>milk</type>
     </c:chocolate>
 
-    <c:candy id="c1">
+    <c:candy id="c1" packaging="yellow">
         <name>Ferrero Rocher</name>
         <packingTime>2021-04-01</packingTime>
         <energy>603</energy>
-        <type>chocolate</type>
         <sugar>15</sugar>
         <butter>10</butter>
-        <filled>true</filled>
         <value>
             <protein>8</protein>
             <fats>43</fats>
             <carbohydrates>44</carbohydrates>
         </value>
         <production>Ferrero</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>true</filled>
     </c:candy>
 
     <c:chocolate id="ch2">
         <name>Mersi</name>
         <packingTime>2020-12-21</packingTime>
         <energy>560</energy>
-        <type>dark</type>
-        <ingredients>sugar, cocoa butter, cream powder, whole milk powder, cocoa mass, lactose, natural roasted ground
-            coffee, table salt, vanilla extract
-        </ingredients>
+        <sugar>17</sugar>
+        <butter>28</butter>
         <value>
             <protein>7.6</protein>
             <fats>37.2</fats>
             <carbohydrates>50.8</carbohydrates>
         </value>
         <production>Storck</production>
+        <type>dark</type>
     </c:chocolate>
 
     <c:candy id="c2">
         <name>Mamba</name>
         <packingTime>2021-10-22</packingTime>
         <energy>389</energy>
-        <type>marmalade</type>
         <sugar>16</sugar>
         <butter>3</butter>
-        <filled>false</filled>
         <value>
             <protein>0.5</protein>
             <fats>5.4</fats>
             <carbohydrates>85.4</carbohydrates>
         </value>
         <production>Storck</production>
+        <typeOfCandy>marmalade</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:candy id="c3">
         <name>Red had</name>
         <packingTime>2012-04-11</packingTime>
         <energy>538</energy>
-        <type>chocolate</type>
         <sugar>13</sugar>
         <butter>10</butter>
-        <filled>false</filled>
         <value>
             <protein>6.6</protein>
             <fats>30.9</fats>
             <carbohydrates>58.3</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
-    <c:candy id="c4">
+    <c:candy id="c4" packaging="blue">
         <name>Bear in the meadow</name>
         <packingTime>2020-06-17</packingTime>
         <energy>543</energy>
-        <type>chocolate</type>
         <sugar>20</sugar>
         <butter>12</butter>
-        <filled>false</filled>
         <value>
             <protein>7.2</protein>
             <fats>32.6</fats>
             <carbohydrates>54.9</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:candy id="c5">
         <name>Raffaello</name>
         <packingTime>2010-07-25</packingTime>
         <energy>543</energy>
-        <type>chocolate</type>
         <sugar>25</sugar>
         <butter>20</butter>
-        <filled>true</filled>
         <value>
             <protein>9.3</protein>
             <fats>47.7</fats>
             <carbohydrates>36.8</carbohydrates>
         </value>
         <production>Ferrero</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>true</filled>
     </c:candy>
 
     <c:chocolate id="ch3">
         <name>Alpen Gold</name>
         <packingTime>2011-03-01</packingTime>
         <energy>522</energy>
-        <type>milk</type>
-        <ingredients>sugar, cocoa liquor, cocoa butter, whole milk powder, whey powder, milk fat, emulsifiers, vanillin
-            flavor
-        </ingredients>
+        <sugar>31</sugar>
+        <butter>11</butter>
         <value>
             <protein>5.4</protein>
             <fats>28</fats>
             <carbohydrates>62</carbohydrates>
         </value>
         <production>Ferrero</production>
+        <type>milk</type>
     </c:chocolate>
 
     <c:candy id="c6">
         <name>Snickers</name>
         <packingTime>1997-04-15</packingTime>
         <energy>250</energy>
-        <type>nuts</type>
         <sugar>17</sugar>
         <butter>18</butter>
-        <filled>false</filled>
         <value>
             <protein>3.5</protein>
             <fats>13</fats>
             <carbohydrates>30</carbohydrates>
         </value>
         <production>Mars Incorporated</production>
+        <typeOfCandy>nuts</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
-    <c:candy id="c7">
+    <c:candy id="c7" packaging="blue">
         <name>Bounty</name>
         <packingTime>2010-10-10</packingTime>
         <energy>485</energy>
-        <type>chocolate</type>
         <sugar>24</sugar>
         <butter>16</butter>
-        <filled>false</filled>
         <value>
             <protein>3.1</protein>
             <fats>25.3</fats>
             <carbohydrates>60</carbohydrates>
         </value>
         <production>Mars Incorporated</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:chocolate id="ch4">
         <name>Ritter sport</name>
         <packingTime>2021-05-24</packingTime>
         <energy>572</energy>
-        <type>dark</type>
-        <ingredients>cocoa mass, Sugar, cocoa butter, milk fat, natural flavor</ingredients>
+        <sugar>13</sugar>
+        <butter>22</butter>
         <value>
             <protein>5</protein>
             <fats>37</fats>
             <carbohydrates>53</carbohydrates>
         </value>
         <production>Alfred Ritter GmbH and Co. KG</production>
+        <type>dark</type>
     </c:chocolate>
 
     <c:candy id="c8">
         <name>Crazy bee</name>
         <packingTime>2021-12-14</packingTime>
         <energy>318</energy>
-        <type>marmalade</type>
         <sugar>19</sugar>
         <butter>2</butter>
-        <filled>true</filled>
         <value>
             <protein>0</protein>
             <fats>0.2</fats>
             <carbohydrates>79</carbohydrates>
         </value>
         <production>Roshen</production>
+        <typeOfCandy>marmalade</typeOfCandy>
+        <filled>true</filled>
     </c:candy>
 
     <c:candy id="c9">
         <name>Grillash</name>
         <packingTime>2018-08-23</packingTime>
         <energy>418</energy>
-        <type>nuts</type>
         <sugar>15</sugar>
         <butter>12</butter>
-        <filled>false</filled>
         <value>
             <protein>4.4</protein>
             <fats>13.8</fats>
             <carbohydrates>68.6</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <typeOfCandy>nuts</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:candy id="c10">
         <name>bird milk</name>
         <packingTime>2021-11-18</packingTime>
         <energy>230</energy>
-        <type>chocolate</type>
         <sugar>27</sugar>
         <butter>18</butter>
-        <filled>false</filled>
         <value>
             <protein>5.8</protein>
             <fats>12.8</fats>
             <carbohydrates>23</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <typeOfCandy>chocolate</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:candy id="c11">
         <name>Chupa Chups</name>
         <packingTime>1987-04-13</packingTime>
         <energy>538</energy>
-        <type>lollipop</type>
         <sugar>30</sugar>
         <butter>1</butter>
-        <filled>false</filled>
         <value>
             <protein>8.7</protein>
             <fats>34.3</fats>
             <carbohydrates>49.5</carbohydrates>
         </value>
         <production>Kommunarka</production>
+        <typeOfCandy>lollipop</typeOfCandy>
+        <filled>false</filled>
     </c:candy>
 
     <c:chocolate id="ch5">
         <name>Milka</name>
         <packingTime>2021-09-17</packingTime>
         <energy>532</energy>
-        <type>milk</type>
-        <ingredients>sugar, cocoa butter, cocoa mass, whole milk powder, skimmed milk powder, milk fat, nut paste
-            (hazelnuts)
-        </ingredients>
+        <sugar>27</sugar>
+        <butter>30</butter>
         <value>
             <protein>6.1</protein>
             <fats>29</fats>
             <carbohydrates>59</carbohydrates>
         </value>
         <production>Mondelēz International</production>
+        <type>milk</type>
     </c:chocolate>
 </candies>
