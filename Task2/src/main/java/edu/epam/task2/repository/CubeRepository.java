@@ -2,8 +2,6 @@ package edu.epam.task2.repository;
 
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.selector.Selector;
-import edu.epam.task2.service.PropertiesExtractor;
-import edu.epam.task2.service.impl.PropertiesExtractorImpl;
 
 import java.util.*;
 

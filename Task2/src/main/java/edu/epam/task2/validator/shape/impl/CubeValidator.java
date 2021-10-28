@@ -2,9 +2,14 @@ package edu.epam.task2.validator.shape.impl;
 
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
+import edu.epam.task2.validator.inputformat.impl.ValidatorImpl;
 import edu.epam.task2.validator.shape.ShapeValidator;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class CubeValidator implements ShapeValidator {
+    private static Logger logger = LogManager.getLogger(CubeValidator.class);
 
     private boolean checkZAxisAlignment(CustomPoint first, CustomPoint second) {
         boolean zDoNotMatch = first.getZ() != second.getZ();
@@ -46,7 +51,7 @@ public class CubeValidator implements ShapeValidator {
                 checkYAxisAlignment(cube.getPoint(3), cube.getPoint(2)) &&
                 checkYAxisAlignment(cube.getPoint(4), cube.getPoint(5)) &&
                 checkYAxisAlignment(cube.getPoint(7), cube.getPoint(6));
-
+        logger.log(Level.INFO, "points on the x-axis: " + xAlignment + ", points on the y-axis: " + yAlignment + ", points on the z-axis: " + zAlignment);
         return xAlignment && zAlignment && yAlignment;
     }
 

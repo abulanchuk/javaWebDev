@@ -6,7 +6,7 @@ import edu.epam.task2.exception.DoesNotCrossAxisException;
 import edu.epam.task2.service.PropertiesExtractor;
 
 
-public class  PropertiesExtractorImpl implements PropertiesExtractor {
+public class PropertiesExtractorImpl implements PropertiesExtractor {
     private static PropertiesExtractorImpl instance;
 
     public static PropertiesExtractorImpl getInstance() {
@@ -15,6 +15,7 @@ public class  PropertiesExtractorImpl implements PropertiesExtractor {
         }
         return instance;
     }
+
     @Override
     public double getEdgeLength(CustomCube cube) {
         double firstPointX = cube.getPoint(0).getX();
@@ -41,7 +42,7 @@ public class  PropertiesExtractorImpl implements PropertiesExtractor {
         if (bottomPointZ > 0 || topPointZ < 0) {
             throw new DoesNotCrossAxisException("The figure does not intersect with the coordinate axis");
         }
-        if (bottomPointZ == 0 || topPointZ == 0) {
+        if (Double.compare(bottomPointZ, 0) == 0 || topPointZ == 0) {
             return 0;
         }
         return topPointZ / -bottomPointZ;
@@ -51,13 +52,10 @@ public class  PropertiesExtractorImpl implements PropertiesExtractor {
     public boolean checkIfTheFigureIsOnTheCoordinatePlane(CustomCube cube) {
         CustomPoint bottomPoint = cube.getPoint(0);
         CustomPoint topPoint = cube.getPoint(6);
-        if (bottomPoint.getX() == 0 || bottomPoint.getY() == 0 || bottomPoint.getZ() == 0) {
+        if (Double.compare(bottomPoint.getX(), 0) == 0 || Double.compare(bottomPoint.getY(), 0) == 0 || Double.compare(bottomPoint.getZ(), 0) == 0) {
             return true;
         }
-        if (topPoint.getX() == 0 || topPoint.getY() == 0 || topPoint.getZ() == 0) {
-            return true;
-        }
-        return false;
+        return Double.compare(topPoint.getX(), 0) == 0 || Double.compare(topPoint.getY(), 0) == 0 || Double.compare(topPoint.getZ(), 0) == 0;
     }
 
 }

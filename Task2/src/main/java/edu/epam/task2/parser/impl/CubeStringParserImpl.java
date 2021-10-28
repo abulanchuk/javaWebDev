@@ -1,7 +1,7 @@
 package edu.epam.task2.parser.impl;
 
 import edu.epam.task2.exception.SymbolException;
-import edu.epam.task2.parser.Parser;
+import edu.epam.task2.parser.StringParser;
 import edu.epam.task2.validator.inputformat.impl.ValidatorImpl;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -10,8 +10,8 @@ import org.apache.log4j.Logger;
 import java.util.Arrays;
 
 
-public class CubeParserImpl implements Parser {
-   private static Logger logger = LogManager.getLogger(CubeParserImpl.class);
+public class CubeStringParserImpl implements StringParser {
+   private static Logger logger = LogManager.getLogger(CubeStringParserImpl.class);
     private static final String SPLIT_REGEX = "\\s+";
 
     public double[] convertStringToDoubles(String line) throws SymbolException {

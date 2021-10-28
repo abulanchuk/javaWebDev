@@ -1,6 +1,5 @@
 package edu.epam.task2.entity;
 
-import edu.epam.task2.exception.InvalidNumberOfPointsError;
 import edu.epam.task2.observer.Observable;
 import edu.epam.task2.observer.Observer;
 import edu.epam.task2.util.IdGenerator;
@@ -13,8 +12,8 @@ public class CustomCube implements Observable {
     CustomPoint[] points;
     List<Observer> observers;
 
-    public CustomCube(CustomPoint[] points) throws InvalidNumberOfPointsError {
-        setPoints(points);
+    public CustomCube(CustomPoint[] points) {
+        this.points = points;
         customCubeId = IdGenerator.generateId();
         observers = new ArrayList<>();
     }
@@ -37,10 +36,6 @@ public class CustomCube implements Observable {
     }
 
     public void setPoints(CustomPoint[] points) {
-        if (points.length != 8) {
-            throw new InvalidNumberOfPointsError(8, points.length);
-        }
-        
         this.points = points;
         notifyObservers();
     }

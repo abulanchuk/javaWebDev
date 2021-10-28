@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ValidatorImpl implements Validator {
     private static Logger logger = LogManager.getLogger(ValidatorImpl.class);
-    private static final String STRING_CUBE_FORMAT_COORDINATE = "^-?\\d+(\\s+(-?\\d+)){2}\\s+(\\d+)$";
+    private static final String STRING_CUBE_FORMAT_COORDINATE = "^(([+-]?[0-9]*[.][0-9]*)\\s+){3}([+-]?[0-9]*[.][0-9]*)$";
 
     @Override
     public boolean isValid(String line) {
