@@ -30,7 +30,7 @@
             <carbohydrates>44</carbohydrates>
         </value>
         <production>Ferrero</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <type>chocolate</type>
         <filled>true</filled>
     </c:candy>
 
@@ -61,7 +61,7 @@
             <carbohydrates>85.4</carbohydrates>
         </value>
         <production>Storck</production>
-        <typeOfCandy>marmalade</typeOfCandy>
+        <type>marmalade</type>
         <filled>false</filled>
     </c:candy>
 
@@ -77,7 +77,7 @@
             <carbohydrates>58.3</carbohydrates>
         </value>
         <production>Kommunarka</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <type>chocolate</type>
         <filled>false</filled>
     </c:candy>
 
@@ -93,7 +93,7 @@
             <carbohydrates>54.9</carbohydrates>
         </value>
         <production>Kommunarka</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <type>chocolate</type>
         <filled>false</filled>
     </c:candy>
 
@@ -109,7 +109,7 @@
             <carbohydrates>36.8</carbohydrates>
         </value>
         <production>Ferrero</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <type>chocolate</type>
         <filled>true</filled>
     </c:candy>
 
@@ -139,8 +139,8 @@
             <fats>13</fats>
             <carbohydrates>30</carbohydrates>
         </value>
-        <production>Mars Incorporated</production>
-        <typeOfCandy>nuts</typeOfCandy>
+        <production>Mars</production>
+        <type>nuts</type>
         <filled>false</filled>
     </c:candy>
 
@@ -155,8 +155,8 @@
             <fats>25.3</fats>
             <carbohydrates>60</carbohydrates>
         </value>
-        <production>Mars Incorporated</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <production>Mars</production>
+        <type>chocolate</type>
         <filled>false</filled>
     </c:candy>
 
@@ -171,7 +171,7 @@
             <fats>37</fats>
             <carbohydrates>53</carbohydrates>
         </value>
-        <production>Alfred Ritter GmbH and Co. KG</production>
+        <production>Ritter</production>
         <type>dark</type>
     </c:chocolate>
 
@@ -187,7 +187,7 @@
             <carbohydrates>79</carbohydrates>
         </value>
         <production>Roshen</production>
-        <typeOfCandy>marmalade</typeOfCandy>
+        <type>marmalade</type>
         <filled>true</filled>
     </c:candy>
 
@@ -203,7 +203,7 @@
             <carbohydrates>68.6</carbohydrates>
         </value>
         <production>Kommunarka</production>
-        <typeOfCandy>nuts</typeOfCandy>
+        <type>nuts</type>
         <filled>false</filled>
     </c:candy>
 
@@ -219,7 +219,7 @@
             <carbohydrates>23</carbohydrates>
         </value>
         <production>Kommunarka</production>
-        <typeOfCandy>chocolate</typeOfCandy>
+        <type>chocolate</type>
         <filled>false</filled>
     </c:candy>
 
@@ -235,7 +235,7 @@
             <carbohydrates>49.5</carbohydrates>
         </value>
         <production>Kommunarka</production>
-        <typeOfCandy>lollipop</typeOfCandy>
+        <type>lollipop</type>
         <filled>false</filled>
     </c:candy>
 
@@ -250,7 +250,7 @@
             <fats>29</fats>
             <carbohydrates>59</carbohydrates>
         </value>
-        <production>Mondelēz International</production>
+        <production>Mondelez</production>
         <type>milk</type>
     </c:chocolate>
 </candies>

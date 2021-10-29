@@ -19,7 +19,6 @@
             <element name="butter" type="positiveInteger"/>
             <element name="value" type="tns:value"/>
             <element name="production" type="tns:production"/>
-
         </sequence>
         <attribute name="id" type="tns:candyId" use="required"/>
     </complexType>
@@ -28,7 +27,7 @@
         <complexContent>
             <extension base="tns:baseSweetsType">
                 <sequence>
-                    <element name="typeOfCandy">
+                    <element name="type">
                         <simpleType>
                             <restriction base="string">
                                 <enumeration value="chocolate"/>
@@ -95,10 +94,10 @@
             <enumeration value="Kommunarka"/>
             <enumeration value="Ferrero"/>
             <enumeration value="Storck"/>
-            <enumeration value="Mars Incorporated"/>
-            <enumeration value="Alfred Ritter GmbH and Co. KG"/>
+            <enumeration value="Mars"/>
+            <enumeration value="Ritter"/>
             <enumeration value="Roshen"/>
-            <enumeration value="Mondelēz International"/>
+            <enumeration value="Mondele z"/>
         </restriction>
     </simpleType>
 
