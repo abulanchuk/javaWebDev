@@ -2,7 +2,6 @@ package edu.epam.task2.validator.shape.impl;
 
 import edu.epam.task2.entity.CustomCube;
 import edu.epam.task2.entity.CustomPoint;
-import edu.epam.task2.validator.inputformat.impl.ValidatorImpl;
 import edu.epam.task2.validator.shape.ShapeValidator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;

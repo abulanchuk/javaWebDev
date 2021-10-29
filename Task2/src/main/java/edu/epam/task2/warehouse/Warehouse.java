@@ -9,7 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class Warehouse {
-    static Logger logger = LogManager.getLogger(Warehouse.class);
+    private static Logger logger = LogManager.getLogger(Warehouse.class);
     private Map<Long, CubeInfo> cubeParameters;
     private static Warehouse instance;
 

@@ -5,14 +5,14 @@ import edu.epam.task2.entity.CustomPoint;
 import edu.epam.task2.selector.Selector;
 
 public class PointInARangeImpl implements Selector {
-    double rangeXMin;
-    double rangeXMax;
+    private double rangeXMin;
+    private double rangeXMax;
 
-    double rangeYMin;
-    double rangeYMax;
+    private double rangeYMin;
+    private double rangeYMax;
 
-    double rangeZMin;
-    double rangeZMax;
+    private double rangeZMin;
+    private double rangeZMax;
 
     public PointInARangeImpl(double rangeXMin, double rangeXMax, double rangeYMin, double rangeYMax, double rangeZMin, double rangeZMax) {
         this.rangeXMin = rangeXMin;
@@ -30,7 +30,7 @@ public class PointInARangeImpl implements Selector {
             boolean cubeInTheRangeAlongXAxis = cubePoint.getX() > rangeXMin && cubePoint.getX() < rangeXMax;
             boolean cubeInTheRangeAlongYAxis = cubePoint.getY() > rangeYMin && cubePoint.getY() < rangeYMax;
             boolean cubeInTheRangeAlongZAxis = cubePoint.getZ() > rangeZMin && cubePoint.getZ() < rangeZMax;
-            if (!cubeInTheRangeAlongXAxis || !cubeInTheRangeAlongYAxis || !cubeInTheRangeAlongZAxis){
+            if (!cubeInTheRangeAlongXAxis || !cubeInTheRangeAlongYAxis || !cubeInTheRangeAlongZAxis) {
                 return false;
             }
         }

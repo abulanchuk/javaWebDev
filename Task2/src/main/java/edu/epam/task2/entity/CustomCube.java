@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomCube implements Observable {
-    long customCubeId;
-    CustomPoint[] points;
-    List<Observer> observers;
+   private long customCubeId;
+   private CustomPoint[] points;
+   private List<Observer> observers;
 
     public CustomCube(CustomPoint[] points) {
         this.points = points;

@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 public class IdSelectorImpl implements Selector {
-    Set<Long> idsToSelect;
+   private Set<Long> idsToSelect;
 
     public IdSelectorImpl(Collection<Long> idsToSelect) {
         this.idsToSelect = new HashSet<>(idsToSelect);

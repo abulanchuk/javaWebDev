@@ -5,8 +5,8 @@ import edu.epam.task2.selector.Selector;
 import edu.epam.task2.warehouse.Warehouse;
 
 public class AreaFromRangeSelectorImpl implements Selector {
-    long minValue;
-    long maxValue;
+   private long minValue;
+   private long maxValue;
 
     public AreaFromRangeSelectorImpl(long minValue, long maxValue) {
         this.minValue = minValue;

@@ -1,9 +1,9 @@
 package edu.epam.task2.entity;
 
 public class CustomPoint {
-    double x;
-    double y;
-    double z;
+    private double x;
+    private double y;
+    private double z;
 
     public CustomPoint(double x, double y, double z) {
         this.x = x;
