@@ -5,252 +5,252 @@
 
     <c:chocolate id="ch1">
         <name>Alenka</name>
-        <packingTime>2021-05-21</packingTime>
+        <packing-time>2021-05-21</packing-time>
         <energy>560</energy>
         <sugar>30</sugar>
         <butter>20</butter>
-        <value>
+        <sweets-value>
             <protein>7.1</protein>
             <fats>35.6</fats>
             <carbohydrates>52.4</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>milk</type>
+        <chocolate-type>milk</chocolate-type>
     </c:chocolate>
 
     <c:candy id="c1" packaging="yellow">
         <name>Ferrero Rocher</name>
-        <packingTime>2021-04-01</packingTime>
+        <packing-time>2021-04-01</packing-time>
         <energy>603</energy>
         <sugar>15</sugar>
         <butter>10</butter>
-        <value>
+        <sweets-value>
             <protein>8</protein>
             <fats>43</fats>
             <carbohydrates>44</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Ferrero</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>true</filled>
     </c:candy>
 
-    <c:chocolate id="ch2">
+    <c:chocolate id="ch2" packaging="black">
         <name>Mersi</name>
-        <packingTime>2020-12-21</packingTime>
+        <packing-time>2020-12-21</packing-time>
         <energy>560</energy>
         <sugar>17</sugar>
         <butter>28</butter>
-        <value>
+        <sweets-value>
             <protein>7.6</protein>
             <fats>37.2</fats>
             <carbohydrates>50.8</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Storck</production>
-        <type>dark</type>
+        <chocolate-type>dark</chocolate-type>
     </c:chocolate>
 
     <c:candy id="c2">
         <name>Mamba</name>
-        <packingTime>2021-10-22</packingTime>
+        <packing-time>2021-10-22</packing-time>
         <energy>389</energy>
         <sugar>16</sugar>
         <butter>3</butter>
-        <value>
+        <sweets-value>
             <protein>0.5</protein>
             <fats>5.4</fats>
             <carbohydrates>85.4</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Storck</production>
-        <type>marmalade</type>
+        <candy-type>marmalade</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c3">
         <name>Red had</name>
-        <packingTime>2012-04-11</packingTime>
+        <packing-time>2012-04-11</packing-time>
         <energy>538</energy>
         <sugar>13</sugar>
         <butter>10</butter>
-        <value>
+        <sweets-value>
             <protein>6.6</protein>
             <fats>30.9</fats>
             <carbohydrates>58.3</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c4" packaging="blue">
         <name>Bear in the meadow</name>
-        <packingTime>2020-06-17</packingTime>
+        <packing-time>2020-06-17</packing-time>
         <energy>543</energy>
         <sugar>20</sugar>
         <butter>12</butter>
-        <value>
+        <sweets-value>
             <protein>7.2</protein>
             <fats>32.6</fats>
             <carbohydrates>54.9</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c5">
         <name>Raffaello</name>
-        <packingTime>2010-07-25</packingTime>
+        <packing-time>2010-07-25</packing-time>
         <energy>543</energy>
         <sugar>25</sugar>
         <butter>20</butter>
-        <value>
+        <sweets-value>
             <protein>9.3</protein>
             <fats>47.7</fats>
             <carbohydrates>36.8</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Ferrero</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>true</filled>
     </c:candy>
 
     <c:chocolate id="ch3">
         <name>Alpen Gold</name>
-        <packingTime>2011-03-01</packingTime>
+        <packing-time>2011-03-01</packing-time>
         <energy>522</energy>
         <sugar>31</sugar>
         <butter>11</butter>
-        <value>
+        <sweets-value>
             <protein>5.4</protein>
             <fats>28</fats>
             <carbohydrates>62</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Ferrero</production>
-        <type>milk</type>
+        <chocolate-type>milk</chocolate-type>
     </c:chocolate>
 
     <c:candy id="c6">
         <name>Snickers</name>
-        <packingTime>1997-04-15</packingTime>
+        <packing-time>1997-04-15</packing-time>
         <energy>250</energy>
         <sugar>17</sugar>
         <butter>18</butter>
-        <value>
+        <sweets-value>
             <protein>3.5</protein>
             <fats>13</fats>
             <carbohydrates>30</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Mars</production>
-        <type>nuts</type>
+        <candy-type>nuts</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c7" packaging="blue">
         <name>Bounty</name>
-        <packingTime>2010-10-10</packingTime>
+        <packing-time>2010-10-10</packing-time>
         <energy>485</energy>
         <sugar>24</sugar>
         <butter>16</butter>
-        <value>
+        <sweets-value>
             <protein>3.1</protein>
             <fats>25.3</fats>
             <carbohydrates>60</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Mars</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:chocolate id="ch4">
         <name>Ritter sport</name>
-        <packingTime>2021-05-24</packingTime>
+        <packing-time>2021-05-24</packing-time>
         <energy>572</energy>
         <sugar>13</sugar>
         <butter>22</butter>
-        <value>
+        <sweets-value>
             <protein>5</protein>
             <fats>37</fats>
             <carbohydrates>53</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Ritter</production>
-        <type>dark</type>
+        <chocolate-type>dark</chocolate-type>
     </c:chocolate>
 
     <c:candy id="c8">
         <name>Crazy bee</name>
-        <packingTime>2021-12-14</packingTime>
+        <packing-time>2021-12-14</packing-time>
         <energy>318</energy>
         <sugar>19</sugar>
         <butter>2</butter>
-        <value>
+        <sweets-value>
             <protein>0</protein>
             <fats>0.2</fats>
             <carbohydrates>79</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Roshen</production>
-        <type>marmalade</type>
+        <candy-type>marmalade</candy-type>
         <filled>true</filled>
     </c:candy>
 
     <c:candy id="c9">
         <name>Grillash</name>
-        <packingTime>2018-08-23</packingTime>
+        <packing-time>2018-08-23</packing-time>
         <energy>418</energy>
         <sugar>15</sugar>
         <butter>12</butter>
-        <value>
+        <sweets-value>
             <protein>4.4</protein>
             <fats>13.8</fats>
             <carbohydrates>68.6</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>nuts</type>
+        <candy-type>nuts</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c10">
         <name>bird milk</name>
-        <packingTime>2021-11-18</packingTime>
+        <packing-time>2021-11-18</packing-time>
         <energy>230</energy>
         <sugar>27</sugar>
         <butter>18</butter>
-        <value>
+        <sweets-value>
             <protein>5.8</protein>
             <fats>12.8</fats>
             <carbohydrates>23</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>chocolate</type>
+        <candy-type>choco</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:candy id="c11">
         <name>Chupa Chups</name>
-        <packingTime>1987-04-13</packingTime>
+        <packing-time>1987-04-13</packing-time>
         <energy>538</energy>
         <sugar>30</sugar>
         <butter>1</butter>
-        <value>
+        <sweets-value>
             <protein>8.7</protein>
             <fats>34.3</fats>
             <carbohydrates>49.5</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Kommunarka</production>
-        <type>lollipop</type>
+        <candy-type>lollipop</candy-type>
         <filled>false</filled>
     </c:candy>
 
     <c:chocolate id="ch5">
         <name>Milka</name>
-        <packingTime>2021-09-17</packingTime>
+        <packing-time>2021-09-17</packing-time>
         <energy>532</energy>
         <sugar>27</sugar>
         <butter>30</butter>
-        <value>
+        <sweets-value>
             <protein>6.1</protein>
             <fats>29</fats>
             <carbohydrates>59</carbohydrates>
-        </value>
+        </sweets-value>
         <production>Mondelez</production>
-        <type>milk</type>
+        <chocolate-type>milk</chocolate-type>
     </c:chocolate>
 </candies>

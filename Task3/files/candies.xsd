@@ -10,27 +10,28 @@
         </complexType>
     </element>
 
-    <complexType name="baseSweetsType" abstract="true">
+    <complexType name="base-sweets-type" abstract="true">
         <sequence>
             <element name="name" type="string"/>
-            <element name="packingTime" type="date"/>
+            <element name="packing-time" type="date"/>
             <element name="energy" type="positiveInteger"/>
             <element name="sugar" type="positiveInteger"/>
             <element name="butter" type="positiveInteger"/>
-            <element name="value" type="tns:value"/>
+            <element name="sweets-value" type="tns:sweets-value"/>
             <element name="production" type="tns:production"/>
         </sequence>
-        <attribute name="id" type="tns:candyId" use="required"/>
+        <attribute name="id" type="tns:candy-id" use="required"/>
+        <attribute name="packaging" type="tns:packaging-type" use="optional" default="black"/>
     </complexType>
 
-    <complexType name="candyType">
+    <complexType name="candy-type">
         <complexContent>
-            <extension base="tns:baseSweetsType">
+            <extension base="tns:base-sweets-type">
                 <sequence>
-                    <element name="type">
+                    <element name="candy-type">
                         <simpleType>
                             <restriction base="string">
-                                <enumeration value="chocolate"/>
+                                <enumeration value="choco"/>
                                 <enumeration value="lollipop"/>
                                 <enumeration value="marmalade"/>
                                 <enumeration value="nuts"/>
@@ -39,18 +40,16 @@
                     </element>
                     <element name="filled" type="boolean"/>
                 </sequence>
-                <attribute name="packaging" type="tns:packagingType" use="optional" default="black"/>
-
             </extension>
         </complexContent>
     </complexType>
 
 
-    <complexType name="chocolateType">
+    <complexType name="chocolate-type">
         <complexContent>
-            <extension base="tns:baseSweetsType">
+            <extension base="tns:base-sweets-type">
                 <sequence>
-                    <element name="type">
+                    <element name="chocolate-type">
                         <simpleType>
                             <restriction base="string">
                                 <enumeration value="milk"/>
@@ -63,7 +62,7 @@
         </complexContent>
     </complexType>
 
-    <complexType name="value">
+    <complexType name="sweets-value">
         <sequence>
             <element name="protein">
                 <simpleType>
@@ -97,11 +96,11 @@
             <enumeration value="Mars"/>
             <enumeration value="Ritter"/>
             <enumeration value="Roshen"/>
-            <enumeration value="Mondele z"/>
+            <enumeration value="Mondelez"/>
         </restriction>
     </simpleType>
 
-    <simpleType name="packagingType">
+    <simpleType name="packaging-type">
         <restriction base="string">
             <enumeration value="black"/>
             <enumeration value="blue"/>
@@ -111,13 +110,13 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="candyId">
+    <simpleType name="candy-id">
         <restriction base="ID">
             <pattern value="\w{1,30}"/>
         </restriction>
     </simpleType>
 
-    <element name="sweet" type="tns:baseSweetsType" abstract="true"/>
-    <element name="candy" type="tns:candyType" substitutionGroup="tns:sweet"/>
-    <element name="chocolate" type="tns:chocolateType" substitutionGroup="tns:sweet"/>
+    <element name="sweet" type="tns:base-sweets-type" abstract="true"/>
+    <element name="candy" type="tns:candy-type" substitutionGroup="tns:sweet"/>
+    <element name="chocolate" type="tns:chocolate-type" substitutionGroup="tns:sweet"/>
 </schema>
