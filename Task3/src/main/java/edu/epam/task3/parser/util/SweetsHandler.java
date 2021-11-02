@@ -3,6 +3,8 @@ package edu.epam.task3.parser.util;
 import entity.Candy;
 import entity.Chocolate;
 import entity.Sweet;
+import entity.enumsource.CandyType;
+import entity.enumsource.ChocolateType;
 import entity.enumsource.PackagingType;
 import entity.enumsource.Production;
 import org.apache.log4j.Level;
@@ -13,6 +15,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.time.LocalDate;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 
@@ -25,7 +28,6 @@ public class SweetsHandler extends DefaultHandler {
     private SweetTag currentXmlTag = null;
     private EnumSet<SweetTag> withText;
 
-    // TODO: name convention?
     private final String candyNameTag = SweetTag.CANDY.getValue();
     private final String chocolateNameTag = SweetTag.CHOCOLATE.getValue();
 
@@ -63,8 +65,8 @@ public class SweetsHandler extends DefaultHandler {
 
             switch (attributeTag) {
                 case ID -> currentSweet.setId(attributes.getValue(i));
-                case PACKING -> {
-                    PackagingType type = PackagingType.valueOf(attributes.getValue(i));
+                case PACKAGING -> {
+                    PackagingType type = PackagingType.valueOf(attributes.getValue(i).toUpperCase(Locale.ROOT));
                     currentSweet.setPacking(type);
                 }
                 default -> logger.log(Level.ERROR, attributeName + "is not valid");
@@ -94,8 +96,10 @@ public class SweetsHandler extends DefaultHandler {
             case PROTEIN -> currentSweet.getValue().setProtein(Double.parseDouble(tagText));
             case FATS -> currentSweet.getValue().setFats(Double.parseDouble(tagText));
             case CARBOHYDRATES -> currentSweet.getValue().setCarbohydrates(Double.parseDouble(tagText));
-            case PRODUCTION -> currentSweet.setProduction(Production.valueOf(tagText));
+            case PRODUCTION -> currentSweet.setProduction(Production.valueOf(tagText.toUpperCase(Locale.ROOT)));
             case FILLED -> ((Candy) currentSweet).setFilled(Boolean.parseBoolean(tagText));
+            case CANDY_TYPE -> ((Candy) currentSweet).setCandyType(CandyType.valueOf(tagText.toUpperCase()));
+            case CHOCOLATE_TYPE -> ((Chocolate) currentSweet).setChocolateType(ChocolateType.valueOf(tagText.toUpperCase()));
             default -> {
                 logger.log(Level.ERROR, currentXmlTag + "is not valid");
                 throw new EnumConstantNotPresentException(currentXmlTag.getDeclaringClass(), currentXmlTag.name());

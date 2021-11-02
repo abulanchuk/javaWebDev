@@ -10,7 +10,6 @@ import entity.enumsource.CandyType;
 import entity.enumsource.ChocolateType;
 import entity.enumsource.PackagingType;
 import entity.enumsource.Production;
-import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -24,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class SweetDomBuilder implements CustomBuilder {
@@ -35,11 +35,17 @@ public class SweetDomBuilder implements CustomBuilder {
         this.sweets = sweets;
     }
 
-    public SweetDomBuilder() throws ParserConfigurationException, IOException, SAXException {
+    public SweetDomBuilder() throws ParserConfigurationException {
         this.sweets = new HashSet<Sweet>();
-        documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setNamespaceAware(true);
+        documentBuilder = documentBuilderFactory.newDocumentBuilder();
     }
 
+    public Set<Sweet> getSweets() {
+        return sweets;
+    }
 
     @Override
     public void buildSweetSet(String xmlPath) throws ParserException {
@@ -51,10 +57,12 @@ public class SweetDomBuilder implements CustomBuilder {
             for (int i = 0; i < sweets.getLength(); i++) {
                 Node node = sweets.item(i);
                 if (node.getNodeType() != Node.TEXT_NODE) {
-                    if (node.getNodeName().equals(SweetTag.CANDY.getValue())) {
+                    String nodeName = node.getLocalName();
+
+                    if (nodeName.equals(SweetTag.CANDY.getValue())) {
                         Candy candy = buildCandy(node);
                         this.sweets.add(candy);
-                    } else {
+                    } else if (nodeName.equals(SweetTag.CHOCOLATE.getValue())) {
                         Chocolate chocolate = buildChocolate(node);
                         this.sweets.add(chocolate);
                     }
@@ -77,21 +85,25 @@ public class SweetDomBuilder implements CustomBuilder {
     private void fillCommonFields(Node node, Sweet sweet) throws ParserException {
         String id;
         sweet.setId(node.getAttributes().getNamedItem(SweetTag.ID.getValue()).getNodeValue());
-        sweet.setPacking(PackagingType.valueOf(node.getAttributes().getNamedItem(SweetTag.PACKING.getValue()).getNodeValue()));
+
+        Node packagingAttrNode = node.getAttributes().getNamedItem(SweetTag.PACKAGING.getValue());
+        if (packagingAttrNode != null) {
+            sweet.setPacking(PackagingType.valueOf(packagingAttrNode.getNodeValue().toUpperCase()));
+        }
         sweet.setName(getNodeTextContent(node, SweetTag.NAME));
         fillSweetValue(getNodeByName(node, SweetTag.SWEETS_VALUE.getValue()), sweet);
         sweet.setPackingTime(LocalDate.parse(getNodeTextContent(node, SweetTag.PACKING_TIME)));
         sweet.setEnergy(Integer.parseInt(getNodeTextContent(node, SweetTag.ENERGY)));
         sweet.setSugar(Integer.parseInt(getNodeTextContent(node, SweetTag.SUGAR)));
         sweet.setButter(Integer.parseInt(getNodeTextContent(node, SweetTag.BUTTER)));
-        sweet.setProduction(Production.valueOf(getNodeTextContent(node, SweetTag.PRODUCTION)));
+        sweet.setProduction(Production.valueOf(getNodeTextContent(node, SweetTag.PRODUCTION).toUpperCase(Locale.ROOT)));
     }
 
     private Candy buildCandy(Node root) throws ParserException {
         Candy candy = new Candy();
         fillCommonFields(root, candy);
 
-        candy.setCandyType(CandyType.valueOf(getNodeTextContent(root, SweetTag.CANDY_TYPE)));
+        candy.setCandyType(CandyType.valueOf(getNodeTextContent(root, SweetTag.CANDY_TYPE).toUpperCase(Locale.ROOT)));
         candy.setFilled(Boolean.parseBoolean(getNodeTextContent(root, SweetTag.FILLED)));
         return candy;
     }
@@ -100,11 +112,12 @@ public class SweetDomBuilder implements CustomBuilder {
         Chocolate chocolate = new Chocolate();
         fillCommonFields(root, chocolate);
 
-        chocolate.setChocolateType(ChocolateType.valueOf(getNodeTextContent(root, SweetTag.CHOCOLATE_TYPE)));
+        chocolate.setChocolateType(ChocolateType.valueOf(getNodeTextContent(root, SweetTag.CHOCOLATE_TYPE).toUpperCase(Locale.ROOT)));
         return chocolate;
     }
 
     private Node getNodeByName(Node parentNode, String targetNodeName) throws ParserException {
+        // targetNodeName = targetNodeName.replace("-", "_"); // ?
         NodeList children = parentNode.getChildNodes();
         for (int i = 0; i < children.getLength(); ++i) {
             Node current = children.item(i);

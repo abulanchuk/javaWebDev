@@ -1,7 +1,7 @@
 package entity.enumsource;
 
 public enum CandyType {
-    CHOCOLATE,
+    CHOCO,
     LOLLIPOP,
     MARMALADE,
     NUTS

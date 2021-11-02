@@ -5,10 +5,8 @@ public enum SweetTag {
     CANDY("candy"),
     CHOCOLATE("chocolate"),
     ID("id"),
-    PACKING("packing"),
+    PACKAGING("packaging"),
     SWEETS_VALUE("sweets-value"),
-    CANDY_TYPE("candy-type"),
-    CHOCOLATE_TYPE("chocolate_type"),
     NAME("name"),
     PACKING_TIME("packing-time"),
     ENERGY("energy"),
@@ -18,6 +16,8 @@ public enum SweetTag {
     FATS("fats"),
     CARBOHYDRATES("carbohydrates"),
     PRODUCTION("production"),
+    CANDY_TYPE("candy-type"),
+    CHOCOLATE_TYPE("chocolate-type"),
     FILLED("filled");
 
     private String value;

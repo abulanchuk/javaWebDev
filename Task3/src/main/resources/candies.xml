@@ -3,7 +3,7 @@
          xmlns:c="http://www.task3.org/candies"
          xsi:schemaLocation="http://www.task3.org/candies candies.xsd">
 
-    <c:chocolate id="ch1">
+    <chocolate id="ch1">
         <name>Alenka</name>
         <packing-time>2021-05-21</packing-time>
         <energy>560</energy>
@@ -16,9 +16,9 @@
         </sweets-value>
         <production>Kommunarka</production>
         <chocolate-type>milk</chocolate-type>
-    </c:chocolate>
+    </chocolate>
 
-    <c:candy id="c1" packaging="yellow">
+    <candy id="c1" packaging="yellow">
         <name>Ferrero Rocher</name>
         <packing-time>2021-04-01</packing-time>
         <energy>603</energy>
@@ -32,9 +32,9 @@
         <production>Ferrero</production>
         <candy-type>choco</candy-type>
         <filled>true</filled>
-    </c:candy>
+    </candy>
 
-    <c:chocolate id="ch2" packaging="black">
+    <chocolate id="ch2" packaging="black">
         <name>Mersi</name>
         <packing-time>2020-12-21</packing-time>
         <energy>560</energy>
@@ -47,9 +47,9 @@
         </sweets-value>
         <production>Storck</production>
         <chocolate-type>dark</chocolate-type>
-    </c:chocolate>
+    </chocolate>
 
-    <c:candy id="c2">
+    <candy id="c2">
         <name>Mamba</name>
         <packing-time>2021-10-22</packing-time>
         <energy>389</energy>
@@ -63,9 +63,9 @@
         <production>Storck</production>
         <candy-type>marmalade</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c3">
+    <candy id="c3">
         <name>Red had</name>
         <packing-time>2012-04-11</packing-time>
         <energy>538</energy>
@@ -79,9 +79,9 @@
         <production>Kommunarka</production>
         <candy-type>choco</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c4" packaging="blue">
+    <candy id="c4" packaging="blue">
         <name>Bear in the meadow</name>
         <packing-time>2020-06-17</packing-time>
         <energy>543</energy>
@@ -95,9 +95,9 @@
         <production>Kommunarka</production>
         <candy-type>choco</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c5">
+    <candy id="c5">
         <name>Raffaello</name>
         <packing-time>2010-07-25</packing-time>
         <energy>543</energy>
@@ -111,9 +111,9 @@
         <production>Ferrero</production>
         <candy-type>choco</candy-type>
         <filled>true</filled>
-    </c:candy>
+    </candy>
 
-    <c:chocolate id="ch3">
+    <chocolate id="ch3">
         <name>Alpen Gold</name>
         <packing-time>2011-03-01</packing-time>
         <energy>522</energy>
@@ -126,9 +126,9 @@
         </sweets-value>
         <production>Ferrero</production>
         <chocolate-type>milk</chocolate-type>
-    </c:chocolate>
+    </chocolate>
 
-    <c:candy id="c6">
+    <candy id="c6">
         <name>Snickers</name>
         <packing-time>1997-04-15</packing-time>
         <energy>250</energy>
@@ -142,9 +142,9 @@
         <production>Mars</production>
         <candy-type>nuts</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c7" packaging="blue">
+    <candy id="c7" packaging="blue">
         <name>Bounty</name>
         <packing-time>2010-10-10</packing-time>
         <energy>485</energy>
@@ -158,9 +158,9 @@
         <production>Mars</production>
         <candy-type>choco</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:chocolate id="ch4">
+    <chocolate id="ch4">
         <name>Ritter sport</name>
         <packing-time>2021-05-24</packing-time>
         <energy>572</energy>
@@ -173,9 +173,9 @@
         </sweets-value>
         <production>Ritter</production>
         <chocolate-type>dark</chocolate-type>
-    </c:chocolate>
+    </chocolate>
 
-    <c:candy id="c8">
+    <candy id="c8">
         <name>Crazy bee</name>
         <packing-time>2021-12-14</packing-time>
         <energy>318</energy>
@@ -189,9 +189,9 @@
         <production>Roshen</production>
         <candy-type>marmalade</candy-type>
         <filled>true</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c9">
+    <candy id="c9">
         <name>Grillash</name>
         <packing-time>2018-08-23</packing-time>
         <energy>418</energy>
@@ -205,9 +205,9 @@
         <production>Kommunarka</production>
         <candy-type>nuts</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c10">
+    <candy id="c10">
         <name>bird milk</name>
         <packing-time>2021-11-18</packing-time>
         <energy>230</energy>
@@ -221,9 +221,9 @@
         <production>Kommunarka</production>
         <candy-type>choco</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:candy id="c11">
+    <candy id="c11">
         <name>Chupa Chups</name>
         <packing-time>1987-04-13</packing-time>
         <energy>538</energy>
@@ -237,9 +237,9 @@
         <production>Kommunarka</production>
         <candy-type>lollipop</candy-type>
         <filled>false</filled>
-    </c:candy>
+    </candy>
 
-    <c:chocolate id="ch5">
+    <chocolate id="ch5">
         <name>Milka</name>
         <packing-time>2021-09-17</packing-time>
         <energy>532</energy>
@@ -252,5 +252,5 @@
         </sweets-value>
         <production>Mondelez</production>
         <chocolate-type>milk</chocolate-type>
-    </c:chocolate>
+    </chocolate>
 </candies>

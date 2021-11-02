@@ -19,13 +19,15 @@ import java.util.Set;
 
 public class SweetSaxBuilder implements CustomBuilder {
     private static Logger logger = LogManager.getLogger(SweetSaxBuilder.class);
+
+    @Override
+    public Set<Sweet> getSweets() {
+        return sweets;
+    }
+
     private Set<Sweet> sweets;
     private SweetsHandler sweetsHandler;
     private XMLReader reader;
-
-    public void setSweets(Set<Sweet> sweets) {
-        this.sweets = sweets;
-    }
 
     public SweetSaxBuilder() throws ParserException {
         sweetsHandler = new SweetsHandler();
@@ -37,6 +39,8 @@ public class SweetSaxBuilder implements CustomBuilder {
             logger.log(Level.ERROR, "some problems with SAX parser");
             throw new ParserException("some problems with SAX parser");
         }
+        reader.setContentHandler(sweetsHandler);
+      //  reader.setErrorHandler();
     }
 
     @Override

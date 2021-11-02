@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class SweetStaxBuilder implements CustomBuilder {
@@ -29,13 +31,14 @@ public class SweetStaxBuilder implements CustomBuilder {
     private Set<Sweet> sweets;
     private XMLInputFactory inputFactory;
 
-    public SweetStaxBuilder(Set<Sweet> sweets, XMLInputFactory inputFactory) {
-        this.sweets = sweets;
-        this.inputFactory = inputFactory;
+    public SweetStaxBuilder() {
+        this.sweets = new HashSet<>();
+        inputFactory = XMLInputFactory.newInstance();
     }
 
-    public void setSweets(Set<Sweet> sweets) {
-        this.sweets = sweets;
+    @Override
+    public Set<Sweet> getSweets() {
+        return sweets;
     }
 
     private Sweet buildSweets(XMLStreamReader reader) throws XMLStreamException {
@@ -44,17 +47,20 @@ public class SweetStaxBuilder implements CustomBuilder {
         if (name.equals(SweetTag.CANDY.getValue())) {
             sweet = new Candy();
             Candy candy = (Candy) sweet;
-            String candyAttributeValue = reader.getAttributeValue(null, SweetTag.CANDY_TYPE.getValue());
-            candy.setCandyType(CandyType.valueOf(candyAttributeValue));
+            //String candyAttributeValue = reader.getAttributeValue(null, SweetTag.CANDY_TYPE.getValue());
+            //candy.setCandyType(CandyType.valueOf(candyAttributeValue));
         } else if (name.equals(SweetTag.CHOCOLATE.getValue())) {
             sweet = new Chocolate();
             Chocolate chocolate = (Chocolate) sweet;
-            String chocolateAttributeValue = reader.getAttributeValue(null, SweetTag.CHOCOLATE.getValue());
-            chocolate.setChocolateType(ChocolateType.valueOf(chocolateAttributeValue));
+            //String chocolateAttributeValue = reader.getAttributeValue(null, SweetTag.CHOCOLATE_TYPE.getValue());
+            //chocolate.setChocolateType(ChocolateType.valueOf(chocolateAttributeValue));
         }
         sweet.setId(reader.getAttributeValue(null, SweetTag.ID.getValue()));
-        String packingAttributeValue = reader.getAttributeValue(null, SweetTag.PACKING.getValue());
-        sweet.setPacking(PackagingType.valueOf(packingAttributeValue));
+        String packingAttributeValue = reader.getAttributeValue(null, SweetTag.PACKAGING.getValue());
+        if (packingAttributeValue!=null){
+            sweet.setPacking(PackagingType.valueOf(packingAttributeValue.toUpperCase()));
+        }
+
 
         while (reader.hasNext()) {
             int type = reader.next();
@@ -72,7 +78,9 @@ public class SweetStaxBuilder implements CustomBuilder {
                         case PROTEIN -> sweet.getValue().setProtein(Double.parseDouble(getXMLText(reader)));
                         case FATS -> sweet.getValue().setFats(Double.parseDouble(getXMLText(reader)));
                         case CARBOHYDRATES -> sweet.getValue().setCarbohydrates(Double.parseDouble(getXMLText(reader)));
-                        case PRODUCTION -> sweet.setProduction(Production.valueOf(getXMLText(reader)));
+                        case PRODUCTION -> sweet.setProduction(Production.valueOf(getXMLText(reader).toUpperCase()));
+                        case CANDY_TYPE -> ((Candy) sweet).setCandyType(CandyType.valueOf(getXMLText(reader).toUpperCase()));
+                        case CHOCOLATE_TYPE -> ((Chocolate) sweet).setChocolateType(ChocolateType.valueOf(getXMLText(reader).toUpperCase()));
                         case FILLED -> ((Candy) sweet).setFilled(Boolean.parseBoolean(getXMLText(reader)));
                         default -> {
                             logger.log(Level.ERROR, name + "is not expected");
@@ -98,7 +106,6 @@ public class SweetStaxBuilder implements CustomBuilder {
         String name;
         try (FileInputStream inputStream = new FileInputStream(new File(xmlPath))) {
             streamReader = inputFactory.createXMLStreamReader(inputStream);
-            int vc = 0;
             while (streamReader.hasNext()) {
                 int type = streamReader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {

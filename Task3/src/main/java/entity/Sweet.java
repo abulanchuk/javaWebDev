@@ -17,7 +17,7 @@ public class Sweet {
     public PackagingType packing;
 
     public Sweet(){
-        value = new SweetsValue();
+        value = new SweetsValue(0,0,0);
         packing = PackagingType.BLACK;
     }
 
@@ -104,6 +104,38 @@ public class Sweet {
 
     public void setProduction(Production production) {
         this.production = production;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sweet sweet = (Sweet) o;
+
+        if (energy != sweet.energy) return false;
+        if (sugar != sweet.sugar) return false;
+        if (butter != sweet.butter) return false;
+        if (!id.equals(sweet.id)) return false;
+        if (!name.equals(sweet.name)) return false;
+        if (!packingTime.equals(sweet.packingTime)) return false;
+        if (!value.equals(sweet.value)) return false;
+        if (production != sweet.production) return false;
+        return packing == sweet.packing;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (packingTime != null ? packingTime.hashCode() : 0);
+        result = 31 * result + energy;
+        result = 31 * result + sugar;
+        result = 31 * result + butter;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (production != null ? production.hashCode() : 0);
+        result = 31 * result + (packing != null ? packing.hashCode() : 0);
+        return result;
     }
 
     @Override

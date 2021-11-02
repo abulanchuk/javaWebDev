@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:c="http://www.task3.org/candies"
+         xsi:schemaLocation="http://www.task3.org/candies candies.xsd">
+
+    <chocolate id="ch1">
+        <name>Alenka</name>
+        <packing-time>2021-05-21</packing-time>
+        <energy>560</energy>
+        <sugar>30</sugar>
+        <butter>20</butter>
+        <sweets-value>
+            <protein>7.1</protein>
+            <fats>35.6</fats>
+            <carbohydrates>52.4</carbohydrates>
+        </sweets-value>
+        <production>Kommunarka</production>
+        <chocolate-type>milk</chocolate-type>
+    </chocolate>
+
+    <candy id="c1" packaging="yellow">
+        <name>Ferrero Rocher</name>
+        <packing-time>2021-04-01</packing-time>
+        <energy>603</energy>
+        <sugar>15</sugar>
+        <butter>10</butter>
+        <sweets-value>
+            <protein>8</protein>
+            <fats>43</fats>
+            <carbohydrates>44</carbohydrates>
+        </sweets-value>
+        <production>Ferrero</production>
+        <candy-type>choco</candy-type>
+        <filled>true</filled>
+    </candy>
+
+</candies>
