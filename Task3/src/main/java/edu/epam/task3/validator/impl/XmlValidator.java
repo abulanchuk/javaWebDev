@@ -1,6 +1,7 @@
 package edu.epam.task3.validator.impl;
 
 import edu.epam.task3.parser.util.SweetsHandler;
+import edu.epam.task3.validator.CustomXmlValidator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,7 +16,7 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 
-public class XmlValidator {
+public class XmlValidator implements CustomXmlValidator {
     private static Logger logger = LogManager.getLogger(XmlValidator.class);
     private static XmlValidator instance;
 

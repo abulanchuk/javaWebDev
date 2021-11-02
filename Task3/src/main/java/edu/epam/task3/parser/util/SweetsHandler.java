@@ -61,13 +61,13 @@ public class SweetsHandler extends DefaultHandler {
             String attributeName = convertXmlTagNameToUpperCase(attributes.getQName(i));
             SweetTag attributeTag = SweetTag.valueOf(attributeName);
 
-            // TODO: Add default branch
             switch (attributeTag) {
                 case ID -> currentSweet.setId(attributes.getValue(i));
                 case PACKING -> {
                     PackagingType type = PackagingType.valueOf(attributes.getValue(i));
                     currentSweet.setPacking(type);
                 }
+                default -> logger.log(Level.ERROR, attributeName + "is not valid");
             }
         }
     }
@@ -96,7 +96,10 @@ public class SweetsHandler extends DefaultHandler {
             case CARBOHYDRATES -> currentSweet.getValue().setCarbohydrates(Double.parseDouble(tagText));
             case PRODUCTION -> currentSweet.setProduction(Production.valueOf(tagText));
             case FILLED -> ((Candy) currentSweet).setFilled(Boolean.parseBoolean(tagText));
-            default -> throw new EnumConstantNotPresentException(currentXmlTag.getDeclaringClass(), currentXmlTag.name());
+            default -> {
+                logger.log(Level.ERROR, currentXmlTag + "is not valid");
+                throw new EnumConstantNotPresentException(currentXmlTag.getDeclaringClass(), currentXmlTag.name());
+            }
         }
         currentXmlTag = null;
     }
