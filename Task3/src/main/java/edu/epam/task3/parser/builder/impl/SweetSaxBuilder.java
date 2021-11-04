@@ -4,7 +4,7 @@ import edu.epam.task3.exception.ParserException;
 import edu.epam.task3.parser.builder.CustomBuilder;
 import edu.epam.task3.parser.util.SweetsHandler;
 
-import entity.Sweet;
+import edu.epam.task3.entity.Sweet;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -40,7 +40,6 @@ public class SweetSaxBuilder implements CustomBuilder {
             throw new ParserException("some problems with SAX parser");
         }
         reader.setContentHandler(sweetsHandler);
-      //  reader.setErrorHandler();
     }
 
     @Override
@@ -48,8 +47,10 @@ public class SweetSaxBuilder implements CustomBuilder {
         try {
             reader.parse(xmlPath);
         } catch (SAXException e) {
+            logger.log(Level.ERROR, "some problems with SAX parser");
             throw new ParserException(e.getMessage());
         } catch (IOException e) {
+            logger.log(Level.ERROR, "file not found in SAX parser");
             throw new ParserException(e.getMessage());
         }
         sweets = sweetsHandler.getSweets();

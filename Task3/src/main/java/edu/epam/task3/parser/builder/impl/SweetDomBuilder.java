@@ -3,13 +3,14 @@ package edu.epam.task3.parser.builder.impl;
 import edu.epam.task3.exception.ParserException;
 import edu.epam.task3.parser.builder.CustomBuilder;
 import edu.epam.task3.parser.util.SweetTag;
-import entity.Candy;
-import entity.Chocolate;
-import entity.Sweet;
-import entity.enumsource.CandyType;
-import entity.enumsource.ChocolateType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
+import edu.epam.task3.entity.Candy;
+import edu.epam.task3.entity.Chocolate;
+import edu.epam.task3.entity.Sweet;
+import edu.epam.task3.entity.enumsource.CandyType;
+import edu.epam.task3.entity.enumsource.ChocolateType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -70,6 +71,7 @@ public class SweetDomBuilder implements CustomBuilder {
             }
 
         } catch (SAXException | IOException e) {
+            logger.log(Level.ERROR, "some problems with DOM parser");
             e.printStackTrace();
             throw new ParserException(e.getMessage());
         }
@@ -117,7 +119,6 @@ public class SweetDomBuilder implements CustomBuilder {
     }
 
     private Node getNodeByName(Node parentNode, String targetNodeName) throws ParserException {
-        // targetNodeName = targetNodeName.replace("-", "_"); // ?
         NodeList children = parentNode.getChildNodes();
         for (int i = 0; i < children.getLength(); ++i) {
             Node current = children.item(i);
@@ -125,6 +126,7 @@ public class SweetDomBuilder implements CustomBuilder {
                 return current;
             }
         }
+        logger.log(Level.ERROR, "some problems with DOM parser. Node " + targetNodeName + " not found");
         throw new ParserException("Node " + targetNodeName + " not found");
     }
 

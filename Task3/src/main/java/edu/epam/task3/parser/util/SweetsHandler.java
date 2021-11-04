@@ -1,12 +1,12 @@
 package edu.epam.task3.parser.util;
 
-import entity.Candy;
-import entity.Chocolate;
-import entity.Sweet;
-import entity.enumsource.CandyType;
-import entity.enumsource.ChocolateType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
+import edu.epam.task3.entity.Candy;
+import edu.epam.task3.entity.Chocolate;
+import edu.epam.task3.entity.Sweet;
+import edu.epam.task3.entity.enumsource.CandyType;
+import edu.epam.task3.entity.enumsource.ChocolateType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.xml.sax.Attributes;

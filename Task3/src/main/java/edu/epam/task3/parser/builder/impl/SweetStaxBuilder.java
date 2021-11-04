@@ -3,13 +3,13 @@ package edu.epam.task3.parser.builder.impl;
 import edu.epam.task3.exception.ParserException;
 import edu.epam.task3.parser.builder.CustomBuilder;
 import edu.epam.task3.parser.util.SweetTag;
-import entity.Candy;
-import entity.Chocolate;
-import entity.Sweet;
-import entity.enumsource.CandyType;
-import entity.enumsource.ChocolateType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
+import edu.epam.task3.entity.Candy;
+import edu.epam.task3.entity.Chocolate;
+import edu.epam.task3.entity.Sweet;
+import edu.epam.task3.entity.enumsource.CandyType;
+import edu.epam.task3.entity.enumsource.ChocolateType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 public class SweetStaxBuilder implements CustomBuilder {
@@ -47,13 +46,11 @@ public class SweetStaxBuilder implements CustomBuilder {
         if (name.equals(SweetTag.CANDY.getValue())) {
             sweet = new Candy();
             Candy candy = (Candy) sweet;
-            //String candyAttributeValue = reader.getAttributeValue(null, SweetTag.CANDY_TYPE.getValue());
-            //candy.setCandyType(CandyType.valueOf(candyAttributeValue));
+
         } else if (name.equals(SweetTag.CHOCOLATE.getValue())) {
             sweet = new Chocolate();
             Chocolate chocolate = (Chocolate) sweet;
-            //String chocolateAttributeValue = reader.getAttributeValue(null, SweetTag.CHOCOLATE_TYPE.getValue());
-            //chocolate.setChocolateType(ChocolateType.valueOf(chocolateAttributeValue));
+
         }
         sweet.setId(reader.getAttributeValue(null, SweetTag.ID.getValue()));
         String packingAttributeValue = reader.getAttributeValue(null, SweetTag.PACKAGING.getValue());

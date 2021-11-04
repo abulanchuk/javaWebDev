@@ -1,8 +1,8 @@
-package entity;
+package edu.epam.task3.entity;
 
-import entity.enumsource.ChocolateType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
+import edu.epam.task3.entity.enumsource.ChocolateType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
 
 import java.time.LocalDate;
 

@@ -1,26 +1,32 @@
-package edu.epam.task3.parser.builder.impl;
+package edu.epam.task3;
 
+import edu.epam.task3.entity.Candy;
+import edu.epam.task3.entity.Chocolate;
+import edu.epam.task3.entity.Sweet;
+import edu.epam.task3.entity.SweetsValue;
 import edu.epam.task3.exception.ParserException;
 import edu.epam.task3.parser.builder.CustomBuilder;
-import entity.Candy;
-import entity.Chocolate;
-import entity.Sweet;
-import entity.SweetsValue;
-import entity.enumsource.CandyType;
-import entity.enumsource.ChocolateType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
+import edu.epam.task3.parser.builder.impl.SweetDomBuilder;
+import edu.epam.task3.parser.builder.impl.SweetSaxBuilder;
+import edu.epam.task3.parser.builder.impl.SweetStaxBuilder;
+
+import edu.epam.task3.entity.enumsource.CandyType;
+import edu.epam.task3.entity.enumsource.ChocolateType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
-
 import javax.xml.parsers.ParserConfigurationException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
-public class SweetDomBuilderTest {
+import static org.testng.Assert.assertTrue;
+
+public class SweetBuildersTest {
 
     private List<Sweet> sweets;
 
@@ -59,8 +65,8 @@ public class SweetDomBuilderTest {
 
         var sortedOutput = sweetDomBuilder.getSweets().stream().sorted(Comparator.comparing(Sweet::getId)).toArray();
 
-        assertTrue(sortedOutput[0].equals(sweets.get(0)));
-        assertTrue(sortedOutput[1].equals(sweets.get(1)));
+        assertTrue(Arrays.deepEquals(sortedOutput, sweets.toArray()));
+
     }
 
     @Test
@@ -70,7 +76,6 @@ public class SweetDomBuilderTest {
 
         var sortedOutput = sweetDomBuilder.getSweets().stream().sorted(Comparator.comparing(Sweet::getId)).toArray();
 
-        assertTrue(sortedOutput[0].equals(sweets.get(0)));
-        assertTrue(sortedOutput[1].equals(sweets.get(1)));
+        assertTrue(Arrays.deepEquals(sortedOutput, sweets.toArray()));
     }
 }

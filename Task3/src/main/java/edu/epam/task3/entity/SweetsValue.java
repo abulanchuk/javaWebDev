@@ -1,4 +1,4 @@
-package entity;
+package edu.epam.task3.entity;
 
 public class SweetsValue {
     private double proteins;

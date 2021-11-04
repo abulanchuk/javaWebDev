@@ -1,9 +1,8 @@
-package entity;
+package edu.epam.task3.entity;
 
-import entity.enumsource.CandyType;
-import entity.enumsource.PackagingType;
-import entity.enumsource.Production;
-
+import edu.epam.task3.entity.enumsource.CandyType;
+import edu.epam.task3.entity.enumsource.PackagingType;
+import edu.epam.task3.entity.enumsource.Production;
 import java.time.LocalDate;
 
 public class Candy extends Sweet {
@@ -68,6 +67,7 @@ public class Candy extends Sweet {
         stringBuilder.append("sweet value").append(value);
         stringBuilder.append("type of candy").append(candyType);
         stringBuilder.append("packaging Type").append(packing);
+        stringBuilder.append("candy filled").append(filled);
         stringBuilder.append("}\n");
         return stringBuilder.toString();
     }
