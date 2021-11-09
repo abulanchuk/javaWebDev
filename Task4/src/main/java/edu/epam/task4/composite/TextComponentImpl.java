@@ -23,10 +23,7 @@ public class TextComponentImpl implements TextComponent {
     @Override
     public void operation() {
         logger.log(Level.INFO, "call children operations");
-        int size = componentList.size();
-        for (int i = 0; i < size; i++) {
-            componentList.get(i).operation();
-        }
+      
     }
 
     @Override
