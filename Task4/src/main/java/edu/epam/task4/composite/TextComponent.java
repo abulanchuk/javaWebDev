@@ -7,6 +7,6 @@ public interface TextComponent {
 
     void add(TextComponent textComposite);
 
-    Object getChild(int index);
+    TextComponent getChild(int index);
 
 }

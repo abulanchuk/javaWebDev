@@ -42,7 +42,7 @@ public class TextComponentImpl implements TextComponent {
     }
 
     @Override
-    public Object getChild(int i) {
+    public TextComponent getChild(int i) {
         logger.log(Level.INFO, "get element with index: " + i);
         return componentList.get(i);
     }

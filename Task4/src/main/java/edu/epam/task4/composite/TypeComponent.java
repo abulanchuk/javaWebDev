@@ -1,9 +1,13 @@
 package edu.epam.task4.composite;
 
 public enum TypeComponent {
-    DELIMITER_TAB("\t"),
-    DELIMITER_SPACE(" "),
-    DELIMITER_NOT("");
+    TEXT("TEXT"),
+    PARAGRAPH("PARAGRAPH"),
+    SENTENCE("SENTENCE"),
+    LEXEME("LEXEME"),
+    WORD("WORD"),
+    SYMBOL("SYMBOL");
+
     private String delimiter;
     TypeComponent(String delimiter){
         this.delimiter = delimiter;
