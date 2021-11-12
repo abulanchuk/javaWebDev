@@ -7,15 +7,15 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class TextComponentImpl implements TextComponent {
-    private static Logger logger = LogManager.getLogger(TextComponentImpl.class);
+public class TextComposite implements TextComponent {
+    private static Logger logger = LogManager.getLogger(TextComposite.class);
     protected List<TextComponent> componentList = new ArrayList<TextComponent>();
     private TypeComponent type;
 
-    public TextComponentImpl() {
+    public TextComposite() {
     }
 
-    public TextComponentImpl(TypeComponent type) {//TODO
+    public TextComposite(TypeComponent type) {//TODO
         this.type = type;
     }
 
@@ -23,7 +23,7 @@ public class TextComponentImpl implements TextComponent {
     @Override
     public void operation() {
         logger.log(Level.INFO, "call children operations");
-      
+
     }
 
     @Override
