@@ -9,13 +9,4 @@ public enum TypeComponent {
     SYMBOL,
     LETTER,
     PUNCTUATION;
-
-   /* private String delimiter;
-    TypeComponent(String delimiter){
-        this.delimiter = delimiter;
-    }
-
-    public String getDelimiter() {
-        return delimiter;
-    }*/
 }

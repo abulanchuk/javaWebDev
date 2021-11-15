@@ -11,6 +11,7 @@ public class LexemeHandler extends AbstractHandler {
     @Override
     public void toHandlerRequest(TextComponent component, String element) {
         element = element.trim();
+
         String[] lexemes = element.split(DELIMITER_LEXEME);
         for (String lexeme : lexemes) {
             TextComponent lexemeComponent = new TextComposite(TypeComponent.LEXEME);

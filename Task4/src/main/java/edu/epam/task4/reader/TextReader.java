@@ -6,32 +6,24 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class TextReader {
     private static Logger logger = LogManager.getLogger(TextReader.class);
 
-    public static List<String> readLines(String pathToFile) throws InvalidPathFormatException {
+    public static String readText(String pathToFile) throws InvalidPathFormatException, IOException {
 
         if (pathToFile == null || pathToFile.isEmpty()) {
             logger.log(Level.ERROR, "File is not found" + pathToFile);
             throw new InvalidPathFormatException("File is not found");
         }
         Path path = Paths.get(pathToFile);
+        String line = Files.readString(path, StandardCharsets.UTF_8);
 
-        List<String> lines = new ArrayList<>();
-        try (Stream<String> lineStream = Files.lines(path)) {
-            lines = lineStream.collect(Collectors.toList());
-
-        } catch (IOException ignored) {
-        }
-
-        return lines;
+        return line;
     }
 }

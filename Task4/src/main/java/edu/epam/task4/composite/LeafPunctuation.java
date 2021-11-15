@@ -13,10 +13,6 @@ public class LeafPunctuation implements TextComponent{
         this.type = type;
     }
 
-    @Override
-    public void operation() {
-
-    }
 
     @Override
     public void remove(TextComponent textComposite) {

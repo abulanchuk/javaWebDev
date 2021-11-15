@@ -7,19 +7,20 @@ import edu.epam.task4.composite.TypeComponent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SentenceHandler extends AbstractHandler{
+public class SentenceHandler extends AbstractHandler {
     private AbstractHandler sentenceHandler = new LexemeHandler();
-    private static final String SENTENCE_DELIMITER = "[A-ZА-Я][a-zа-я ,\"()-]*(([\\.]{3}|[!?.])[ \r\n])";
+    private static final String SENTENCE_REGEX = "[A-ZА-Я][a-zа-я ,\"()-]+(([\\.]{3}|[!?.])( |\r\n|\\Z))";
+
     @Override
     public void toHandlerRequest(TextComponent component, String element) {
-        Pattern pattern = Pattern.compile(SENTENCE_DELIMITER);
+        Pattern pattern = Pattern.compile(SENTENCE_REGEX);
         Matcher matcher = pattern.matcher(element);
-        if (matcher.find()){
-            for( int i = 0; i < matcher.groupCount()+1; i++ ){
-                TextComponent sentence = new TextComposite(TypeComponent.SENTENCE);
-                component.add(sentence);
-                sentenceHandler.toHandlerRequest(sentence,matcher.group(i));
-            }
+        while (matcher.find()) {
+            TextComponent sentence = new TextComposite(TypeComponent.SENTENCE);
+            component.add(sentence);
+
+            String sentenceText = element.substring(matcher.start(), matcher.end());
+            sentenceHandler.toHandlerRequest(sentence, sentenceText);
         }
 
     }
