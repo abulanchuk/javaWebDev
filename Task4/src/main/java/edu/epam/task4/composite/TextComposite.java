@@ -12,6 +12,15 @@ public class TextComposite implements TextComponent {
     protected List<TextComponent> componentList = new ArrayList<TextComponent>();
     private TypeComponent type;
 
+    public TypeComponent getType() {
+        return type;
+    }
+
+    @Override
+    public int getChildrenCount() {
+        return componentList.size();
+    }
+
 
     public TextComposite(TypeComponent type) {//TODO
         this.type = type;
@@ -34,6 +43,11 @@ public class TextComposite implements TextComponent {
     public TextComponent getChild(int i) {
         logger.log(Level.INFO, " get element with index: " + i);
         return componentList.get(i);
+    }
+
+    @Override
+    public void removeChild(int index) {
+        componentList.remove(index);
     }
 
     @Override

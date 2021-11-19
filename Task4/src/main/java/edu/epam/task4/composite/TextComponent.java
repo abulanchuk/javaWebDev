@@ -9,4 +9,9 @@ public interface TextComponent {
 
     TextComponent getChild(int index);
 
+    void removeChild(int index);
+
+    TypeComponent getType();
+
+    int getChildrenCount();
 }
