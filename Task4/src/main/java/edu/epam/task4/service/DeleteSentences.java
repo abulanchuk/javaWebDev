@@ -19,7 +19,7 @@ public class DeleteSentences {
             for (int j = 0; j < paragraph.getChildrenCount(); j++) {
                 TextComponent sentence = paragraph.getChild(j);
                 int wordCounter = sentence.getChildrenCount();
-                if (wordCounter > number) {
+                if (wordCounter < number) {
                     indexesToDelete.add(j);
                 }
             }

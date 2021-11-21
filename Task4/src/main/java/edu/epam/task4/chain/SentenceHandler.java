@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class SentenceHandler extends AbstractHandler {
     private AbstractHandler sentenceHandler = new LexemeHandler();
-    private static final String SENTENCE_REGEX = "[A-ZА-Я][a-zа-я ,\"()-]+(([\\.]{3}|[!?.])( |\r\n|\\Z))";
+    private static final String SENTENCE_REGEX = "[A-ZА-Я]((?!\\. )[A-ZА-Яa-zа-я=:'?!\\. ,\\-\\\"”“()0-9])+(([\\.]{3}|[!?.])( |\\r\\n|\\Z))";
 
     @Override
     public void toHandlerRequest(TextComponent component, String element) {

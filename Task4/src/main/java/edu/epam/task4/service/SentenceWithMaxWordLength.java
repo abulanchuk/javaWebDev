@@ -24,14 +24,19 @@ public class SentenceWithMaxWordLength {
         ArrayList<Integer> maxWordsLength = new ArrayList<>();
         int maxLengthInOneSentence = 0;
         for (int i = 0; i < sentences.size(); i++) {
-            ArrayList<Integer> wordsLength = new ArrayList<>();
+            ArrayList<Integer> wordsLength = new ArrayList<>();//todo
             for (int j = 0; j < sentences.get(i).getChildrenCount(); j++) {
-                TextComponent word = sentences.get(i).getChild(j);
-                wordsLength.add(word.getChildrenCount());
+                TextComponent lexeme = sentences.get(i).getChild(j);
+                for(int k=0;k< lexeme.getChildrenCount();k++){
+                    TextComponent word = lexeme.getChild(k);
+                    wordsLength.add(word.getChildrenCount());
+                }
+
             }
             maxLengthInOneSentence = Collections.max(wordsLength);
             maxWordsLength.add(maxLengthInOneSentence);
         }
+        maxLengthInOneSentence = Collections.max(maxWordsLength);
         ArrayList<TextComponent> sentencesToReturn = new ArrayList<>();
         for (int i = 0; i < maxWordsLength.size(); i++) {
             if (maxLengthInOneSentence == maxWordsLength.get(i)) {

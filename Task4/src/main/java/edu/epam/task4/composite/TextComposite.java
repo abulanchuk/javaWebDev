@@ -22,7 +22,7 @@ public class TextComposite implements TextComponent {
     }
 
 
-    public TextComposite(TypeComponent type) {//TODO
+    public TextComposite(TypeComponent type) {
         this.type = type;
     }
 
