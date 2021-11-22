@@ -24,7 +24,7 @@ public class SentenceWithMaxWordLength {
         ArrayList<Integer> maxWordsLength = new ArrayList<>();
         int maxLengthInOneSentence = 0;
         for (int i = 0; i < sentences.size(); i++) {
-            ArrayList<Integer> wordsLength = new ArrayList<>();//todo
+            ArrayList<Integer> wordsLength = new ArrayList<>();
             for (int j = 0; j < sentences.get(i).getChildrenCount(); j++) {
                 TextComponent lexeme = sentences.get(i).getChild(j);
                 for(int k=0;k< lexeme.getChildrenCount();k++){
