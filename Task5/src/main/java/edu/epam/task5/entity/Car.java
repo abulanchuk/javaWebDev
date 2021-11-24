@@ -16,11 +16,5 @@ public class Car {
         return carNumber;
     }
 
-    public void goToFerry() {
-        logger.log(Level.INFO, "car number " + carNumber + " went to ferry");
-    }
 
-    public void goOutFromFerry() {
-        logger.log(Level.INFO, "car number " + carNumber + " went out from ferry");
-    }
 }
