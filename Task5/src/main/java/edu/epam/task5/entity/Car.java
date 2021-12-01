@@ -1,22 +1,18 @@
 package edu.epam.task5.entity;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 public class Car {
-    private static Logger logger = LogManager.getLogger(Car.class);
-    private int idCar;
+    private long idCar;
     private String carNumber;
-    private float weight;
+    private double weight;
 
-    public Car(int idCar, String carNumber, float weight) {
+    public Car(long idCar, String carNumber, double weight) {
         this.idCar = idCar;
         this.carNumber = carNumber;
         this.weight = weight;
     }
 
-    public int getIdCar() {
+    public long getIdCar() {
         return idCar;
     }
 
@@ -24,7 +20,7 @@ public class Car {
         return carNumber;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 

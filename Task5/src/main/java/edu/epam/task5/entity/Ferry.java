@@ -1,13 +1,10 @@
 package edu.epam.task5.entity;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ferry {
-    private static Logger logger = LogManager.getLogger(Ferry.class);
     private int capacity;
     private int howManyCarsInTheMoment;
     private double totalWeightCars;
@@ -16,20 +13,16 @@ public class Ferry {
     private List<Car> whatCarsOnAFerry;
 
 
-    public Ferry(int capacity, int howManyCarsInTheMoment, double totalWeightCars, double maxWeight, boolean fullOrNot, List<Car> whatCarsOnAFerry) {
+    public Ferry(int capacity, double maxWeight) {
+        whatCarsOnAFerry = new ArrayList<>();
         this.capacity = capacity;
-        this.howManyCarsInTheMoment = howManyCarsInTheMoment;
-        this.totalWeightCars = totalWeightCars;
         this.maxWeight = maxWeight;
-        this.fullOrNot = fullOrNot;
-        this.whatCarsOnAFerry = whatCarsOnAFerry;
     }
 
     public boolean isFullOrNot() {
         if (howManyCarsInTheMoment < capacity || maxWeight > totalWeightCars) {
             return false;
         }
-        logger.log(Level.INFO, "The ferry is full " + fullOrNot);
         return true;
     }
 
@@ -57,11 +50,9 @@ public class Ferry {
             try {
                 wait();
             } catch (InterruptedException e) {
-                logger.log(Level.INFO, "The ferry is full" + e);
                 e.printStackTrace();
             }
             howManyCarsInTheMoment++;
-            logger.log(Level.INFO, "The car went to ferry");
         }
 
     }
@@ -70,7 +61,6 @@ public class Ferry {
         whatCarsOnAFerry.removeAll(whatCarsOnAFerry);
         howManyCarsInTheMoment = whatCarsOnAFerry.size();
         fullOrNot = false;
-        logger.log(Level.INFO, "The cars went out from ferry");
     }
 
     public List<Car> getWhatCarsOnAFerry() {
