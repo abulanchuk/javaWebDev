@@ -22,15 +22,16 @@ public class CarsParser {
         }
         ArrayList<Car> cars = new ArrayList<>();
         for (String line : lines) {
-         String []parameters =  line.split(SPLIT_REGEX);
-         if(parameters.length!=2){
-             throw new SymbolException("more than 2 parameters");
-         }
-         String carNumber = parameters[0];
-         double carWeight = Double.parseDouble(parameters[1]);
-         long carId = IdGenerator.generateId();
-         Car car = new Car(carId,carNumber,carWeight);
-         cars.add(car);
+            String[] parameters = line.split(SPLIT_REGEX);
+            if (parameters.length != 2) {
+                logger.log(Level.ERROR, "more than 2 parameters" + parameters);
+                throw new SymbolException("more than 2 parameters");
+            }
+            String carNumber = parameters[0];
+            float carWeight = Float.parseFloat(parameters[1]);
+            int carId = IdGenerator.generateId();
+            Car car = new Car(carId, carNumber, carWeight);
+            cars.add(car);
         }
         return cars;
     }
