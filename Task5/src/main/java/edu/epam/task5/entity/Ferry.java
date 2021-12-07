@@ -1,17 +1,18 @@
 package edu.epam.task5.entity;
 
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Ferry {
+    private static Logger logger = LogManager.getLogger(Ferry.class);
     private int capacity = 5;
     private double maxWeight = 12000d;
 
@@ -55,9 +56,11 @@ public class Ferry {
     public void addToQueue(Car car) {
         try {
             queueLock.lock();
+            logger.log(Level.INFO, "NEW CAR: " + car);
             System.out.println("NEW CAR: " + car);
 
             if (!canAcceptCar(car)) {
+                logger.log(Level.INFO, "CANT ACCEPT CAR " + car + ", FERRY: " + this);
                 System.out.println("CANT ACCEPT CAR " + car + ", FERRY: " + this);
                 shipCars();
             }
@@ -69,6 +72,7 @@ public class Ferry {
             }
 
         } catch (InterruptedException e) {
+            logger.log(Level.ERROR, e);
             e.printStackTrace();
         } finally {
             queueLock.unlock();
@@ -89,8 +93,10 @@ public class Ferry {
     }
 
     public void shipCars() throws InterruptedException {
+        logger.log(Level.INFO, "FERRY: Departure, cars on board: " + whatCarsOnAFerry.size());
         System.out.println("FERRY: Departure, cars on board: " + whatCarsOnAFerry.size());
         TimeUnit.SECONDS.sleep(4);
+        logger.log(Level.INFO, "FERRY: Arrival");
         System.out.println("FERRY: Arrival");
         unloadAll();
     }

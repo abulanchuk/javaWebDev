@@ -30,6 +30,7 @@ public class LineReader {
             lines = lineStream.collect(Collectors.toList());
 
         } catch (IOException ignored) {
+            logger.log(Level.ERROR, ignored);
         }
 
         return lines;

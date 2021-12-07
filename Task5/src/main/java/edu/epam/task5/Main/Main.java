@@ -1,19 +1,18 @@
 package edu.epam.task5.Main;
 
 import edu.epam.task5.entity.Car;
-import edu.epam.task5.entity.Ferry;
 import edu.epam.task5.exception.InvalidPathFormatException;
 import edu.epam.task5.exception.SymbolException;
 import edu.epam.task5.parser.CarsParser;
 import edu.epam.task5.reader.LineReader;
 import edu.epam.task5.service.CarOperator;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import java.util.concurrent.*;
 
 
@@ -41,13 +40,11 @@ public class Main {
             }
 
         } catch (ExecutionException e) {
+            logger.log(Level.ERROR, e);
             e.printStackTrace();
         } catch (InterruptedException e) {
+            logger.log(Level.ERROR, e);
             e.printStackTrace();
         }
-
-
-        //Ferry ferry = new Ferry(5,4000);
-        //System.out.println(cars);
     }
 }
