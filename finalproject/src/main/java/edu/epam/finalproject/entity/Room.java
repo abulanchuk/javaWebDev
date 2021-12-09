@@ -77,6 +77,7 @@ public class Room {
         this.imageUrl = imageUrl;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,17 +93,20 @@ public class Room {
         if (!price.equals(room.price)) return false;
         return imageUrl.equals(room.imageUrl);
     }
-    // Room r = new Room(..., "http://fsdfsdf")
-    // Room r = new Room(..., null)
+
     @Override
     public int hashCode() {
         int result = idRoom;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + price.hashCode();
         result = 31 * result + roomType;
         result = 31 * result + floor;
         result = 31 * result + roomNumber;
         result = 31 * result + idDiscount;
-        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
+        result = 31 * result + imageUrl.hashCode();
         return result;
     }
+
+    // Room r = new Room(..., "http://fsdfsdf")
+    // Room r = new Room(..., null)
+
 }
