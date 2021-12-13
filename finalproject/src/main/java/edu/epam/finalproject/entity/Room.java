@@ -3,7 +3,7 @@ package edu.epam.finalproject.entity;
 import java.math.BigDecimal;
 
 public class Room {
-    private int idRoom;
+    private long idRoom;
     private BigDecimal price;
     private int roomType;
     private int floor;
@@ -11,7 +11,7 @@ public class Room {
     private int idDiscount;
     private String imageUrl;
 
-    public Room(int idRoom, BigDecimal price, int roomType, int floor, int roomNumber, int idDiscount, String imageUrl) {
+    public Room(long idRoom, BigDecimal price, int roomType, int floor, int roomNumber, int idDiscount, String imageUrl) {
         this.idRoom = idRoom;
         this.price = price;
         this.roomType = roomType;
@@ -21,9 +21,10 @@ public class Room {
         this.imageUrl = imageUrl;
     }
 
-    public int getIdRoom() {
+    public long getIdRoom() {
         return idRoom;
     }
+
 
     public BigDecimal getPrice() {
         return price;
@@ -96,17 +97,13 @@ public class Room {
 
     @Override
     public int hashCode() {
-        int result = idRoom;
+        int result = (int) (idRoom ^ (idRoom >>> 32));
         result = 31 * result + price.hashCode();
         result = 31 * result + roomType;
         result = 31 * result + floor;
         result = 31 * result + roomNumber;
         result = 31 * result + idDiscount;
-        result = 31 * result + imageUrl.hashCode();
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         return result;
     }
-
-    // Room r = new Room(..., "http://fsdfsdf")
-    // Room r = new Room(..., null)
-
 }

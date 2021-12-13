@@ -1,17 +1,17 @@
 package edu.epam.finalproject.entity;
 
 public class Butler {
-    private int idButler;
+    private long idButler;
     private long idUser;
     private long idComment;
 
-    public Butler(int idButler, long idUser, long idComment) {
+    public Butler(long idButler, long idUser, long idComment) {
         this.idButler = idButler;
         this.idUser = idUser;
         this.idComment = idComment;
     }
 
-    public int getIdButler() {
+    public long getIdButler() {
         return idButler;
     }
 
@@ -49,7 +49,7 @@ public class Butler {
 
     @Override
     public int hashCode() {
-        int result = idButler;
+        int result = (int) (idButler ^ (idButler >>> 32));
         result = 31 * result + (int) (idUser ^ (idUser >>> 32));
         result = 31 * result + (int) (idComment ^ (idComment >>> 32));
         return result;

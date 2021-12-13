@@ -1,7 +1,7 @@
 package edu.epam.finalproject.entity;
 
 public class User {
-    private int idUser;
+    private long idUser;
     private String login;
     private String password;
     private int role;
@@ -11,7 +11,7 @@ public class User {
 
 
 
-    public User(int idUser, String login, String password, int role, String name, String surname, String phoneNumber) {
+    public User(long idUser, String login, String password, int role, String name, String surname, String phoneNumber) {
         this.idUser = idUser;
         this.login = login;
         this.password = password;
@@ -21,7 +21,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
@@ -95,13 +95,13 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = idUser;
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = (int) (idUser ^ (idUser >>> 32));
+        result = 31 * result + login.hashCode();
+        result = 31 * result + password.hashCode();
         result = 31 * result + role;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
         return result;
     }
 

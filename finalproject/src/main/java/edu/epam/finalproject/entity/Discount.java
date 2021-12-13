@@ -1,28 +1,28 @@
 package edu.epam.finalproject.entity;
 
 public class Discount {
-    private int discount;
-    private byte perecent;
+    private long idDiscount;
+    private byte percent;
 
-    public Discount(int discount, byte perecent) {
-        this.discount = discount;
-        this.perecent = perecent;
+    public Discount(long idDiscount, byte percent) {
+        this.idDiscount = idDiscount;
+        this.percent = percent;
     }
 
-    public int getDiscount() {
-        return discount;
+    public long getIdDiscount() {
+        return idDiscount;
     }
 
-    public byte getPerecent() {
-        return perecent;
+    public byte getPercent() {
+        return percent;
     }
 
-    public void setDiscount(int discount) {
-        this.discount = discount;
+    public void setIdDiscount(int idDiscount) {
+        this.idDiscount = idDiscount;
     }
 
-    public void setPerecent(byte perecent) {
-        this.perecent = perecent;
+    public void setPercent(byte percent) {
+        this.percent = percent;
     }
 
     @Override
@@ -32,14 +32,14 @@ public class Discount {
 
         Discount discount1 = (Discount) o;
 
-        if (discount != discount1.discount) return false;
-        return perecent == discount1.perecent;
+        if (idDiscount != discount1.idDiscount) return false;
+        return percent == discount1.percent;
     }
 
     @Override
     public int hashCode() {
-        int result = discount;
-        result = 31 * result + (int) perecent;
+        int result = (int) (idDiscount ^ (idDiscount >>> 32));
+        result = 31 * result + (int) percent;
         return result;
     }
 }
