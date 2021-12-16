@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_USER_BY_ID = """
             SELECT login, password, role, name, surname, phone_number FROM users WHERE id_user =(?)""";
     private static final String SQL_DELETE_BY_ID = """
-            DELETE FROM users WHERE user_id = (?)""";
+            DELETE FROM users WHERE id_user = (?)""";
     private static final String SQL_UPDATE_USERS = """
             UPDATE users SET login = (?), password = (?), role = (?), name = (?), surname=(?), phone_number = (?)""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
