@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao extends BaseDao<User> {
-    boolean updatePassword(String login,String oldPassword,String newPassword) throws DaoException;
+    boolean updatePasswordByLogin(String login, String oldPassword, String newPassword) throws DaoException;
     boolean updateLogin(String currentLogin, String newLogin) throws DaoException;
     List<User> findAllUsersWithRole(UserRole role) throws DaoException;
     List<User> findAllUsersWithSuchSurname(String surname) throws DaoException;
