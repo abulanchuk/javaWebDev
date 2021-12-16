@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public interface BaseDao<T extends CustomEntity>{
@@ -20,7 +21,7 @@ public interface BaseDao<T extends CustomEntity>{
 
     List<T> findAll() throws DaoException;
     T findById(T id) throws DaoException;
-    void deleteById(T id) throws DaoException;
+    boolean deleteById(T user) throws DaoException;
     T update(T t) throws DaoException;
 
     default void close (Connection connection) throws DaoException {
@@ -31,8 +32,20 @@ public interface BaseDao<T extends CustomEntity>{
         } catch (SQLException e){
             StringWriter stacktraceWriter = new StringWriter();
             e.printStackTrace(new PrintWriter(stacktraceWriter));
-            logger.log(Level.ERROR, "Some problems with deregister drivers in pool" + stacktraceWriter.toString());
-            throw new DaoException("Some problems with closing");
+            logger.log(Level.ERROR, "Some problems with closing connection " + stacktraceWriter.toString());
+            throw new DaoException("Some problems with closing connection");
+        }
+    }
+    default void close (Statement statement)throws DaoException{
+        try{
+            if(statement!=null){
+                statement.close();
+            }
+        } catch (SQLException e) {
+            StringWriter stacktraceWriter = new StringWriter();
+            e.printStackTrace(new PrintWriter(stacktraceWriter));
+            logger.log(Level.ERROR, "Some problems with closing statement " + stacktraceWriter.toString());
+            throw new DaoException("Some problems with closing statement");
         }
     }
 }

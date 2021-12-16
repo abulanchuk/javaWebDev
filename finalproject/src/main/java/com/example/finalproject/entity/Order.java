@@ -9,16 +9,16 @@ public class Order extends CustomEntity{
     private LocalDate finishDate;
     private boolean isPaid;
     private boolean isActive;
-    private long idBooking;
+    private long idClient;
 
-    public Order(long idOrder, int idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idBooking) {
+    public Order(long idOrder, int idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
         this.idOrder = idOrder;
         this.idButler = idButler;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.isPaid = isPaid;
         this.isActive = isActive;
-        this.idBooking = idBooking;
+        this.idClient = idClient;
     }
 
     public long getIdOrder() {
@@ -45,8 +45,8 @@ public class Order extends CustomEntity{
         return isActive;
     }
 
-    public long getIdBooking() {
-        return idBooking;
+    public long getIdClient() {
+        return idClient;
     }
 
     public void setIdOrder(long idOrder) {
@@ -73,8 +73,8 @@ public class Order extends CustomEntity{
         isActive = active;
     }
 
-    public void setIdBooking(long idBooking) {
-        this.idBooking = idBooking;
+    public void setIdClient(long idClient) {
+        this.idClient = idClient;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Order extends CustomEntity{
         if (idButler != order.idButler) return false;
         if (isPaid != order.isPaid) return false;
         if (isActive != order.isActive) return false;
-        if (idBooking != order.idBooking) return false;
+        if (idClient != order.idClient) return false;
         if (!startDate.equals(order.startDate)) return false;
         return finishDate.equals(order.finishDate);
     }
@@ -101,7 +101,7 @@ public class Order extends CustomEntity{
         result = 31 * result + finishDate.hashCode();
         result = 31 * result + (isPaid ? 1 : 0);
         result = 31 * result + (isActive ? 1 : 0);
-        result = 31 * result + (int) (idBooking ^ (idBooking >>> 32));
+        result = 31 * result + (int) (idClient ^ (idClient >>> 32));
         return result;
     }
 }

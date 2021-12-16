@@ -10,7 +10,6 @@ public class User extends CustomEntity{
     private String phoneNumber;
 
 
-
     public User(long idUser, String login, String password, UserRole role, String name, String surname, String phoneNumber) {
         this.idUser = idUser;
         this.login = login;
@@ -20,6 +19,8 @@ public class User extends CustomEntity{
         this.surname = surname;
         this.phoneNumber = phoneNumber;
     }
+
+    public User(){}
 
     public long getIdUser() {
         return idUser;

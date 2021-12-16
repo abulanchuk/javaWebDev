@@ -4,10 +4,13 @@ import com.example.finalproject.dao.UserDao;
 import com.example.finalproject.entity.User;
 import com.example.finalproject.entity.UserRole;
 import com.example.finalproject.exception.DaoException;
+import com.example.finalproject.mapper.CustomRowMapper;
+import com.example.finalproject.mapper.impl.UserMapperCustom;
+import com.example.finalproject.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,11 +42,26 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_USER_BY_LOGIN = """
             SELECT name, surname, role, phone_number WHERE login = (?)""";
 
+    private final CustomRowMapper<User> mapper;
+
+    public UserDaoImpl() {
+        mapper = new UserMapperCustom();
+    }
+
     @Override
     public List<User> findAll() throws DaoException {
-        List<User> allUsers = new ArrayList<>();//todo
+        List<User> allUsers = new ArrayList<>();
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+            Statement statement = connection.createStatement()){
+            try(ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)){
+                allUsers =mapper.mapRow(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Some problems with finding all users "+e);
+        }
         return allUsers;
     }
+
 
     @Override
     public User findById(User id) throws DaoException {
@@ -51,8 +69,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void deleteById(User id) throws DaoException {
-
+    public boolean deleteById(User user) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BY_ID)){
+            statement.setLong(1, user.getIdUser());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Failed to delete user by id", e);
+        }
     }
 
     @Override
@@ -76,7 +100,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllUsersWithRole(UserRole role) throws DaoException {
+    public List<User> findAllUsersByRole(UserRole role) throws DaoException {
         return null;
     }
 
