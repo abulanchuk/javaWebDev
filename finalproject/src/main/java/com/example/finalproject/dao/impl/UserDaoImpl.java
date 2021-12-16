@@ -15,29 +15,29 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
     static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private static final String SQL_SELECT_ALL_USERS = """
-            SELECT users.id_user, users.login, users.password, users.role, users.name, users.surname, users.phone_number FROM users""";
+            SELECT id_user, login, password, role, name, surname, phone_number FROM users""";
     private static final String SQL_SELECT_USER_BY_ID = """
-            SELECT users.login, users.password, users.role, users.name, users.surname, users.phone_number FROM users WHERE users.id_user =(?)""";
+            SELECT login, password, role, name, surname, phone_number FROM users WHERE id_user =(?)""";
     private static final String SQL_DELETE_BY_ID = """
             DELETE FROM users WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USERS = """
-            UPDATE users SET users.login = (?), users.password = (?), users.role = (?), users.name = (?), users.surname=(?), users.phoneNumber = (?)""";
+            UPDATE users SET login = (?), password = (?), role = (?), name = (?), surname=(?), phone_number = (?)""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
-            UPDATE users SET users.password = (?) WHERE users.login = (?)""";
+            UPDATE users SET password = (?) WHERE login = (?)""";
     private static final String SQL_UPDATE_LOGIN = """
-            UPDATE users SET users.login = (?) WHERE users.login = (?)""";
+            UPDATE users SET login = (?) WHERE login = (?)""";
     private static final String SQL_SELECT_USERS_BY_ROLE = """
-            SELECT users.name, users.surname, users.phoneNumber WHERE users.role = (?)""";
+            SELECT name, surname, phone_number WHERE role = (?)""";
     private static final String SQL_SELECT_USERS_BY_SURNAME = """
-            SELECT users.name, users.surname, users.phone_number WHERE SURNAME = (?)""";
+            SELECT name, surname, phone_number WHERE surname = (?)""";
     private static final String SQL_UPDATE_SURNAME = """
-            UPDATE users SET users.surname = (?) WHERE users.surname = (?)""";
+            UPDATE users SET surname = (?) WHERE surname = (?)""";
     private static final String SQL_UPDATE_NAME = """
-            UPDATE users SET users.name = (?) WHERE users.name = (?)""";
+            UPDATE users SET name = (?) WHERE name = (?)""";
     private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = """
-            SELECT users.name, users.surname, users.role WHERE users.phone_number = (?)""";
-    private static final String SQL_SELECT_USER_BY_LOGIN_NUMBER = """
-            SELECT users.name, users.surname, users.role, users.phone_number WHERE users.login = (?)""";
+            SELECT name, surname, role WHERE phone_number = (?)""";
+    private static final String SQL_SELECT_USER_BY_LOGIN = """
+            SELECT name, surname, role, phone_number WHERE login = (?)""";
 
     @Override
     public List<User> findAll() throws DaoException {
