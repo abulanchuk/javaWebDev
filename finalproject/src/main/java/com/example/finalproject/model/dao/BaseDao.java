@@ -1,11 +1,9 @@
-package com.example.finalproject.dao;
+package com.example.finalproject.model.dao;
 
 import com.example.finalproject.entity.CustomEntity;
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.pool.ConnectionPool;
 import org.apache.log4j.Level;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -15,14 +13,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
 
 public interface BaseDao<T extends CustomEntity>{
     static Logger logger = LogManager.getLogger(BaseDao.class);
 
     List<T> findAll() throws DaoException;
-    T findById(T id) throws DaoException;
+    Optional<T> findById(T id) throws DaoException;
     boolean deleteById(T user) throws DaoException;
-    T update(T t) throws DaoException;
+
 
     default void close (Connection connection) throws DaoException {
         try{

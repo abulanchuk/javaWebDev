@@ -1,4 +1,4 @@
-package com.example.finalproject.dao;
+package com.example.finalproject.model.dao;
 
 import com.example.finalproject.entity.Butler;
 

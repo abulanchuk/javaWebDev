@@ -1,4 +1,4 @@
-package com.example.finalproject.pool;
+package com.example.finalproject.model.pool;
 
 import com.example.finalproject.exception.InvalidConnectionTypeException;
 import org.apache.log4j.Level;
@@ -63,22 +63,14 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
-        try {
             ConnectionPool.INSTANCE.releaseConnection(this);
-        } catch (InvalidConnectionTypeException e) {
-            StringWriter stacktraceWriter = new StringWriter();
-            e.printStackTrace(new PrintWriter(stacktraceWriter));
-            logger.log(Level.ERROR, stacktraceWriter.toString());
-        }
     }
 
     void reallyClose() {
         try {
             connection.close();
         } catch (SQLException e) {
-            StringWriter stacktraceWriter = new StringWriter();
-            e.printStackTrace(new PrintWriter(stacktraceWriter));
-            logger.log(Level.ERROR, "Some problems closing connection" + stacktraceWriter.toString());
+            logger.log(Level.ERROR, "Some problems closing connection" + e.getMessage());
         }
     }
 

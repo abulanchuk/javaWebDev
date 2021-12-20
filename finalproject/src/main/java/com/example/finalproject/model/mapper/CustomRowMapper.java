@@ -1,4 +1,4 @@
-package com.example.finalproject.mapper;
+package com.example.finalproject.model.mapper;
 
 
 import com.example.finalproject.exception.DaoException;

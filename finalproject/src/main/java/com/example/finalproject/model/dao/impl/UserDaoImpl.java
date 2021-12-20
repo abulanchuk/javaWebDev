@@ -1,12 +1,12 @@
-package com.example.finalproject.dao.impl;
+package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.dao.UserDao;
+import com.example.finalproject.model.dao.UserDao;
 import com.example.finalproject.entity.User;
 import com.example.finalproject.entity.UserRole;
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.mapper.CustomRowMapper;
-import com.example.finalproject.mapper.impl.UserMapperCustom;
-import com.example.finalproject.pool.ConnectionPool;
+import com.example.finalproject.model.mapper.CustomRowMapper;
+import com.example.finalproject.model.mapper.impl.UserMapperCustom;
+import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -31,6 +31,8 @@ public class UserDaoImpl implements UserDao {
             UPDATE users SET login = (?) WHERE login = (?)""";
     private static final String SQL_SELECT_USERS_BY_ROLE = """
             SELECT name, surname, phone_number WHERE role = (?)""";
+    private static final String SQL_SELECT_USERS_BY_NAME = """
+            SELECT name, surname, phone_number WHERE name = (?)""";
     private static final String SQL_SELECT_USERS_BY_SURNAME = """
             SELECT name, surname, phone_number WHERE surname = (?)""";
     private static final String SQL_UPDATE_SURNAME = """
@@ -41,6 +43,8 @@ public class UserDaoImpl implements UserDao {
             SELECT name, surname, role WHERE phone_number = (?)""";
     private static final String SQL_SELECT_USER_BY_LOGIN = """
             SELECT name, surname, role, phone_number WHERE login = (?)""";
+    private static final String SQL_UPDATE_PHONE_NUMBER = """
+            UPDATE users SET phone_number = (?) WHERE phone_number = (?)""";
 
     private final CustomRowMapper<User> mapper;
 
@@ -64,7 +68,7 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public User findById(User id) throws DaoException {
+    public Optional<User> findById(User id) throws DaoException {
         return null;
     }
 
@@ -77,11 +81,6 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException("Failed to delete user by id", e);
         }
-    }
-
-    @Override
-    public User update(User user) throws DaoException {
-        return null;
     }
 
     @Override
@@ -105,6 +104,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> findAllUsersByName(String name) throws DaoException {
+        return null;
+    }
+
+
+    @Override
     public List<User> findAllUsersWithSuchSurname(String surname) throws DaoException {
         return null;
     }
@@ -116,6 +121,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean updateName(String currentName, String newName) throws DaoException {
+        return false;
+    }
+
+    @Override
+    public boolean updatePhoneNumber(String newPhoneNumber) throws DaoException {
         return false;
     }
 

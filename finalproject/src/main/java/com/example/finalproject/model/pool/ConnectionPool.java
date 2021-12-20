@@ -1,4 +1,4 @@
-package com.example.finalproject.pool;
+package com.example.finalproject.model.pool;
 
 
 import java.io.FileReader;
@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 
 import com.example.finalproject.exception.InvalidConnectionTypeException;
-import com.example.finalproject.factory.ConnectionFactory;
+import com.example.finalproject.model.factory.ConnectionFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -56,20 +56,23 @@ public enum ConnectionPool {
             connection = freeConnections.take();
             givenConnections.offer(connection);
         } catch (InterruptedException e) {
-            StringWriter stacktraceWriter = new StringWriter();
-            e.printStackTrace(new PrintWriter(stacktraceWriter));
-            logger.log(Level.ERROR, "There is no way to get a connection" + stacktraceWriter.toString());
+            logger.log(Level.ERROR, "There is no way to get a connection" + e.getMessage());
         }
         return connection;
     }
 
-    public void releaseConnection(Connection connection) throws InvalidConnectionTypeException {
-        if (!(connection instanceof ProxyConnection)) {
-            logger.log(Level.ERROR, connection + " not ProxyConnection");
-            throw new InvalidConnectionTypeException(connection + " not ProxyConnection");
+    public void releaseConnection(Connection connection) {
+        try {
+            if (!(connection instanceof ProxyConnection)) {
+                logger.log(Level.ERROR, connection + " not ProxyConnection");
+                throw new InvalidConnectionTypeException(connection + " not ProxyConnection");
+            }
+            givenConnections.remove(connection);
+            freeConnections.offer((ProxyConnection) connection);
+        } catch (InvalidConnectionTypeException e) {
+            logger.log(Level.ERROR,e.getMessage());
+            Thread.currentThread().interrupt();
         }
-        givenConnections.remove(connection);
-        freeConnections.offer((ProxyConnection) connection);
     }
 
     public void destroyPool() {
@@ -78,11 +81,11 @@ public enum ConnectionPool {
                 ProxyConnection connection = freeConnections.take();
                 connection.reallyClose();
             } catch (InterruptedException e) {
-                StringWriter stacktraceWriter = new StringWriter();
-                e.printStackTrace(new PrintWriter(stacktraceWriter));
-                logger.log(Level.ERROR, "Some problems with pool destroying" + stacktraceWriter.toString());
+                logger.log(Level.ERROR, "Some problems with pool destroying" + e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
+        logger.log(Level.INFO, "Connection pool was destroyed");
         deregisterDrivers();
     }
 
@@ -91,10 +94,9 @@ public enum ConnectionPool {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                StringWriter stacktraceWriter = new StringWriter();
-                e.printStackTrace(new PrintWriter(stacktraceWriter));
-                logger.log(Level.ERROR, "Some problems with deregister drivers in pool" + stacktraceWriter.toString());
+                logger.log(Level.ERROR, "Some problems with deregister drivers in pool" + e.getMessage());
             }
+            logger.log(Level.INFO, "Connection pool was destroyed");
         });
     }
 }

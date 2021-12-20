@@ -1,4 +1,4 @@
-package com.example.finalproject.factory;
+package com.example.finalproject.model.factory;
 
 
 import com.example.finalproject.exception.CustomException;
