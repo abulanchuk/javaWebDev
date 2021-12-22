@@ -1,7 +1,8 @@
 package com.example.finalproject.model.dao;
 
+import com.example.finalproject.entity.Comment;
 import com.example.finalproject.exception.DaoException;
 
-public interface CommentDao {
+public interface CommentDao extends BaseDao<Comment> {
     boolean updateComment(String newComment) throws DaoException;
 }

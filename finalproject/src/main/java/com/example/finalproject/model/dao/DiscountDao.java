@@ -6,6 +6,6 @@ import com.example.finalproject.exception.DaoException;
 import java.util.Optional;
 
 public interface DiscountDao extends BaseDao<Discount> {
-    boolean updateDiscount(String newDiscount) throws DaoException;
+    boolean updateDiscount(byte newDiscount) throws DaoException;
     Optional<Discount> findDiscountByPercent(byte percent) throws DaoException;
 }

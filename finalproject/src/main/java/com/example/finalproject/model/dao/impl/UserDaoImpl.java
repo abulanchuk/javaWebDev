@@ -22,9 +22,9 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_USER_BY_ID = """
             SELECT login, password, role, name, surname, phone_number FROM users WHERE id_user =?""";
     private static final String SQL_DELETE_USER_BY_ID = """
-           DELETE users, clients, orders FROM users 
-           INNER JOIN clients ON users.id_user = clients.id_user 
-           INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE users.id_user = ?""";
+            DELETE users, clients, orders FROM users 
+            INNER JOIN clients ON users.id_user = clients.id_user 
+            INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE users.id_user = ?""";
     private static final String SQL_UPDATE_USERS = """
             UPDATE users SET login = ?, password = ?, role = ?, name = ?, surname=?, phone_number = ?""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
@@ -57,13 +57,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() throws DaoException {
         List<User> allUsers = new ArrayList<>();
-        try(Connection connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement()){
-            try(ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)){
-                allUsers =mapper.mapRow(resultSet);
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
+                allUsers = mapper.mapRow(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException("Some problems with finding all users "+e);
+            throw new DaoException("Some problems with finding all users " + e);
         }
         return allUsers;
     }
@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean deleteById(User user) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)){
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
             statement.setLong(1, user.getIdUser());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

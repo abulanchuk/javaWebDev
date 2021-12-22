@@ -37,7 +37,7 @@ public class DiscountDaoImpl implements DiscountDao {
     }
 
     @Override
-    public boolean updateDiscount(String newDiscount) throws DaoException {
+    public boolean updateDiscount(byte newDiscount) throws DaoException {
         return false;
     }
 

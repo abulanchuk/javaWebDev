@@ -13,13 +13,31 @@ import java.util.Optional;
 public class OrderDaoImpl implements OrderDao {
     static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
     private static final String SQL_SELECT_ALL_ORDERS = """
-    SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
-    INNER JOIN clients ON orders.order_id_client = clients.id_client
-    INNER JOIN users ON clients.id_user = users.id_user""";
+            SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            INNER JOIN clients ON orders.order_id_client = clients.id_client
+            INNER JOIN users ON clients.id_user = users.id_user""";
     private static final String SQL_SELECT_ORDER_BY_ID = """
-    SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
-    INNER JOIN clients ON orders.order_id_client = clients.id_client
-    INNER JOIN users ON clients.id_user = users.id_user WHERE orders.id_order = ?""";
+            SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            INNER JOIN clients ON orders.order_id_client = clients.id_client
+            INNER JOIN users ON clients.id_user = users.id_user WHERE orders.id_order = ?""";
+    private static final String SQL_DELETE_ORDER_BY_ID = """
+            DELETE FROM orders WHERE orders.id_order = ?""";
+    private static final String SQL_UPDATE_START_TIME = """
+            UPDATE start_date = ? WHERE start_date = ?""";
+    private static final String SQL_UPDATE_FINISH_TIME = """
+            UPDATE finish_date = ? WHERE finish_date = ?""";
+    private static final String SQL_UPDATE_PAYMENT_STATUS = """
+            UPDATE is_paid = ? WHERE is_paid = ?""";
+    private static final String SQL_UPDATE_ACTIVE_STATUS = """
+            UPDATE is_active = ? WHERE is_active = ?""";
+    private static final String SQL_SELECT_PAID_ORDERS = """
+           SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            INNER JOIN clients ON orders.order_id_client = clients.id_client
+            INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid >0 """; //TODO
+    private static final String SQL_SELECT_NOT_PAID_ORDERS = """
+           SELECT name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            INNER JOIN clients ON orders.order_id_client = clients.id_client
+            INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid <1 """;
 
     @Override
     public List<Order> findAll() throws DaoException {

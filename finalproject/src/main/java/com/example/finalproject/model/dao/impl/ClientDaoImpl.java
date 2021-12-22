@@ -16,9 +16,9 @@ public class ClientDaoImpl implements ClientDao {
             SELECT clients.id_client, users.name, users.surname, users.phone_number, clients.password_number, clients.email, clients.bank_account,
             FROM clients INNER JOIN users ON users.id_user = clients.id_user""";
     private static final String SQL_SELECT_CLIENT_BY_ID = """
-            SELECT clients.id_client, users.name, users.surname, users.phone_number, clients.password_number, clients.email, clients.bank_account,
+            SELECT clients.id_client, users.name, users.surname, users.phone_number, clients.password_number, clients.email, clients.bank_account
             FROM clients 
-            INNER JOIN users ON users.id_user = clients.id_user AND id_client =?""";
+            INNER JOIN users ON users.id_user = clients.id_user WHERE id_client =?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
            DELETE users, clients, orders FROM users 
            INNER JOIN clients ON users.id_user = clients.id_user 

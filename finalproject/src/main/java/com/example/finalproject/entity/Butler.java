@@ -4,11 +4,13 @@ public class Butler extends CustomEntity{
     private long idButler;
     private long idUser;
     private long idComment;
+    private byte rating;
 
-    public Butler(long idButler, long idUser, long idComment) {
+    public Butler(long idButler, long idUser, long idComment, byte rating) {
         this.idButler = idButler;
         this.idUser = idUser;
         this.idComment = idComment;
+        this.rating = rating;
     }
 
     public long getIdButler() {
@@ -23,6 +25,10 @@ public class Butler extends CustomEntity{
         return idComment;
     }
 
+    public byte getRating() {
+        return rating;
+    }
+
     public void setIdButler(int idButler) {
         this.idButler = idButler;
     }
@@ -35,6 +41,10 @@ public class Butler extends CustomEntity{
         this.idComment = idComment;
     }
 
+    public void setRating(byte rating) {
+        this.rating = rating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,7 +54,8 @@ public class Butler extends CustomEntity{
 
         if (idButler != butler.idButler) return false;
         if (idUser != butler.idUser) return false;
-        return idComment == butler.idComment;
+        if (idComment != butler.idComment) return false;
+        return rating == butler.rating;
     }
 
     @Override
@@ -52,6 +63,7 @@ public class Butler extends CustomEntity{
         int result = (int) (idButler ^ (idButler >>> 32));
         result = 31 * result + (int) (idUser ^ (idUser >>> 32));
         result = 31 * result + (int) (idComment ^ (idComment >>> 32));
+        result = 31 * result + (int) rating;
         return result;
     }
 
@@ -61,6 +73,7 @@ public class Butler extends CustomEntity{
         sb.append("idButler=").append(idButler);
         sb.append(", idUser=").append(idUser);
         sb.append(", idComment=").append(idComment);
+        sb.append(", rating=").append(rating);
         sb.append('}');
         return sb.toString();
     }

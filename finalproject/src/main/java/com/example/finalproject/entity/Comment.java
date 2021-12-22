@@ -1,7 +1,7 @@
 package com.example.finalproject.entity;
 
 
-public class Comment {
+public class Comment extends CustomEntity{
     private long idComment;
     private int idButler;
     private String comment;
