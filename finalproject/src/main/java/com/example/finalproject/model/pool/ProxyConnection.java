@@ -1,13 +1,10 @@
 package com.example.finalproject.model.pool;
 
-import com.example.finalproject.exception.InvalidConnectionTypeException;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
@@ -63,7 +60,7 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
-            ConnectionPool.INSTANCE.releaseConnection(this);
+            ConnectionPool.getInstance().releaseConnection(this);
     }
 
     void reallyClose() {

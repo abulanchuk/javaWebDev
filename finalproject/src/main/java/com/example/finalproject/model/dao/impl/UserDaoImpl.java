@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() throws DaoException {
         List<User> allUsers = new ArrayList<>();
-        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement()){
             try(ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)){
                 allUsers =mapper.mapRow(resultSet);
@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean deleteById(User user) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BY_ID)){
             statement.setLong(1, user.getIdUser());
             return statement.executeUpdate() > 0;

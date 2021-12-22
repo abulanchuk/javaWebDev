@@ -1,53 +1,76 @@
 package com.example.finalproject.model.pool;
 
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 import com.example.finalproject.exception.InvalidConnectionTypeException;
-import com.example.finalproject.model.factory.ConnectionFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public enum ConnectionPool {
-    INSTANCE;
+public class ConnectionPool {
     private static Logger logger = LogManager.getLogger(ConnectionPool.class);
-    private static final Properties properties = new Properties();
-    private static final int POOL_SIZE;
 
-    private static BlockingQueue<ProxyConnection> freeConnections;
-    private static BlockingQueue<ProxyConnection> givenConnections;
+    private BlockingQueue<ProxyConnection> freeConnections;
+    private BlockingQueue<ProxyConnection> givenConnections;
+
+    private static AtomicBoolean create = new AtomicBoolean(false);
+    private static ReentrantLock lockForSingleton = new ReentrantLock();
+    private static ConnectionPool instance;
+
+    private static final ResourceBundle bundle;
+    private static final int POOL_SIZE;
+    private static final String DRIVER;
+    private static final String URL;
+    private static final String USER_NAME;
+    private static final String PASSWORD;
 
     static {
-        try {
-            String fileName = "data/database.properties";
-            ClassLoader loader = ConnectionFactory.class.getClassLoader();
-            URL resource = loader.getResource(fileName);
-            if (resource != null) {
-                fileName = resource.getFile();
-            } else {
-                logger.log(Level.ERROR, "Resource is null! " + fileName);
-                throw new IllegalArgumentException("Resource is null!");
-            }
-            properties.load(new FileReader(fileName));
-        } catch (IOException e) {
-            logger.log(Level.ERROR, "File properties exception: " + e.getMessage());
-            throw new RuntimeException("File properties exception." + e.getMessage());
-        }
-        POOL_SIZE = Integer.parseInt((String) properties.get("poolsize"));
+        bundle = ResourceBundle.getBundle("data/database.properties");
+        DRIVER = bundle.getString("db.driver");
+        POOL_SIZE = Integer.parseInt(bundle.getString("poolsize"));
+        URL = bundle.getString("database.url");
+        USER_NAME = bundle.getString("user");
+        PASSWORD = bundle.getString("password");
+    }
+
+    private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(POOL_SIZE);
-        givenConnections = new LinkedBlockingDeque<>();
+        givenConnections = new LinkedBlockingDeque<>(POOL_SIZE);
+        try {
+            Class.forName(DRIVER);
+            for (int i = 0; i < POOL_SIZE; i++) {
+                ProxyConnection connection =
+                        new ProxyConnection(DriverManager.getConnection(URL, USER_NAME, PASSWORD));
+                freeConnections.offer(connection);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            logger.log(Level.FATAL, "Problems with initializing connection pool", e);
+            throw new ExceptionInInitializerError("Problems with initializing connection pool");
+        }
+    }
+
+    public static ConnectionPool getInstance() {
+        if (!create.get()) {
+            try {
+                lockForSingleton.lock();
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                    create.set(true);
+                }
+            } finally {
+                lockForSingleton.unlock();
+            }
+        }
+        return instance;
     }
 
     public Connection getConnection() {
@@ -70,7 +93,7 @@ public enum ConnectionPool {
             givenConnections.remove(connection);
             freeConnections.offer((ProxyConnection) connection);
         } catch (InvalidConnectionTypeException e) {
-            logger.log(Level.ERROR,e.getMessage());
+            logger.log(Level.ERROR, e.getMessage());
             Thread.currentThread().interrupt();
         }
     }
