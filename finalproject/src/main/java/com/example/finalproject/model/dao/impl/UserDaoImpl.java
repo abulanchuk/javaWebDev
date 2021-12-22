@@ -20,31 +20,33 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_ALL_USERS = """
             SELECT id_user, login, password, role, name, surname, phone_number FROM users""";
     private static final String SQL_SELECT_USER_BY_ID = """
-            SELECT login, password, role, name, surname, phone_number FROM users WHERE id_user =(?)""";
-    private static final String SQL_DELETE_BY_ID = """
-            DELETE FROM users WHERE id_user = (?)""";
+            SELECT login, password, role, name, surname, phone_number FROM users WHERE id_user =?""";
+    private static final String SQL_DELETE_USER_BY_ID = """
+           DELETE users, clients, orders FROM users 
+           INNER JOIN clients ON users.id_user = clients.id_user 
+           INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE users.id_user = ?""";
     private static final String SQL_UPDATE_USERS = """
-            UPDATE users SET login = (?), password = (?), role = (?), name = (?), surname=(?), phone_number = (?)""";
+            UPDATE users SET login = ?, password = ?, role = ?, name = ?, surname=?, phone_number = ?""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
-            UPDATE users SET password = (?) WHERE login = (?)""";
+            UPDATE users SET password = ? WHERE login = ?""";
     private static final String SQL_UPDATE_LOGIN = """
-            UPDATE users SET login = (?) WHERE login = (?)""";
+            UPDATE users SET login = ? WHERE login = ?""";
     private static final String SQL_SELECT_USERS_BY_ROLE = """
-            SELECT name, surname, phone_number WHERE role = (?)""";
+            SELECT name, surname, phone_number WHERE role = ?""";
     private static final String SQL_SELECT_USERS_BY_NAME = """
-            SELECT name, surname, phone_number WHERE name = (?)""";
+            SELECT name, surname, phone_number WHERE name = ?""";
     private static final String SQL_SELECT_USERS_BY_SURNAME = """
-            SELECT name, surname, phone_number WHERE surname = (?)""";
+            SELECT name, surname, phone_number WHERE surname = ?""";
     private static final String SQL_UPDATE_SURNAME = """
-            UPDATE users SET surname = (?) WHERE surname = (?)""";
+            UPDATE users SET surname = ? WHERE surname = ?""";
     private static final String SQL_UPDATE_NAME = """
-            UPDATE users SET name = (?) WHERE name = (?)""";
+            UPDATE users SET name = ? WHERE name = ?""";
     private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = """
-            SELECT name, surname, role WHERE phone_number = (?)""";
+            SELECT name, surname, role WHERE phone_number = ?""";
     private static final String SQL_SELECT_USER_BY_LOGIN = """
-            SELECT name, surname, role, phone_number WHERE login = (?)""";
+            SELECT name, surname, role, phone_number WHERE login = ?""";
     private static final String SQL_UPDATE_PHONE_NUMBER = """
-            UPDATE users SET phone_number = (?) WHERE phone_number = (?)""";
+            UPDATE users SET phone_number = ? WHERE phone_number = ?""";
 
     private final CustomRowMapper<User> mapper;
 
@@ -75,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean deleteById(User user) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BY_ID)){
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)){
             statement.setLong(1, user.getIdUser());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -34,7 +34,7 @@ public class ConnectionPool {
     private static final String PASSWORD;
 
     static {
-        bundle = ResourceBundle.getBundle("data/database.properties");
+        bundle = ResourceBundle.getBundle("database");
         DRIVER = bundle.getString("db.driver");
         POOL_SIZE = Integer.parseInt(bundle.getString("poolsize"));
         URL = bundle.getString("database.url");
@@ -42,7 +42,7 @@ public class ConnectionPool {
         PASSWORD = bundle.getString("password");
     }
 
-    private ConnectionPool() {
+    public ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(POOL_SIZE);
         givenConnections = new LinkedBlockingDeque<>(POOL_SIZE);
         try {

@@ -11,8 +11,7 @@ import java.util.Optional;
 public interface RoomDao extends BaseDao<Room>{
     boolean updatePrice(String newPrice) throws DaoException;
     List<Room> findAllRoomsInThisFloor (int floor) throws DaoException;
-    List<Room> showRoomsByTypeOnTheFloor (int floor, RoomType roomType) throws DaoException;
-    int showFloorWhereTheRoom (int numberOfRoom) throws DaoException;
-    List<Room> showRoomsWhosePriceLowerThanSpecified (BigDecimal price) throws DaoException;
-    Optional<String> findImagePathByNumberOfRoom(int numberOfRoom) throws DaoException;
+    List<Room> findRoomsByTypeOnTheFloor (int floor, RoomType roomType) throws DaoException;
+    int findFloorWhereTheRoom (int numberOfRoom) throws DaoException;
+    List<Room> findRoomsWhosePriceLowerThanSpecified (BigDecimal price) throws DaoException;
 }

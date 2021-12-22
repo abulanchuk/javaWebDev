@@ -11,26 +11,26 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
-    static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
+    static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT clients.id_client, users.name, users.surname, users.phone_number, clients.password_number, clients.email, clients.bank_account,
             FROM clients INNER JOIN users ON users.id_user = clients.id_user""";
     private static final String SQL_SELECT_CLIENT_BY_ID = """
             SELECT clients.id_client, users.name, users.surname, users.phone_number, clients.password_number, clients.email, clients.bank_account,
             FROM clients 
-            INNER JOIN users ON users.id_user = clients.id_user AND id_client =(?)""";
+            INNER JOIN users ON users.id_user = clients.id_user AND id_client =?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
            DELETE users, clients, orders FROM users 
            INNER JOIN clients ON users.id_user = clients.id_user 
-           INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = (?)""";
+           INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = ?""";
     private static final String SQL_UPDATE_EMAIL = """
-            UPDATE clients SET email = (?) WHERE email = (?)""";
+            UPDATE clients SET email = ? WHERE email = ?""";
     private static final String SQL_SELECT_BANK_ACCOUNT_BY_ID = """
-            SELECT bank_account FROM clients WHERE clients.id_client = (?)""";
+            SELECT bank_account FROM clients WHERE clients.id_client = ?""";
     private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = """
-            UPDATE clients SET bank_account = bank_account + (?) WHERE bank_account = (?)""";
+            UPDATE clients SET bank_account = bank_account + ? WHERE bank_account = ?""";
     private static final String SQL_UPDATE_PASSWORD_NUMBER = """
-            UPDATE clients SET password_number = (?) WHERE password_number = (?)""";
+            UPDATE clients SET password_number = ? WHERE password_number = ?""";
 
     @Override
     public List<Client> findAll() throws DaoException {
