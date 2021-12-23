@@ -1,7 +1,7 @@
 package com.example.finalproject.model.dao;
 
-import com.example.finalproject.entity.Room;
-import com.example.finalproject.entity.RoomType;
+import com.example.finalproject.model.entity.Room;
+import com.example.finalproject.model.entity.RoomType;
 import com.example.finalproject.exception.DaoException;
 
 import java.math.BigDecimal;

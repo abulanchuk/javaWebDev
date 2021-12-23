@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.entity.Order;
+import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.OrderDao;
 import org.apache.log4j.LogManager;
@@ -22,6 +22,8 @@ public class OrderDaoImpl implements OrderDao {
             INNER JOIN users ON clients.id_user = users.id_user WHERE orders.id_order = ?""";
     private static final String SQL_DELETE_ORDER_BY_ID = """
             DELETE FROM orders WHERE orders.id_order = ?""";
+    private static final String SQL_INSERT_ORDER = """
+            INSERT INTO orders (id_order, id_butler, start_date, finish_date, is_paid, is_active, order_id_client) VALUES (?,?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_START_TIME = """
             UPDATE start_date = ? WHERE start_date = ?""";
     private static final String SQL_UPDATE_FINISH_TIME = """
@@ -52,6 +54,11 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public boolean deleteById(Order user) throws DaoException {
         return false;
+    }
+
+    @Override
+    public long insertNewEntity(Order entity) throws DaoException {
+        return 0;
     }
 
     @Override

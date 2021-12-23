@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao;
 
-import com.example.finalproject.entity.CustomEntity;
+import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.exception.DaoException;
 import org.apache.log4j.Level;
 
@@ -15,29 +15,33 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-public interface BaseDao<T extends CustomEntity>{
+public interface BaseDao<T extends CustomEntity> {
     static Logger logger = LogManager.getLogger(BaseDao.class);
 
     List<T> findAll() throws DaoException;
+
     Optional<T> findById(T id) throws DaoException;
-    boolean deleteById(T user) throws DaoException;
 
+    boolean deleteById(T entity) throws DaoException;
 
-    default void close (Connection connection) throws DaoException {
-        try{
-            if(connection!=null){
+    long insertNewEntity(T entity) throws DaoException;
+
+    default void close(Connection connection) throws DaoException {
+        try {
+            if (connection != null) {
                 connection.close();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             StringWriter stacktraceWriter = new StringWriter();
             e.printStackTrace(new PrintWriter(stacktraceWriter));
             logger.log(Level.ERROR, "Some problems with closing connection " + stacktraceWriter.toString());
             throw new DaoException("Some problems with closing connection");
         }
     }
-    default void close (Statement statement)throws DaoException{
-        try{
-            if(statement!=null){
+
+    default void close(Statement statement) throws DaoException {
+        try {
+            if (statement != null) {
                 statement.close();
             }
         } catch (SQLException e) {

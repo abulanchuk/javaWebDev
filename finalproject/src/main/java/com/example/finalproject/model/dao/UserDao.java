@@ -1,7 +1,7 @@
 package com.example.finalproject.model.dao;
 
-import com.example.finalproject.entity.User;
-import com.example.finalproject.entity.UserRole;
+import com.example.finalproject.model.entity.User;
+import com.example.finalproject.model.entity.UserRole;
 import com.example.finalproject.exception.DaoException;
 
 import java.util.List;

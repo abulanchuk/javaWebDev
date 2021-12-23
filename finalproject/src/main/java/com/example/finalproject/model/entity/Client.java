@@ -1,4 +1,4 @@
-package com.example.finalproject.entity;
+package com.example.finalproject.model.entity;
 
 import java.math.BigDecimal;
 
@@ -15,6 +15,9 @@ public class Client extends CustomEntity{
         this.email = email;
         this.bankAccount = bankAccount;
         this.idUser = idUser;
+    }
+
+    public Client() {
     }
 
     public long getIdClient() {

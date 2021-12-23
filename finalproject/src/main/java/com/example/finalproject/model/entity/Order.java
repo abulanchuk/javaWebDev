@@ -1,4 +1,4 @@
-package com.example.finalproject.entity;
+package com.example.finalproject.model.entity;
 
 import java.time.LocalDate;
 
@@ -20,6 +20,7 @@ public class Order extends CustomEntity{
         this.isActive = isActive;
         this.idClient = idClient;
     }
+    public Order (){}
 
     public long getIdOrder() {
         return idOrder;

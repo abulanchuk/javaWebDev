@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao;
 
-import com.example.finalproject.entity.Client;
+import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
 
 import java.math.BigDecimal;

@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.entity.Comment;
+import com.example.finalproject.model.entity.Comment;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.CommentDao;
 import org.apache.log4j.LogManager;
@@ -17,6 +17,8 @@ public class CommentDaoImpl implements CommentDao {
     SELECT id_comment, content FROM comments WHERE id_comment = ?""";
     private static final String SQL_DELETE_COMMENT_BY_ID = """
      DELETE FROM comments WHERE id_comment = ?""";
+    private static final String SQL_INSERT_NEW_COMMENT = """
+            INSERT INTO comments (id_comment, id_butler, content) VALUES (?,?,?)""";
     private static final String SQL_UPDATE_COMMENT = """
             UPDATE discounts SET content = ? WHERE id_comment = ?""";
 
@@ -33,6 +35,11 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public boolean deleteById(Comment user) throws DaoException {
         return false;
+    }
+
+    @Override
+    public long insertNewEntity(Comment entity) throws DaoException {
+        return 0;
     }
 
 

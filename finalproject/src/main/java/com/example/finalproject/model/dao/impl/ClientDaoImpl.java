@@ -1,7 +1,7 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.ClientDao;
-import com.example.finalproject.entity.Client;
+import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,6 +23,8 @@ public class ClientDaoImpl implements ClientDao {
            DELETE users, clients, orders FROM users 
            INNER JOIN clients ON users.id_user = clients.id_user 
            INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = ?""";
+    private static final String SQL_INSERT_NEW_BUTLER = """
+            """;//todo
     private static final String SQL_UPDATE_EMAIL = """
             UPDATE clients SET email = ? WHERE email = ?""";
     private static final String SQL_SELECT_BANK_ACCOUNT_BY_ID = """
@@ -45,6 +47,11 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public boolean deleteById(Client user) throws DaoException {
         return false;
+    }
+
+    @Override
+    public long insertNewEntity(Client entity) throws DaoException {
+        return 0;
     }
 
     @Override

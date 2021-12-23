@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.entity.Discount;
+import com.example.finalproject.model.entity.Discount;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.DiscountDao;
 import org.apache.log4j.LogManager;
@@ -17,6 +17,8 @@ public class DiscountDaoImpl implements DiscountDao {
     SELECT id_discount, percent FROM discounts WHERE id_discount = ?""";
     private static final String SQL_DELETE_DISCOUNT_BY_ID = """
             DELETE FROM discounts WHERE id_discount = ?""";
+    private static final String SQL_INSERT_DISCOUNT = """
+            INSERT INTO discounts (id_discount, percent) VALUES (?,?)""";
     private static final String SQL_UPDATE_DISCOUNT_BY_ID = """
             UPDATE discounts SET percent = ? WHERE percent = ?""";
     private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = """
@@ -34,6 +36,11 @@ public class DiscountDaoImpl implements DiscountDao {
     @Override
     public boolean deleteById(Discount user) throws DaoException {
         return false;
+    }
+
+    @Override
+    public long insertNewEntity(Discount entity) throws DaoException {
+        return 0;
     }
 
     @Override

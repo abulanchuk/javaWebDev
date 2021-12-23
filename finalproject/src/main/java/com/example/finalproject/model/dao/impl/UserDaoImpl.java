@@ -1,17 +1,14 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.UserDao;
-import com.example.finalproject.entity.User;
-import com.example.finalproject.entity.UserRole;
+import com.example.finalproject.model.entity.User;
+import com.example.finalproject.model.entity.UserRole;
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.model.mapper.CustomRowMapper;
-import com.example.finalproject.model.mapper.impl.UserMapperCustom;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +22,8 @@ public class UserDaoImpl implements UserDao {
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
             INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE users.id_user = ?""";
+    private static final String SQL_INSERT_USER = """
+            INSERT INTO users (id_user, login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_USERS = """
             UPDATE users SET login = ?, password = ?, role = ?, name = ?, surname=?, phone_number = ?""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
@@ -48,24 +47,10 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_UPDATE_PHONE_NUMBER = """
             UPDATE users SET phone_number = ? WHERE phone_number = ?""";
 
-    private final CustomRowMapper<User> mapper;
-
-    public UserDaoImpl() {
-        mapper = new UserMapperCustom();
-    }
 
     @Override
     public List<User> findAll() throws DaoException {
-        List<User> allUsers = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
-                allUsers = mapper.mapRow(resultSet);
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Some problems with finding all users " + e);
-        }
-        return allUsers;
+        return null;
     }
 
 
@@ -76,13 +61,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean deleteById(User user) throws DaoException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
-            statement.setLong(1, user.getIdUser());
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new DaoException("Failed to delete user by id", e);
-        }
+        return false;
+    }
+
+    @Override
+    public long insertNewEntity(User entity) throws DaoException {
+        return 0;
     }
 
     @Override

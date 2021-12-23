@@ -1,7 +1,7 @@
 package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.entity.Room;
-import com.example.finalproject.entity.RoomType;
+import com.example.finalproject.model.entity.Room;
+import com.example.finalproject.model.entity.RoomType;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.RoomDao;
 import org.apache.log4j.LogManager;
@@ -19,6 +19,8 @@ public class RoomDaoImpl implements RoomDao {
     SELECT id_room, price, room_type, floor, room_number FROM rooms WHERE id_room = ?""";
     private static final String SQL_DELETE_DISCOUNT_BY_ID = """
             DELETE FROM rooms WHERE id_room = ?""";
+    private static final String SQL_INSERT_ROOM = """
+            INSERT INTO rooms (id_room, price, room_type, floor, room_number, id_discount, image_url) VALUES (?,?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_ROOM_PRICE_BY_NUMBER_OF_ROOM = """
             UPDATE discounts SET price = ? WHERE room_number = ?""";
     private static final String SQL_SELECT_ROOM_BY_FLOOR = """
@@ -43,6 +45,11 @@ public class RoomDaoImpl implements RoomDao {
     @Override
     public boolean deleteById(Room user) throws DaoException {
         return false;
+    }
+
+    @Override
+    public long insertNewEntity(Room entity) throws DaoException {
+        return 0;
     }
 
     @Override

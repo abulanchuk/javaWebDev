@@ -1,4 +1,4 @@
-package com.example.finalproject.entity;
+package com.example.finalproject.model.entity;
 
 import java.math.BigDecimal;
 
@@ -19,6 +19,9 @@ public class Room extends CustomEntity{
         this.roomNumber = roomNumber;
         this.idDiscount = idDiscount;
         this.imageUrl = imageUrl;
+    }
+    public Room(){
+
     }
 
     public long getIdRoom() {
@@ -50,7 +53,7 @@ public class Room extends CustomEntity{
         return imageUrl;
     }
 
-    public void setIdRoom(int idRoom) {
+    public void setIdRoom(long idRoom) {
         this.idRoom = idRoom;
     }
 

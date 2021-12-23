@@ -1,6 +1,6 @@
 package com.example.finalproject.model.dao;
 
-import com.example.finalproject.entity.Discount;
+import com.example.finalproject.model.entity.Discount;
 import com.example.finalproject.exception.DaoException;
 
 import java.util.Optional;

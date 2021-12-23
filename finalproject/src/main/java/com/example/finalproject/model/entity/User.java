@@ -1,4 +1,4 @@
-package com.example.finalproject.entity;
+package com.example.finalproject.model.entity;
 
 public class User extends CustomEntity{
     private long idUser;
@@ -50,7 +50,7 @@ public class User extends CustomEntity{
         return phoneNumber;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 

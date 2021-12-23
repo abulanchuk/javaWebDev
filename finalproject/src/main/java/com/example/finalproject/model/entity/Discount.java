@@ -1,4 +1,4 @@
-package com.example.finalproject.entity;
+package com.example.finalproject.model.entity;
 
 public class Discount extends CustomEntity{
     private long idDiscount;
