@@ -38,7 +38,7 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public Optional<Room> findById(Room id) throws DaoException {
+    public Optional<Room> findById(Long id) throws DaoException {
         return Optional.empty();
     }
 

@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public Optional<User> findById(User id) throws DaoException {
+    public Optional<User> findById(Long id) throws DaoException {
         return null;
     }
 

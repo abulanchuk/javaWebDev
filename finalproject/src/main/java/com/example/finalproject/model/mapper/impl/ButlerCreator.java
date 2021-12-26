@@ -10,7 +10,7 @@ import static com.example.finalproject.model.mapper.ColumnTableName.*;
 public class ButlerCreator {
     public ButlerCreator() {
     }
-    static Butler create(ResultSet resultSet) throws SQLException{
+    public static Butler create(ResultSet resultSet) throws SQLException{
         Butler butler = new Butler();
         butler.setIdButler(resultSet.getLong(ID_BUTLER));
         butler.setRating(resultSet.getByte(RATING));

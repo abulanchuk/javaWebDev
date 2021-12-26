@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Order extends CustomEntity{
     private long idOrder;
-    private int idButler;
+    private long idButler;
     private LocalDate startDate;
     private LocalDate finishDate;
     private boolean isPaid;
     private boolean isActive;
     private long idClient;
 
-    public Order(long idOrder, int idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
+    public Order(long idOrder, long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
         this.idOrder = idOrder;
         this.idButler = idButler;
         this.startDate = startDate;
@@ -26,7 +26,7 @@ public class Order extends CustomEntity{
         return idOrder;
     }
 
-    public int getIdButler() {
+    public long getIdButler() {
         return idButler;
     }
 
@@ -54,7 +54,7 @@ public class Order extends CustomEntity{
         this.idOrder = idOrder;
     }
 
-    public void setIdButler(int idButler) {
+    public void setIdButler(long idButler) {
         this.idButler = idButler;
     }
 
@@ -97,7 +97,7 @@ public class Order extends CustomEntity{
     @Override
     public int hashCode() {
         int result = (int) (idOrder ^ (idOrder >>> 32));
-        result = 31 * result + idButler;
+        result = 31 * result + (int) (idButler ^ (idButler >>> 32));
         result = 31 * result + startDate.hashCode();
         result = 31 * result + finishDate.hashCode();
         result = 31 * result + (isPaid ? 1 : 0);

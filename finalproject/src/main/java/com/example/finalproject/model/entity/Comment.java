@@ -3,10 +3,10 @@ package com.example.finalproject.model.entity;
 
 public class Comment extends CustomEntity{
     private long idComment;
-    private int idButler;
+    private long idButler;
     private String comment;
 
-    public Comment(long idComment, int idButler, String comment) {
+    public Comment(long idComment, long idButler, String comment) {
         this.idComment = idComment;
         this.idButler = idButler;
         this.comment = comment;
@@ -16,7 +16,7 @@ public class Comment extends CustomEntity{
         return idComment;
     }
 
-    public int getIdButler() {
+    public long getIdButler() {
         return idButler;
     }
 
@@ -28,7 +28,7 @@ public class Comment extends CustomEntity{
         this.idComment = idComment;
     }
 
-    public void setIdButler(int idButler) {
+    public void setIdButler(long idButler) {
         this.idButler = idButler;
     }
 
@@ -51,7 +51,7 @@ public class Comment extends CustomEntity{
     @Override
     public int hashCode() {
         int result = (int) (idComment ^ (idComment >>> 32));
-        result = 31 * result + idButler;
+        result = 31 * result + (int) (idButler ^ (idButler >>> 32));
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
     }

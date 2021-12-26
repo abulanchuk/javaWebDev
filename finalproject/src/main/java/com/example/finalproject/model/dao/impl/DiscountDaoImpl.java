@@ -29,7 +29,7 @@ public class DiscountDaoImpl implements DiscountDao {
     }
 
     @Override
-    public Optional<Discount> findById(Discount id) throws DaoException {
+    public Optional<Discount> findById(Long id) throws DaoException {
         return Optional.empty();
     }
 

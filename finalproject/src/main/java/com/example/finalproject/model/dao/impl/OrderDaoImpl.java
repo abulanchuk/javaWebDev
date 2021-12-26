@@ -47,7 +47,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Optional<Order> findById(Order id) throws DaoException {
+    public Optional<Order> findById(Long id) throws DaoException {
         return Optional.empty();
     }
 

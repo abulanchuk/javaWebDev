@@ -28,7 +28,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Optional<Comment> findById(Comment id) throws DaoException {
+    public Optional<Comment> findById(Long id) throws DaoException {
         return Optional.empty();
     }
 

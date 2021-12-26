@@ -8,10 +8,10 @@ public class Room extends CustomEntity{
     private RoomType roomType;
     private int floor;
     private int roomNumber;
-    private int idDiscount;
+    private long idDiscount;
     private String imageUrl;
 
-    public Room(long idRoom, BigDecimal price, RoomType roomType, int floor, int roomNumber, int idDiscount, String imageUrl) {
+    public Room(long idRoom, BigDecimal price, RoomType roomType, int floor, int roomNumber, long idDiscount, String imageUrl) {
         this.idRoom = idRoom;
         this.price = price;
         this.roomType = roomType;
@@ -45,7 +45,7 @@ public class Room extends CustomEntity{
         return roomNumber;
     }
 
-    public int getIdDiscount() {
+    public long getIdDiscount() {
         return idDiscount;
     }
 
@@ -73,7 +73,7 @@ public class Room extends CustomEntity{
         this.roomNumber = roomNumber;
     }
 
-    public void setIdDiscount(int idDiscount) {
+    public void setIdDiscount(long idDiscount) {
         this.idDiscount = idDiscount;
     }
 
@@ -105,7 +105,7 @@ public class Room extends CustomEntity{
         result = 31 * result + roomType.hashCode();
         result = 31 * result + floor;
         result = 31 * result + roomNumber;
-        result = 31 * result + idDiscount;
+        result = 31 * result + (int) (idDiscount ^ (idDiscount >>> 32));
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         return result;
     }

@@ -2,9 +2,9 @@ package com.example.finalproject.model.entity;
 
 public class Booking {
     private long idClient;
-    private int idRoom;
+    private long idRoom;
 
-    public Booking(long idClient, int idRoom) {
+    public Booking(long idClient, long idRoom) {
 
         this.idClient = idClient;
         this.idRoom = idRoom;
@@ -14,7 +14,7 @@ public class Booking {
         return idClient;
     }
 
-    public int getIdRoom() {
+    public long getIdRoom() {
         return idRoom;
     }
 
@@ -22,7 +22,7 @@ public class Booking {
         this.idClient = idClient;
     }
 
-    public void setIdRoom(int idRoom) {
+    public void setIdRoom(long idRoom) {
         this.idRoom = idRoom;
     }
 
@@ -40,7 +40,7 @@ public class Booking {
     @Override
     public int hashCode() {
         int result = (int) (idClient ^ (idClient >>> 32));
-        result = 31 * result + idRoom;
+        result = 31 * result + (int) (idRoom ^ (idRoom >>> 32));
         return result;
     }
 }

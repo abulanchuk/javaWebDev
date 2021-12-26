@@ -40,7 +40,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Optional<Client> findById(Client id) throws DaoException {
+    public Optional<Client> findById(Long id) throws DaoException {
         return null;
     }
 
