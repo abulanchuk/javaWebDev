@@ -60,7 +60,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteById(User user) throws DaoException {
+    public boolean deleteById(Long id) throws DaoException {
         return false;
     }
 

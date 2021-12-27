@@ -5,6 +5,7 @@ import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
+import com.example.finalproject.util.validator.ButlerValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -18,13 +19,12 @@ public class ButlerDaoImpl implements ButlerDao {
     static final Logger logger = LogManager.getLogger(ButlerDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_BUTLERS = """
-            SELECT butlers.id_butler, users.name, users.surname, users.phone_number, butlers.rating
-            FROM butlers
-            INNER JOIN users ON users.id_user = butlers.id_user""";
+            SELECT butlers.id_user, butlers.id_butler, butlers.rating
+            FROM butlers""";
     private static final String SQL_SELECT_BUTLER_BY_ID = """
-            SELECT butlers.id_butler, users.name, users.surname, users.phone_number, butlers.rating
+            SELECT butlers.id_user, butlers.id_butler, butlers.rating
             FROM butlers
-            INNER JOIN users ON users.id_user = butlers.id_user WHERE id_butler =?""";
+            WHERE id_butler =?""";
     private static final String SQL_DELETE_BUTLER_BY_ID = """
             DELETE users, butlers, orders FROM users 
             INNER JOIN butlers ON users.id_user = butlers.id_user 
@@ -32,7 +32,7 @@ public class ButlerDaoImpl implements ButlerDao {
     private static final String SQL_INSERT_NEW_BUTLER = """
             INSERT INTO butlers (id_butler, id_user, rating) """;//todo
     private static final String SQL_UPDATE_RATING = """
-            UPDATE butlers SET rating = ? WHERE id_butler = ?""";
+            UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?""";
 
     @Override
     public List<Butler> findAll() throws DaoException {
@@ -41,10 +41,10 @@ public class ButlerDaoImpl implements ButlerDao {
              ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_BUTLERS)) {
             List<Butler> butlers = new ArrayList<>();
             while (resultSet.next()) {
-                Butler user = ButlerCreator.create(resultSet);
-                butlers.add(user);
+                Butler butler = ButlerCreator.create(resultSet);
+                butlers.add(butler);
             }
-            logger.log(Level.DEBUG, "findAll (Butlers) method was completed successfully. " + butlers.size() + " were found");
+            logger.log(Level.DEBUG, "findAll method by butlers was completed successfully. " + butlers.size() + " were found");
             return butlers;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find butlers. Database access error:", e);
@@ -73,18 +73,43 @@ public class ButlerDaoImpl implements ButlerDao {
     }
 
     @Override
-    public boolean deleteById(Butler user) throws DaoException {
-        return false;
+    public boolean deleteById(Long id) throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BUTLER_BY_ID)) {
+            statement.setLong(1, id);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to delete butler with id: " + id, e);
+            throw new DaoException("Impossible to delete butler with id: " + id, e);
+        }
     }
 
     @Override
-    public long insertNewEntity(Butler entity) throws DaoException {
+    public long insertNewEntity(Butler entity) throws DaoException {//todo
         return 0;
     }
 
     @Override
-    public boolean updateRating(byte newRating) throws DaoException {
-        return false;
+    public boolean updateRatingById(Long id, byte newRating) throws DaoException {
+        if(!ButlerValidator.isRatingValid(newRating)){
+            logger.log(Level.ERROR, "Invalid rating with id "+id);
+            return false;
+        }
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_RATING)) {
+            statement.setByte(1, newRating);
+            statement.setLong(2, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "Butler's rating didn't update with id "+id);
+                return false;
+            }
+            logger.log(Level.DEBUG, "Result of update rating for butler with id " + id + " is " + newRating);
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update butler's rating. Database access error:", e);
+            throw new DaoException("Impossible to update butler's rating. Database access error:", e);
+        }
     }
 
 }

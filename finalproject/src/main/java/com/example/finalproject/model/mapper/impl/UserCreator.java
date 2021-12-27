@@ -15,13 +15,13 @@ public class UserCreator {
     }
     static User create(ResultSet resultSet) throws SQLException {
         User user = new User();
-        user.setIdUser(resultSet.getLong(ID_USER));
-        user.setLogin(resultSet.getString(LOGIN));
-        user.setLogin(resultSet.getString(PASSWORD));
-        user.setRole(UserRole.valueOf(resultSet.getString(ROLE).trim().toUpperCase()));
-        user.setLogin(resultSet.getString(NAME));
-        user.setLogin(resultSet.getString(SURNAME));
-        user.setLogin(resultSet.getString(PHONE_NUMBER));
+        user.setIdUser(resultSet.getLong(USERS_ID_USER));
+        user.setLogin(resultSet.getString(USERS_LOGIN));
+        user.setLogin(resultSet.getString(USERS_PASSWORD));
+        user.setRole(UserRole.valueOf(resultSet.getString(USERS_ROLE).trim().toUpperCase()));
+        user.setLogin(resultSet.getString(USERS_NAME));
+        user.setLogin(resultSet.getString(USERS_SURNAME));
+        user.setLogin(resultSet.getString(USERS_PHONE_NUMBER));
         return user;
     }
 }

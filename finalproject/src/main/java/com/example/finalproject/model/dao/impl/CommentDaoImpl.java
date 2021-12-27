@@ -33,7 +33,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean deleteById(Comment user) throws DaoException {
+    public boolean deleteById(Long id) throws DaoException {
         return false;
     }
 

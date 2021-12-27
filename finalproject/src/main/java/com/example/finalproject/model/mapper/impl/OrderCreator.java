@@ -15,11 +15,11 @@ public class OrderCreator {
     }
     static Order create (ResultSet resultSet) throws SQLException{
         Order order = new Order();
-        order.setIdOrder(resultSet.getLong(ID_ORDER));
-        order.setStartDate(LocalDate.parse(resultSet.getString(START_DATE), FORMATTER));
-        order.setFinishDate(LocalDate.parse(resultSet.getString(FINISH_DATE), FORMATTER));
-        order.setPaid(resultSet.getBoolean(ID_PAID));
-        order.setActive(resultSet.getBoolean(IS_ACTIVE));
+        order.setIdOrder(resultSet.getLong(ORDERS_ID_ORDER));
+        order.setStartDate(LocalDate.parse(resultSet.getString(ORDERS_START_DATE), FORMATTER));
+        order.setFinishDate(LocalDate.parse(resultSet.getString(ORDERS_FINISH_DATE), FORMATTER));
+        order.setPaid(resultSet.getBoolean(ORDERS_IS_PAID));
+        order.setActive(resultSet.getBoolean(ORDERS_IS_ACTIVE));
         return order;
     }
 }

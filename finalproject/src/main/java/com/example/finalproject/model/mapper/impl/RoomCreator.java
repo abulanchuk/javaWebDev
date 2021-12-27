@@ -13,12 +13,12 @@ public class RoomCreator {
     }
     static Room create (ResultSet resultSet) throws SQLException {
         Room room = new Room();
-        room.setIdRoom(resultSet.getLong(ID_ROOM));
-        room.setPrice(resultSet.getBigDecimal(PRICE));
-        room.setRoomType(RoomType.valueOf(resultSet.getString(ROOM_TYPE).trim().toUpperCase()));
-        room.setFloor(resultSet.getInt(FLOOR));
-        room.setRoomNumber(resultSet.getInt(ROOM_NUMBER));
-        room.setImageUrl(resultSet.getString(IMAGE_URL));
+        room.setIdRoom(resultSet.getLong(ROOMS_ID_ROOM));
+        room.setPrice(resultSet.getBigDecimal(ROOMS_PRICE));
+        room.setRoomType(RoomType.valueOf(resultSet.getString(ROOMS_ROOM_TYPE).trim().toUpperCase()));
+        room.setFloor(resultSet.getInt(ROOMS_FLOOR));
+        room.setRoomNumber(resultSet.getInt(ROOMS_ROOM_NUMBER));
+        room.setImageUrl(resultSet.getString(ROOMS_IMAGE_URL));
         return room;
     }
 }

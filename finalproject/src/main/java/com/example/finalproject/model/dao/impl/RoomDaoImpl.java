@@ -43,7 +43,7 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public boolean deleteById(Room user) throws DaoException {
+    public boolean deleteById(Long id) throws DaoException {
         return false;
     }
 

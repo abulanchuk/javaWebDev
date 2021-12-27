@@ -12,8 +12,9 @@ public class ButlerCreator {
     }
     public static Butler create(ResultSet resultSet) throws SQLException{
         Butler butler = new Butler();
-        butler.setIdButler(resultSet.getLong(ID_BUTLER));
-        butler.setRating(resultSet.getByte(RATING));
+        butler.setIdButler(resultSet.getLong(BUTLERS_ID_BUTLER));
+        butler.setIdUser(resultSet.getLong(BUTLERS_ID_USER));
+        butler.setRating(resultSet.getByte(BUTLERS_RATING));
         return butler;
     }
 }

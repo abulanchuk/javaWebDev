@@ -52,7 +52,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean deleteById(Order user) throws DaoException {
+    public boolean deleteById(Long id) throws DaoException {
         return false;
     }
 

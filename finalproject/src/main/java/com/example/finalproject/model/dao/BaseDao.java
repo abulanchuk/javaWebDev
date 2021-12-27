@@ -22,7 +22,7 @@ public interface BaseDao<T extends CustomEntity> {
 
     Optional<T> findById(Long id) throws DaoException;
 
-    boolean deleteById(T entity) throws DaoException;
+    boolean deleteById(Long id) throws DaoException;
 
     long insertNewEntity(T entity) throws DaoException;
 

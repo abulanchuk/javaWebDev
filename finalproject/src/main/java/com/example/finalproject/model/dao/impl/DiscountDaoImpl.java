@@ -34,7 +34,7 @@ public class DiscountDaoImpl implements DiscountDao {
     }
 
     @Override
-    public boolean deleteById(Discount user) throws DaoException {
+    public boolean deleteById(Long id) throws DaoException {
         return false;
     }
 
