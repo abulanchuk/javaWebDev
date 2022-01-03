@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ButlerDaoImpl implements ButlerDao {
-    static final Logger logger = LogManager.getLogger(ButlerDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger(ButlerDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_BUTLERS = """
             SELECT butlers.id_user, butlers.id_butler, butlers.rating
@@ -33,6 +33,7 @@ public class ButlerDaoImpl implements ButlerDao {
             INSERT INTO butlers (id_butler, id_user, rating) """;//todo
     private static final String SQL_UPDATE_RATING = """
             UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?""";
+    private ButlerCreator butlerCreator = new ButlerCreator();
 
     @Override
     public List<Butler> findAll() throws DaoException {
@@ -41,7 +42,7 @@ public class ButlerDaoImpl implements ButlerDao {
              ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_BUTLERS)) {
             List<Butler> butlers = new ArrayList<>();
             while (resultSet.next()) {
-                Butler butler = ButlerCreator.create(resultSet);
+                Butler butler = butlerCreator.create(resultSet);
                 butlers.add(butler);
             }
             logger.log(Level.DEBUG, "findAll method by butlers was completed successfully. " + butlers.size() + " were found");
@@ -60,10 +61,10 @@ public class ButlerDaoImpl implements ButlerDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Butler butler = ButlerCreator.create(resultSet);
+                Butler butler = butlerCreator.create(resultSet);
                 butlerOptional = Optional.of(butler);
             }
-            logger.log(Level.DEBUG, "findById (Butler) method was completed successfully."
+            logger.log(Level.DEBUG, "findById method from ButlersDaoImpl was completed successfully."
                     + ((butlerOptional.isPresent()) ? " Butler with id " + id + " was found" : " Butler with id " + id + " don't exist"));
             return butlerOptional;
         } catch (SQLException e) {
@@ -91,8 +92,8 @@ public class ButlerDaoImpl implements ButlerDao {
 
     @Override
     public boolean updateRatingById(Long id, byte newRating) throws DaoException {
-        if(!ButlerValidator.isRatingValid(newRating)){
-            logger.log(Level.ERROR, "Invalid rating with id "+id);
+        if (!ButlerValidator.isRatingValid(newRating)) {
+            logger.log(Level.ERROR, "Invalid rating with id " + id);
             return false;
         }
         try (Connection connection = connectionPool.getConnection();
@@ -101,7 +102,7 @@ public class ButlerDaoImpl implements ButlerDao {
             statement.setLong(2, id);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
-                logger.log(Level.INFO, "Butler's rating didn't update with id "+id);
+                logger.log(Level.INFO, "Butler's rating didn't update with id " + id);
                 return false;
             }
             logger.log(Level.DEBUG, "Result of update rating for butler with id " + id + " is " + newRating);

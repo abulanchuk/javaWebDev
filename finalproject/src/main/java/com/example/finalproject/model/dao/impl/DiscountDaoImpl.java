@@ -3,14 +3,21 @@ package com.example.finalproject.model.dao.impl;
 import com.example.finalproject.model.entity.Discount;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.DiscountDao;
+import com.example.finalproject.model.mapper.impl.DiscountCreator;
+import com.example.finalproject.model.pool.ConnectionPool;
+import com.example.finalproject.util.validator.DiscountValidator;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DiscountDaoImpl implements DiscountDao {
     static final Logger logger = LogManager.getLogger(DiscountDaoImpl.class);
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_DISCOUNTS = """
     SELECT id_discount, percent FROM discounts""";
     private static final String SQL_SELECT_DISCOUNT_BY_ID = """
@@ -23,33 +30,84 @@ public class DiscountDaoImpl implements DiscountDao {
             UPDATE discounts SET percent = ? WHERE percent = ?""";
     private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = """
     SELECT id_discount, percent FROM discounts WHERE percent = ?""";
+    private DiscountCreator discountCreator = new DiscountCreator();
+
     @Override
     public List<Discount> findAll() throws DaoException {
-        return null;
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_DISCOUNTS)) {
+            List<Discount> discounts = new ArrayList<>();
+            while (resultSet.next()) {
+                Discount discount = discountCreator.create(resultSet);
+                discounts.add(discount);
+            }
+            logger.log(Level.DEBUG, "findAll method from DiscountDaoImpl was completed successfully. " + discounts.size() + " were found");
+            return discounts;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find discounts. Database access error: ", e);
+            throw new DaoException("Impossible to find discounts. Database access error: ", e);
+        }
     }
 
     @Override
     public Optional<Discount> findById(Long id) throws DaoException {
-        return Optional.empty();
+        Optional<Discount> discountOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DISCOUNT_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Discount discount = discountCreator.create(resultSet);
+                discountOptional = Optional.of(discount);
+            }
+            logger.log(Level.DEBUG, "findById method from DiscountDaoImpl was completed successfully."
+                    + ((discountOptional.isPresent()) ? " Discount with id " + id + " was found" : " Discount with id " + id + " don't exist"));
+            return discountOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find discount by id. Database access error:", e);
+            throw new DaoException("Impossible to find discount by id. Database access error:", e);
+        }
     }
 
     @Override
     public boolean deleteById(Long id) throws DaoException {
-        return false;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_DISCOUNT_BY_ID)) {
+            statement.setLong(1, id);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to delete discount with such id: " + id, e);
+            throw new DaoException("Impossible to delete discount with such id: " + id, e);
+        }
     }
 
     @Override
     public long insertNewEntity(Discount entity) throws DaoException {
-        return 0;
-    }
-
-    @Override
-    public boolean updateDiscount(byte newDiscount) throws DaoException {
-        return false;
+        return 0;//todo
     }
 
     @Override
     public Optional<Discount> findDiscountByPercent(byte percent) throws DaoException {
-        return Optional.empty();
+        if(!DiscountValidator.isPercentValid(percent)){
+            logger.log(Level.ERROR, "Invalid percent " + percent);
+            return null;
+        }
+        Optional<Discount> discountOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DISCOUNTS_BY_PERCENT)) {
+            statement.setLong(1, percent);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Discount discount = discountCreator.create(resultSet);
+                discountOptional = Optional.of(discount);
+            }
+            logger.log(Level.DEBUG, "findById method from DiscountDaoImpl was completed successfully."
+                    + ((discountOptional.isPresent()) ? " Discount with percent " + percent + " was found" : " Discount with percent " + percent + " don't exist"));
+            return discountOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find discount by percent. Database access error:", e);
+            throw new DaoException("Impossible to find discount by percent. Database access error:", e);
+        }
     }
 }

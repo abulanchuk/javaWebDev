@@ -12,6 +12,9 @@ public class Comment extends CustomEntity{
         this.comment = comment;
     }
 
+    public Comment() {
+    }
+
     public long getIdComment() {
         return idComment;
     }

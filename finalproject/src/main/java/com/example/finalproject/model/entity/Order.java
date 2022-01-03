@@ -105,4 +105,18 @@ public class Order extends CustomEntity{
         result = 31 * result + (int) (idClient ^ (idClient >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Order{ ");
+        sb.append("idOrder=").append(idOrder);
+        sb.append(", idButler=").append(idButler);
+        sb.append(", startDate=").append(startDate);
+        sb.append(", finishDate=").append(finishDate);
+        sb.append(", isPaid=").append(isPaid);
+        sb.append(", isActive=").append(isActive);
+        sb.append(", idClient=").append(idClient);
+        sb.append('}');
+        return sb.toString();
+    }
 }

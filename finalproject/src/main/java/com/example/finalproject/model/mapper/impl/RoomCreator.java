@@ -2,16 +2,19 @@ package com.example.finalproject.model.mapper.impl;
 
 import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.entity.RoomType;
+import com.example.finalproject.model.mapper.RowCreator;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static com.example.finalproject.model.mapper.ColumnTableName.*;
 
-public class RoomCreator {
+public class RoomCreator implements RowCreator {
     public RoomCreator() {
     }
-    static Room create (ResultSet resultSet) throws SQLException {
+
+    @Override
+    public Room create (ResultSet resultSet) throws SQLException {
         Room room = new Room();
         room.setIdRoom(resultSet.getLong(ROOMS_ID_ROOM));
         room.setPrice(resultSet.getBigDecimal(ROOMS_PRICE));

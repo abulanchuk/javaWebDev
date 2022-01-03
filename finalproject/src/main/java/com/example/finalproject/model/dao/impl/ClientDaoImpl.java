@@ -1,12 +1,11 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.ClientDao;
-import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.model.mapper.impl.ButlerCreator;
 import com.example.finalproject.model.mapper.impl.ClientCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
+import com.example.finalproject.util.validator.ClientValidator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
-    static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
@@ -41,6 +40,7 @@ public class ClientDaoImpl implements ClientDao {
             UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_client = ?""";
     private static final String SQL_UPDATE_PASSWORD_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
+    private ClientCreator clientCreator = new ClientCreator();
 
     @Override
     public List<Client> findAll() throws DaoException {
@@ -49,7 +49,7 @@ public class ClientDaoImpl implements ClientDao {
              ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_CLIENTS)) {
             List<Client> clients = new ArrayList<>();
             while (resultSet.next()) {
-                Client client = ClientCreator.create(resultSet);
+                Client client = clientCreator.create(resultSet);
                 clients.add(client);
             }
             logger.log(Level.DEBUG, "findAll method by clients was completed successfully. " + clients.size() + " were found");
@@ -68,10 +68,10 @@ public class ClientDaoImpl implements ClientDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Client client = ClientCreator.create(resultSet);
+                Client client = clientCreator.create(resultSet);
                 clientOptional = Optional.of(client);
             }
-            logger.log(Level.DEBUG, "findById method from ClientDao was completed successfully."
+            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
@@ -99,6 +99,10 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public boolean updateEmail(Long id, String newEmail) throws DaoException {
+        if (!ClientValidator.isEmailValid(newEmail)) {
+            logger.log(Level.ERROR, "Invalid new client's email " + newEmail + " with id " + id);
+            return false;
+        }
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EMAIL)) {
             statement.setString(1, newEmail);
@@ -118,7 +122,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public BigDecimal checkCashInBankAccount(long idClient) throws DaoException {
-        return null;
+        return null;//todo
     }
 
     @Override
@@ -132,7 +136,7 @@ public class ClientDaoImpl implements ClientDao {
                 logger.log(Level.INFO, "Client's cash in bank account didn't update with id " + id);
                 return false;
             }
-            logger.log(Level.DEBUG, "Result of update cash in bank account for client with id " + id + "and new total sum= " ); //todo add total sum
+            logger.log(Level.DEBUG, "Result of update cash in bank account for client with id " + id + "and new total sum= "); //todo add total sum
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's cash in bank account. Database access error:", e);
@@ -142,6 +146,24 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public boolean updatePasswordNumber(String oldPasswordNumber, String newPasswordNumber) throws DaoException {
-        return false;
+        if (!ClientValidator.isPasswordNumberValid(newPasswordNumber)) {
+            logger.log(Level.ERROR, "Invalid new password number " + newPasswordNumber);
+            return false;
+        }
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSWORD_NUMBER)) {
+            statement.setString(1, newPasswordNumber);
+            statement.setString(2, oldPasswordNumber);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "Client's password number didn't update");
+                return false;
+            }
+            logger.log(Level.DEBUG, "Result of update password number is success");
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update client's password number. Database access error:", e);
+            throw new DaoException("Impossible to update client's password number. Database access error:", e);
+        }
     }
 }

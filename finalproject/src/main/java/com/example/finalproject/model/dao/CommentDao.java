@@ -4,5 +4,5 @@ import com.example.finalproject.model.entity.Comment;
 import com.example.finalproject.exception.DaoException;
 
 public interface CommentDao extends BaseDao<Comment> {
-    boolean updateComment(String newComment) throws DaoException;
+    boolean updateComment(String newComment, long id) throws DaoException;
 }

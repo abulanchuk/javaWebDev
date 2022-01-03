@@ -6,5 +6,5 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface RowCreator {
-    CustomEntity create(ResultSet resultSet) throws SQLException;
+     CustomEntity create(ResultSet resultSet) throws SQLException;
 }

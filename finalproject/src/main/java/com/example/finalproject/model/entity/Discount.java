@@ -9,6 +9,9 @@ public class Discount extends CustomEntity{
         this.percent = percent;
     }
 
+    public Discount() {
+    }
+
     public long getIdDiscount() {
         return idDiscount;
     }
