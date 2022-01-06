@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface RoomDao extends BaseDao<Room>{
-    boolean updatePrice(String newPrice) throws DaoException;
+    boolean updatePrice(BigDecimal newPrice, int roomNumber) throws DaoException;
     List<Room> findAllRoomsInThisFloor (int floor) throws DaoException;
     List<Room> findRoomsByTypeOnTheFloor (int floor, RoomType roomType) throws DaoException;
     int findFloorWhereTheRoom (int numberOfRoom) throws DaoException;

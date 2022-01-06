@@ -1,5 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
+import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.OrderDao;
@@ -35,9 +36,9 @@ public class OrderDaoImpl implements OrderDao {
     private static final String SQL_UPDATE_FINISH_TIME = """
             UPDATE orders SET finish_date = ? WHERE finish_date = ?""";
     private static final String SQL_UPDATE_PAYMENT_STATUS = """
-            UPDATE orders SET is_paid = ? WHERE is_paid = ?""";
+            UPDATE orders SET is_paid = ? WHERE id_order = ?""";
     private static final String SQL_UPDATE_ACTIVE_STATUS = """
-            UPDATE orders SET is_active = ? WHERE is_active = ?""";
+            UPDATE orders SET is_active = ? WHERE id_order = ?""";
     private static final String SQL_SELECT_PAID_ORDERS = """
             SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
@@ -100,9 +101,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public long insertNewEntity(Order entity) throws DaoException {
-        return 0; //todo
-    }
+      public Order insertNewEntity(CustomEntity... entities) throws DaoException {
+       return null; //todo
+     }
 
     @Override
     public boolean updateStartDate(LocalDate currentStartDate, LocalDate newStartDate) throws DaoException {
@@ -143,22 +144,76 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean updatePaymentStatus(boolean status) throws DaoException {
-        return false;
+    public boolean updatePaymentStatus(boolean newStatus, long id) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PAYMENT_STATUS)) {
+            statement.setBoolean(1, newStatus);
+            statement.setLong(2, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "Payment status didn't update with id " + id);
+                return false;
+            }
+            logger.log(Level.DEBUG, "Payment status with id " + id + " is " + newStatus);
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update Payment status. Database access error:", e);
+            throw new DaoException("Impossible to update Payment status. Database access error:", e);
+        }
     }
 
     @Override
-    public boolean updateActiveStatus(boolean status) throws DaoException {
-        return false;
+    public boolean updateActiveStatus(boolean status, long id) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PAYMENT_STATUS)) {
+            statement.setBoolean(1, status);
+            statement.setLong(2, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "Active status didn't update with id " + id);
+                return false;
+            }
+            logger.log(Level.DEBUG, "Active status with id " + id + " is " + status);
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update active status. Database access error:", e);
+            throw new DaoException("Impossible to update active status. Database access error:", e);
+        }
     }
 
     @Override
-    public List<Order> showPaidOrders(boolean status) throws DaoException {
-        return null;
+    public List<Order> showPaidOrders() throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SQL_SELECT_PAID_ORDERS)) {
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()) {
+                Order order = orderCreator.create(resultSet);
+                orders.add(order);
+            }
+            logger.log(Level.DEBUG, "showPaidOrders method from OrdersDaoImpl was completed successfully. " + orders.size() + " were found");
+            return orders;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find orders. Database access error: ", e);
+            throw new DaoException("Impossible to find orders. Database access error: ", e);
+        }
     }
 
     @Override
-    public List<Order> showNotPaidOrders(boolean status) throws DaoException {
-        return null;
+    public List<Order> showNotPaidOrders() throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SQL_SELECT_NOT_PAID_ORDERS)) {
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()) {
+                Order order = orderCreator.create(resultSet);
+                orders.add(order);
+            }
+            logger.log(Level.DEBUG, "showNotPaidOrders method from OrdersDaoImpl was completed successfully. " + orders.size() + " were found");
+            return orders;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find orders which are not paid. Database access error: ", e);
+            throw new DaoException("Impossible to find orders which are not paid. Database access error: ", e);
+        }
     }
 }

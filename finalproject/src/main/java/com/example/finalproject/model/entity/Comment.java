@@ -12,6 +12,11 @@ public class Comment extends CustomEntity{
         this.comment = comment;
     }
 
+    public Comment(long idButler, String comment) {
+        this.idButler = idButler;
+        this.comment = comment;
+    }
+
     public Comment() {
     }
 
@@ -57,5 +62,15 @@ public class Comment extends CustomEntity{
         result = 31 * result + (int) (idButler ^ (idButler >>> 32));
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Comment{ ");
+        sb.append("idComment=").append(idComment);
+        sb.append(", idButler=").append(idButler);
+        sb.append(", comment='").append(comment).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

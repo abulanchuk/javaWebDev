@@ -43,4 +43,13 @@ public class Booking {
         result = 31 * result + (int) (idRoom ^ (idRoom >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Booking{ ");
+        sb.append("idClient=").append(idClient);
+        sb.append(", idRoom=").append(idRoom);
+        sb.append('}');
+        return sb.toString();
+    }
 }

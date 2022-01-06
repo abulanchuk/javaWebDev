@@ -12,7 +12,7 @@ import static com.example.finalproject.model.mapper.ColumnTableName.*;
 
 
 public class UserCreator implements RowCreator {
-    public UserCreator(User user) {
+    public UserCreator() {
     }
 
     @Override
@@ -20,11 +20,11 @@ public class UserCreator implements RowCreator {
         User user = new User();
         user.setIdUser(resultSet.getLong(USERS_ID_USER));
         user.setLogin(resultSet.getString(USERS_LOGIN));
-        user.setLogin(resultSet.getString(USERS_PASSWORD));
+        user.setPassword(resultSet.getString(USERS_PASSWORD));
         user.setRole(UserRole.valueOf(resultSet.getString(USERS_ROLE).trim().toUpperCase()));
-        user.setLogin(resultSet.getString(USERS_NAME));
-        user.setLogin(resultSet.getString(USERS_SURNAME));
-        user.setLogin(resultSet.getString(USERS_PHONE_NUMBER));
+        user.setName(resultSet.getString(USERS_NAME));
+        user.setSurname(resultSet.getString(USERS_SURNAME));
+        user.setPhoneNumber(resultSet.getString(USERS_PHONE_NUMBER));
         return user;
     }
 }

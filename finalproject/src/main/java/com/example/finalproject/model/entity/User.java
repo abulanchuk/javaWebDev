@@ -20,6 +20,15 @@ public class User extends CustomEntity{
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String login, String password, UserRole role, String name, String surname, String phoneNumber) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+    }
+
     public User(){}
 
     public long getIdUser() {
@@ -108,7 +117,7 @@ public class User extends CustomEntity{
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
+        final StringBuilder sb = new StringBuilder("User{ ");
         sb.append("idUser=").append(idUser);
         sb.append(", login='").append(login).append('\'');
         sb.append(", password='").append(password).append('\'');

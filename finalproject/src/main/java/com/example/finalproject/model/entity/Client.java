@@ -17,6 +17,12 @@ public class Client extends CustomEntity{
         this.idUser = idUser;
     }
 
+    public Client(String passwordNumber, String email, BigDecimal bankAccount) {
+        this.passwordNumber = passwordNumber;
+        this.email = email;
+        this.bankAccount = bankAccount;
+    }
+
     public Client() {
     }
 

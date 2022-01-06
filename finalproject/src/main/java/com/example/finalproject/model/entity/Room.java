@@ -109,5 +109,19 @@ public class Room extends CustomEntity{
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Room{ ");
+        sb.append("idRoom=").append(idRoom);
+        sb.append(", price=").append(price);
+        sb.append(", roomType=").append(roomType);
+        sb.append(", floor=").append(floor);
+        sb.append(", roomNumber=").append(roomNumber);
+        sb.append(", idDiscount=").append(idDiscount);
+        sb.append(", imageUrl='").append(imageUrl).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
 

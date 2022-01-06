@@ -9,8 +9,8 @@ import java.util.List;
 public interface OrderDao extends BaseDao<Order> {
     boolean updateStartDate(LocalDate currentStartDate, LocalDate newStartDate) throws DaoException;
     boolean updateFinishDate(LocalDate currentFinishDate, LocalDate newFinishDate) throws DaoException;
-    boolean updatePaymentStatus (boolean status) throws DaoException;
-    boolean updateActiveStatus (boolean status) throws DaoException;
-    List<Order> showPaidOrders (boolean status) throws DaoException;
-    List<Order> showNotPaidOrders (boolean status) throws DaoException;
+    boolean updatePaymentStatus (boolean status, long id) throws DaoException;
+    boolean updateActiveStatus (boolean status, long id) throws DaoException;
+    List<Order> showPaidOrders () throws DaoException;
+    List<Order> showNotPaidOrders () throws DaoException;
 }

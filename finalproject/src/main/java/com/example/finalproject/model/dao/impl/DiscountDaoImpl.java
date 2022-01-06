@@ -1,5 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
+import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.Discount;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.DiscountDao;
@@ -82,9 +83,9 @@ public class DiscountDaoImpl implements DiscountDao {
         }
     }
 
-    @Override
-    public long insertNewEntity(Discount entity) throws DaoException {
-        return 0;//todo
+ @Override
+ public Discount insertNewEntity(CustomEntity... entities) throws DaoException {
+       return null;//todo
     }
 
     @Override

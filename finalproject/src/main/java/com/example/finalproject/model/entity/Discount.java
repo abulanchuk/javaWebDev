@@ -45,4 +45,13 @@ public class Discount extends CustomEntity{
         result = 31 * result + (int) percent;
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Discount{ ");
+        sb.append("idDiscount=").append(idDiscount);
+        sb.append(", percent=").append(percent);
+        sb.append('}');
+        return sb.toString();
+    }
 }

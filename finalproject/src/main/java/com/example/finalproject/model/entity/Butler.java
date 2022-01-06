@@ -10,6 +10,11 @@ public class Butler extends CustomEntity{
         this.idUser = idUser;
         this.rating = rating;
     }
+
+    public Butler( byte rating) {
+        this.rating = rating;
+    }
+
     public Butler(){}
 
     public long getIdButler() {
@@ -58,7 +63,7 @@ public class Butler extends CustomEntity{
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Butler{");
+        final StringBuilder sb = new StringBuilder("Butler{ ");
         sb.append("idButler=").append(idButler);
         sb.append(", idUser=").append(idUser);
         sb.append(", rating=").append(rating);

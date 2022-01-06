@@ -1,8 +1,11 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.ClientDao;
+import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
+import com.example.finalproject.model.entity.CustomEntity;
+import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ClientCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import com.example.finalproject.util.validator.ClientValidator;
@@ -30,8 +33,10 @@ public class ClientDaoImpl implements ClientDao {
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
             INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = ?""";
+    private static final String SQL_INSERT_USER = """
+            INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_INSERT_NEW_CLIENT = """
-            """;//todo
+            INSERT INTO clients (password_number, email, bank_account, id_user) VALUES (?,?,?,?)""";
     private static final String SQL_UPDATE_EMAIL = """
             UPDATE clients SET email = ? WHERE id_client = ?""";
     private static final String SQL_SELECT_BANK_ACCOUNT_BY_ID = """
@@ -93,8 +98,68 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public long insertNewEntity(Client entity) throws DaoException {
-        return 0; //todo
+    public Client insertNewEntity(CustomEntity... entities) throws DaoException {
+        if (entities.length != 2) {
+            throw new DaoException("Expected 2 argument, got " + entities.length);
+        }
+
+        if (!(entities[0] instanceof User)) {
+            throw new DaoException("Expected type User, got " + entities[0].getClass());
+        }
+        if (!(entities[1] instanceof Client)) {
+            throw new DaoException("Expected type Client, got " + entities[1].getClass());
+        }
+        User user = (User) entities[0];
+        Client client = (Client) entities[1];
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(SQL_INSERT_USER,
+                     Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement clientStatement = connection.prepareStatement(SQL_INSERT_NEW_CLIENT,
+                     Statement.RETURN_GENERATED_KEYS)) {
+
+            try {
+                connection.setAutoCommit(false);
+                userStatement.setString(1, user.getLogin());
+                userStatement.setString(2, user.getPassword());
+                userStatement.setString(3, user.getRole().toString());
+                userStatement.setString(4, user.getName());
+                userStatement.setString(5, user.getSurname());
+                userStatement.setString(6, user.getPhoneNumber());
+
+                userStatement.executeUpdate();
+                try (ResultSet userResultSet = userStatement.getGeneratedKeys()) {
+                    if (userResultSet.next()) {
+                        long idUser = userResultSet.getLong(1);
+                        client.setIdUser(idUser);
+                    }
+
+                    clientStatement.setString(1, client.getPasswordNumber());
+                    clientStatement.setString(2, client.getEmail());
+                    clientStatement.setBigDecimal(3, client.getBankAccount());
+                    clientStatement.setLong(4, client.getIdUser());
+                    clientStatement.executeUpdate();
+
+                    try (ResultSet clientResultSet = clientStatement.getGeneratedKeys()) {
+                        if (clientResultSet.next()) {
+                            long idClient = clientResultSet.getLong(1);
+                            client.setIdClient(idClient);
+                        }
+                    }
+                    connection.commit();
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.log(Level.DEBUG, "Failed to create client",e);
+                throw new DaoException("Failed to create client: " + client, e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to create client: " + client, e);
+        }
+        logger.log(Level.DEBUG, "Client successfully created: " + client);
+        return client;
     }
 
     @Override

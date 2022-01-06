@@ -3,6 +3,7 @@ package com.example.finalproject.model.dao.impl;
 import com.example.finalproject.model.entity.Comment;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.CommentDao;
+import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.mapper.impl.CommentCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.Level;
@@ -24,7 +25,7 @@ public class CommentDaoImpl implements CommentDao {
     private static final String SQL_DELETE_COMMENT_BY_ID = """
             DELETE FROM comments WHERE id_comment = ?""";
     private static final String SQL_INSERT_NEW_COMMENT = """
-            INSERT INTO comments (id_comment, id_butler, content) VALUES (?,?,?)""";
+            INSERT INTO comments (id_butler, content) VALUES (?,?)""";
     private static final String SQL_UPDATE_COMMENT = """
             UPDATE discounts SET content = ? WHERE id_comment = ?""";
     private CommentCreator commentCreator = new CommentCreator();
@@ -80,9 +81,29 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public long insertNewEntity(Comment entity) throws DaoException {
-        return 0;//todo
-    }
+    public Comment insertNewEntity(CustomEntity... entities) throws DaoException {
+        if (entities.length != 1) {
+            logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
+            throw new DaoException("Expected 1 argument, got " + entities.length);
+        }
+        if (!(entities[0] instanceof Comment)) {
+            logger.log(Level.ERROR, "Expected type Comment, got " + entities[0].getClass());
+            throw new DaoException("Expected type Comment, got " + entities[0].getClass());
+        }
+        Comment comment = (Comment) entities[0];
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_NEW_COMMENT)) {
+
+            statement.setLong(1, comment.getIdButler());
+            statement.setString(2, comment.getComment());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.log(Level.DEBUG, "Failed to create butler", e);
+            throw new DaoException("Failed to create feedback: ", e);
+        }
+        return comment;
+  }
 
 
     @Override

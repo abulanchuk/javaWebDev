@@ -1,8 +1,11 @@
 package com.example.finalproject.model.dao.impl;
 
+import com.example.finalproject.model.dao.UserDao;
 import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;
+import com.example.finalproject.model.entity.CustomEntity;
+import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import com.example.finalproject.util.validator.ButlerValidator;
@@ -29,8 +32,11 @@ public class ButlerDaoImpl implements ButlerDao {
             DELETE users, butlers, orders FROM users 
             INNER JOIN butlers ON users.id_user = butlers.id_user 
             INNER JOIN orders ON orders.id_butler = butlers.id_butler WHERE butlers.id_butler = ?""";
+    private static final String SQL_INSERT_USER = """
+            INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_INSERT_NEW_BUTLER = """
-            INSERT INTO butlers (id_butler, id_user, rating) """;//todo
+            INSERT INTO butlers (id_user, rating)
+            VALUES (?, ?)""";
     private static final String SQL_UPDATE_RATING = """
             UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?""";
     private ButlerCreator butlerCreator = new ButlerCreator();
@@ -86,8 +92,66 @@ public class ButlerDaoImpl implements ButlerDao {
     }
 
     @Override
-    public long insertNewEntity(Butler entity) throws DaoException {//todo
-        return 0;
+    public Butler insertNewEntity(CustomEntity... entities) throws DaoException {
+        if (entities.length != 2) {
+            throw new DaoException("Expected 2 argument, got " + entities.length);
+        }
+
+        if (!(entities[0] instanceof User)) {
+            throw new DaoException("Expected type User, got " + entities[0].getClass());
+        }
+        if (!(entities[1] instanceof Butler)) {
+            throw new DaoException("Expected type Butler, got " + entities[1].getClass());
+        }
+        User user = (User) entities[0];
+        Butler butler = (Butler) entities[1];
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(SQL_INSERT_USER,
+                     Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement butlerStatement = connection.prepareStatement(SQL_INSERT_NEW_BUTLER,
+                     Statement.RETURN_GENERATED_KEYS)) {
+
+            try {
+                connection.setAutoCommit(false);
+                userStatement.setString(1, user.getLogin());
+                userStatement.setString(2, user.getPassword());
+                userStatement.setString(3, user.getRole().toString());
+                userStatement.setString(4, user.getName());
+                userStatement.setString(5, user.getSurname());
+                userStatement.setString(6, user.getPhoneNumber());
+
+                userStatement.executeUpdate();
+                try (ResultSet resultSet = userStatement.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        long idUser = resultSet.getLong(1);
+                        butler.setIdUser(idUser);
+                    }
+
+
+                    butlerStatement.setLong(1, butler.getIdUser());
+                    butlerStatement.setByte(2, (byte) 0);
+                    butlerStatement.executeUpdate();
+                    try (ResultSet butlerResultSet = butlerStatement.getGeneratedKeys()) {
+                        if (butlerResultSet.next()) {
+                            long idButler = butlerResultSet.getLong(1);
+                            butler.setIdButler(idButler);
+                        }
+                    }
+                    connection.commit();
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.log(Level.DEBUG, "failed to create butler", e);
+                throw new DaoException("Failed to create butler: " + butler, e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to create butler: " + butler, e);
+        }
+        logger.log(Level.DEBUG, "Butler successfully created: " + butler);
+        return butler;
     }
 
     @Override
