@@ -99,8 +99,8 @@ public class CommentDaoImpl implements CommentDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            logger.log(Level.DEBUG, "Failed to create butler", e);
-            throw new DaoException("Failed to create feedback: ", e);
+            logger.log(Level.DEBUG, "Failed to create comment", e);
+            throw new DaoException("Failed to create comment: ", e);
         }
         return comment;
   }

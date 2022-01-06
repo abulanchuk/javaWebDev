@@ -20,6 +20,16 @@ public class Order extends CustomEntity{
         this.isActive = isActive;
         this.idClient = idClient;
     }
+
+    public Order(long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
+        this.idButler = idButler;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.isPaid = isPaid;
+        this.isActive = isActive;
+        this.idClient = idClient;
+    }
+
     public Order (){}
 
     public long getIdOrder() {
@@ -38,11 +48,11 @@ public class Order extends CustomEntity{
         return finishDate;
     }
 
-    public boolean isPaid() {
+    public boolean getIsPaid() {
         return isPaid;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 

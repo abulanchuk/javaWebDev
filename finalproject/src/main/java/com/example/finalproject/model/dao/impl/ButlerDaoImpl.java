@@ -1,6 +1,5 @@
 package com.example.finalproject.model.dao.impl;
 
-import com.example.finalproject.model.dao.UserDao;
 import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;

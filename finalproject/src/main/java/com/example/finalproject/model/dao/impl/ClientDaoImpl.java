@@ -1,7 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.ClientDao;
-import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.entity.CustomEntity;
@@ -66,7 +65,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Optional<Client> findById(Long id) throws DaoException { //todo
+    public Optional<Client> findById(Long id) throws DaoException {
         Optional<Client> clientOptional = Optional.empty();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_ID)) {
@@ -201,7 +200,7 @@ public class ClientDaoImpl implements ClientDao {
                 logger.log(Level.INFO, "Client's cash in bank account didn't update with id " + id);
                 return false;
             }
-            logger.log(Level.DEBUG, "Result of update cash in bank account for client with id " + id + "and new total sum= "); //todo add total sum
+            logger.log(Level.DEBUG, "Add "+ howMuchToAdd +" money in bank account for client with id " + id);
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's cash in bank account. Database access error:", e);

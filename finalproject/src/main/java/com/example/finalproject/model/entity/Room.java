@@ -20,6 +20,16 @@ public class Room extends CustomEntity{
         this.idDiscount = idDiscount;
         this.imageUrl = imageUrl;
     }
+
+    public Room(BigDecimal price, RoomType roomType, int floor, int roomNumber, long idDiscount, String imageUrl) {
+        this.price = price;
+        this.roomType = roomType;
+        this.floor = floor;
+        this.roomNumber = roomNumber;
+        this.idDiscount = idDiscount;
+        this.imageUrl = imageUrl;
+    }
+
     public Room(){
 
     }

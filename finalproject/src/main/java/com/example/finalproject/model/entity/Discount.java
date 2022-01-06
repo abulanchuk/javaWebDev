@@ -9,6 +9,10 @@ public class Discount extends CustomEntity{
         this.percent = percent;
     }
 
+    public Discount(byte percent) {
+        this.percent = percent;
+    }
+
     public Discount() {
     }
 

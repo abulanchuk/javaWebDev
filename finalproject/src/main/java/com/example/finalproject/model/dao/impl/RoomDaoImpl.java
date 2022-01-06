@@ -28,7 +28,7 @@ public class RoomDaoImpl implements RoomDao {
     private static final String SQL_DELETE_ROOM_BY_ID = """
             DELETE FROM rooms WHERE id_room = ?""";
     private static final String SQL_INSERT_ROOM = """
-            INSERT INTO rooms (id_room, price, room_type, floor, room_number, id_discount, image_url) VALUES (?,?,?,?,?,?,?)""";
+            INSERT INTO rooms (price, room_type, floor, room_number, id_discount, image_url) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_ROOM_PRICE_BY_NUMBER_OF_ROOM = """
             UPDATE rooms SET price = ? WHERE room_number = ?""";
     private static final String SQL_SELECT_ROOM_BY_FLOOR = """
@@ -93,7 +93,31 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public Room insertNewEntity(CustomEntity... entities) throws DaoException {
-        return null;//todo
+        if (entities.length != 1) {
+            logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
+            throw new DaoException("Expected 1 argument, got " + entities.length);
+        }
+        if (!(entities[0] instanceof Room)) {
+            logger.log(Level.ERROR, "Expected type Room, got " + entities[0].getClass());
+            throw new DaoException("Expected type Room, got " + entities[0].getClass());
+        }
+        Room room = (Room) entities[0];
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ROOM)) {
+
+            statement.setBigDecimal(1, room.getPrice());
+            statement.setString(2, room.getRoomType().toString());
+            statement.setInt(3, room.getFloor());
+            statement.setInt(4, room.getRoomNumber());
+            statement.setLong(5, room.getIdDiscount());
+            statement.setString(6, room.getImageUrl());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.log(Level.DEBUG, "Failed to create room", e);
+            throw new DaoException("Failed to create room: ", e);
+        }
+        return room;
     }
 
     @Override

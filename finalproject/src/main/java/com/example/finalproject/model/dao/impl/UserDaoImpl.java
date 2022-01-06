@@ -2,7 +2,6 @@ package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.model.dao.UserDao;
 import com.example.finalproject.model.entity.CustomEntity;
-import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.entity.UserRole;
 import com.example.finalproject.exception.DaoException;
@@ -88,7 +87,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteById(Long id) throws DaoException {//todo
+    public boolean deleteById(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
             statement.setLong(1, id);

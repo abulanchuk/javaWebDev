@@ -26,7 +26,7 @@ public class DiscountDaoImpl implements DiscountDao {
     private static final String SQL_DELETE_DISCOUNT_BY_ID = """
             DELETE FROM discounts WHERE id_discount = ?""";
     private static final String SQL_INSERT_DISCOUNT = """
-            INSERT INTO discounts (id_discount, percent) VALUES (?,?)""";
+            INSERT INTO discounts (percent) VALUES (?)""";
     private static final String SQL_UPDATE_DISCOUNT_BY_ID = """
             UPDATE discounts SET percent = ? WHERE percent = ?""";
     private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = """
@@ -85,7 +85,26 @@ public class DiscountDaoImpl implements DiscountDao {
 
  @Override
  public Discount insertNewEntity(CustomEntity... entities) throws DaoException {
-       return null;//todo
+     if (entities.length != 1) {
+         logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
+         throw new DaoException("Expected 1 argument, got " + entities.length);
+     }
+     if (!(entities[0] instanceof Discount)) {
+         logger.log(Level.ERROR, "Expected type Discount, got " + entities[0].getClass());
+         throw new DaoException("Expected type Discount, got " + entities[0].getClass());
+     }
+     Discount comment = (Discount) entities[0];
+     try (Connection connection = ConnectionPool.getInstance().getConnection();
+          PreparedStatement statement = connection.prepareStatement(SQL_INSERT_DISCOUNT)) {
+
+         statement.setByte(1, comment.getPercent());
+         statement.executeUpdate();
+
+     } catch (SQLException e) {
+         logger.log(Level.DEBUG, "Failed to create discount", e);
+         throw new DaoException("Failed to create discount: ", e);
+     }
+     return comment;
     }
 
     @Override
