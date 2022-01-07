@@ -38,11 +38,9 @@ public class ClientDaoImpl implements ClientDao {
             INSERT INTO clients (password_number, email, bank_account, id_user) VALUES (?,?,?,?)""";
     private static final String SQL_UPDATE_EMAIL = """
             UPDATE clients SET email = ? WHERE id_client = ?""";
-    private static final String SQL_SELECT_BANK_ACCOUNT_BY_ID = """
-            SELECT bank_account FROM clients WHERE clients.id_client = ?""";
     private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = """
             UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_client = ?""";
-    private static final String SQL_UPDATE_PASSWORD_NUMBER = """
+    private static final String SQL_UPDATE_PASSPORT_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
     private ClientCreator clientCreator = new ClientCreator();
 
@@ -185,14 +183,9 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public BigDecimal checkCashInBankAccount(long idClient) throws DaoException {
-        return null;//todo
-    }
-
-    @Override
     public boolean updateCashInBankAccount(Long id, BigDecimal howMuchToAdd) throws DaoException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EMAIL)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CASH_IN_BANK_ACCOUNT)) {
             statement.setBigDecimal(1, howMuchToAdd);
             statement.setLong(2, id);
             boolean isUpdated = statement.executeUpdate() == 1;
@@ -209,25 +202,25 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public boolean updatePasswordNumber(String oldPasswordNumber, String newPasswordNumber) throws DaoException {
-        if (!ClientValidator.isPasswordNumberValid(newPasswordNumber)) {
-            logger.log(Level.ERROR, "Invalid new password number " + newPasswordNumber);
+    public boolean updatePassportNumber(String oldPassportNumber, String newPassportNumber) throws DaoException {
+        if (!ClientValidator.isPasswordNumberValid(newPassportNumber)) {
+            logger.log(Level.ERROR, "Invalid new password number " + newPassportNumber);
             return false;
         }
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSWORD_NUMBER)) {
-            statement.setString(1, newPasswordNumber);
-            statement.setString(2, oldPasswordNumber);
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSPORT_NUMBER)) {
+            statement.setString(1, newPassportNumber);
+            statement.setString(2, oldPassportNumber);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
-                logger.log(Level.INFO, "Client's password number didn't update");
+                logger.log(Level.INFO, "Client's passport number didn't update");
                 return false;
             }
-            logger.log(Level.DEBUG, "Result of update password number is success");
+            logger.log(Level.DEBUG, "Result of update passport number is success");
             return true;
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Impossible to update client's password number. Database access error:", e);
-            throw new DaoException("Impossible to update client's password number. Database access error:", e);
+            logger.log(Level.ERROR, "Impossible to update client's passport number. Database access error:", e);
+            throw new DaoException("Impossible to update client's passport number. Database access error:", e);
         }
     }
 }
