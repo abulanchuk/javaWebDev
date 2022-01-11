@@ -48,6 +48,7 @@
                 <div class="slider__items">
                     <div class="slider__item">
                         <img src="${pageContext.request.contextPath}/images/slider/slider1.jpg" style='height: 80%; width: 100%; display: block' alt="logo hotel"/></a>
+                        <button class="btn btn-outline-secondary btn-lg">Read more!</button>
                     </div>
                     <div class="slider__item">
                         <img src="${pageContext.request.contextPath}/images/slider/slider2.jpg" style='height: 80%; width: 100%; display: block' alt="logo hotel"/></a>
@@ -61,7 +62,6 @@
         <a href="#" class="slider__control" data-slide="prev"></a>
         <a href="#" class="slider__control" data-slide="next"></a>
     </div>
-
 </div>
 
 
