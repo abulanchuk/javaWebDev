@@ -24,16 +24,7 @@
 
     <title>Fushifaru hotel</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" type="text/css">
-    <!-- ChiefSlider JavaScript -->
-    <script defer src="${pageContext.request.contextPath}/js/slider.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const slider = new ChiefSlider('.slider', {
-                loop: false
-            });
-        });
-    </script>
 </head>
 <body>
 <%@include file="../header/header.jsp" %>
@@ -41,31 +32,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <div class="container">
-
-    <div class="slider">
-        <div class="slider__container">
-            <div class="slider__wrapper">
-                <div class="slider__items">
-                    <div class="slider__item">
-                        <img src="${pageContext.request.contextPath}/images/slider/slider1.jpg" style='height: 80%; width: 100%; display: block' alt="logo hotel"/></a>
-                        <button class="btn btn-outline-secondary btn-lg">Read more!</button>
-                    </div>
-                    <div class="slider__item">
-                        <img src="${pageContext.request.contextPath}/images/slider/slider2.jpg" style='height: 80%; width: 100%; display: block' alt="logo hotel"/></a>
-                    </div>
-                    <div class="slider__item">
-                        <img src="${pageContext.request.contextPath}/images/slider/slider3.jpg" style='height: 80%; width: 100%; display: block' alt="logo hotel"/></a>
-                    </div>
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="5000">
+                    <img src="${pageContext.request.contextPath}/images/slider/slider1.jpg" style='height: 80%; width: 100%; display: block' class="d-block w-100" alt="sub in hotel">
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="${pageContext.request.contextPath}/images/slider/slider2.jpg" style='height: 80%; width: 100%; display: block' class="d-block w-100" alt="romantic in Maldives">
+                </div>
+                <div class="carousel-item">
+                    <img src="${pageContext.request.contextPath}/images/slider/slider3.jpg" style='height: 80%; width: 100%; display: block' class="d-block w-100" alt="children room in a hotel">
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <a href="#" class="slider__control" data-slide="prev"></a>
-        <a href="#" class="slider__control" data-slide="next"></a>
-    </div>
+
+
+
 </div>
-
-
 <%@include file="../footer/footer.jsp" %>
-
 </body>
 </html>
