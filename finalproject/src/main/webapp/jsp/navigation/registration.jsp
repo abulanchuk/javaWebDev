@@ -10,16 +10,17 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/authorization.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registration.css" type="text/css">
 </head>
 <body>
 <%@include file="../header/header.jsp" %>
 
 <section class="vh-100 gradient-custom">
-    <div class="container h-75">
+    <div class="container h-100">
         <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white " style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center ">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5 invisible-scroll" style="overflow-y: auto; max-height:  100%">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-3 text-center ">
 
                         <div class="mb-md-3 mt-md-3 pb-3">
 
