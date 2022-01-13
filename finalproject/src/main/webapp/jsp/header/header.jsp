@@ -46,7 +46,7 @@
                 <a class="nav-link" href="#">Контакты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Личный кабинет</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/jsp/navigation/authorization.jsp">Личный кабинет</a>
             </li>
         </ul>
     </div>

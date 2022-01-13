@@ -6,7 +6,7 @@ import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.DiscountDao;
 import com.example.finalproject.model.mapper.impl.DiscountCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
-import com.example.finalproject.util.validator.DiscountValidator;
+import com.example.finalproject.validator.impl.ValidatorImpl;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -109,10 +109,6 @@ public class DiscountDaoImpl implements DiscountDao {
 
     @Override
     public Optional<Discount> findDiscountByPercent(byte percent) throws DaoException {
-        if(!DiscountValidator.isPercentValid(percent)){
-            logger.log(Level.ERROR, "Invalid percent " + percent);
-            return null;
-        }
         Optional<Discount> discountOptional = Optional.empty();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DISCOUNTS_BY_PERCENT)) {

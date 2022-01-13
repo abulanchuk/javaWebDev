@@ -7,7 +7,6 @@ import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
-import com.example.finalproject.util.validator.ButlerValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -155,10 +154,6 @@ public class ButlerDaoImpl implements ButlerDao {
 
     @Override
     public boolean updateRatingById(Long id, byte newRating) throws DaoException {
-        if (!ButlerValidator.isRatingValid(newRating)) {
-            logger.log(Level.ERROR, "Invalid rating with id " + id);
-            return false;
-        }
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_RATING)) {
             statement.setByte(1, newRating);

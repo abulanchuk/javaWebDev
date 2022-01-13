@@ -7,7 +7,6 @@ import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ClientCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
-import com.example.finalproject.util.validator.ClientValidator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -161,10 +160,6 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public boolean updateEmail(Long id, String newEmail) throws DaoException {
-        if (!ClientValidator.isEmailValid(newEmail)) {
-            logger.log(Level.ERROR, "Invalid new client's email " + newEmail + " with id " + id);
-            return false;
-        }
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EMAIL)) {
             statement.setString(1, newEmail);
@@ -203,10 +198,6 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public boolean updatePassportNumber(String oldPassportNumber, String newPassportNumber) throws DaoException {
-        if (!ClientValidator.isPasswordNumberValid(newPassportNumber)) {
-            logger.log(Level.ERROR, "Invalid new password number " + newPassportNumber);
-            return false;
-        }
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PASSPORT_NUMBER)) {
             statement.setString(1, newPassportNumber);
