@@ -6,8 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 
 <html>
 <head>
@@ -37,18 +39,19 @@
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <div class="mb-md-5 mt-md-4 pb-5">
+                        <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command_name" value="sign_in">
 
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
                             <div class="form-outline form-white mb-4">
-                                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                                <input type="email" name="login" id="typeEmailX" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX">Login</label>
                             </div>
 
                             <div class="form-outline form-white mb-4">
-                                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" />
                                 <label class="form-label" for="typePasswordX">Password</label>
                             </div>
 
@@ -60,7 +63,7 @@
                                 <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                             </div>
 
-                        </div>
+                        </form>
 
                         <div>
                             <p class="mb-0">Don't have an account? <a href="${pageContext.request.contextPath}/jsp/navigation/registration.jsp" class="text-white-50 fw-bold">Sign Up</a></p>

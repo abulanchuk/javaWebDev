@@ -38,6 +38,18 @@ public class ButlerDaoImpl implements ButlerDao {
     private static final String SQL_UPDATE_RATING = """
             UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?""";
     private ButlerCreator butlerCreator = new ButlerCreator();
+    private static ButlerDaoImpl instance;
+
+    private ButlerDaoImpl() {
+    }
+
+    public static ButlerDao getInstance() {
+        if (instance == null) {
+            instance = new ButlerDaoImpl();
+        }
+        return instance;
+    }
+
 
     @Override
     public List<Butler> findAll() throws DaoException {

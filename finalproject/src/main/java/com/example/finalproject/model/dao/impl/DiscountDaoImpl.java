@@ -6,7 +6,6 @@ import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.DiscountDao;
 import com.example.finalproject.model.mapper.impl.DiscountCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
-import com.example.finalproject.validator.impl.ValidatorImpl;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

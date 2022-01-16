@@ -27,6 +27,10 @@ public class ClientDaoImpl implements ClientDao {
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
             FROM clients 
             WHERE id_client =?""";
+    private static final String SQL_SELECT_CLIENT_BY_USER_ID = """
+            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
+            FROM clients 
+            WHERE id_user =?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
@@ -42,6 +46,18 @@ public class ClientDaoImpl implements ClientDao {
     private static final String SQL_UPDATE_PASSPORT_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
     private ClientCreator clientCreator = new ClientCreator();
+    private static ClientDaoImpl instance;
+
+    private ClientDaoImpl() {
+    }
+
+    public static ClientDao getInstance() {
+        if (instance == null) {
+            instance = new ClientDaoImpl();
+        }
+        return instance;
+    }
+
 
     @Override
     public List<Client> findAll() throws DaoException {
@@ -66,6 +82,26 @@ public class ClientDaoImpl implements ClientDao {
         Optional<Client> clientOptional = Optional.empty();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Client client = clientCreator.create(resultSet);
+                clientOptional = Optional.of(client);
+            }
+            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+                    + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
+            return clientOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
+            throw new DaoException("Impossible to find client by id. Database access error:", e);
+        }
+    }
+
+    @Override
+    public Optional<Client> findByIdUser(Long id) throws DaoException {
+        Optional<Client> clientOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_USER_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

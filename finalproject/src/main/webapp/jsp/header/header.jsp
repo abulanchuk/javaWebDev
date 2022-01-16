@@ -18,7 +18,7 @@
 
 <body>
 <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/jsp/navigation/main.jsp">
         <img src="${pageContext.request.contextPath}/images/main_logo.svg" width="200" height="110"
              alt="logo hotel"/></a>
     <p><a href="https://www.tripadvisor.com/Hotel_Review-g14991100-d12570827-Reviews-Fushifaru_Maldives-Fushifaru.html">
@@ -33,6 +33,18 @@
     </button>
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
+            <c:if test="${sessionScope.authorization}">
+                <li class="nav-item">
+                        ${sessionScope.userName} ${sessionScope.userSurname} ${sessionScope.userRole}
+                </li>
+
+                <c:if test="${sessionScope.userRole == 'CLIENT'}">
+                    <li class="nav-item">
+                            Balance: ${sessionScope.balance} $
+                    </li>
+                </c:if>
+            </c:if>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Номера</a>
             </li>
@@ -46,7 +58,8 @@
                 <a class="nav-link" href="#">Контакты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/jsp/navigation/authorization.jsp">Личный кабинет</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/jsp/navigation/authorization.jsp">Личный
+                    кабинет</a>
             </li>
         </ul>
     </div>

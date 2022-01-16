@@ -24,5 +24,7 @@ public interface UserDao extends BaseDao<User> {
 
     Optional<User> findUserByPhoneNumber(String phone) throws DaoException;
 
+    Optional<User> findUserByLogin(String login) throws DaoException;
+
     Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException;
 }

@@ -43,9 +43,22 @@ public class UserDaoImpl implements UserDao {
             UPDATE users SET phone_number = ? WHERE id_user = ?""";
     private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = """
             SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE phone_number = ?""";
+    private static final String SQL_SELECT_USER_BY_LOGIN = """
+            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE login = ?""";
     private static final String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = """
             SELECT id_user, login, password, role, name, surname, phone_number WHERE login = ? AND password = ?""";
     private UserCreator userCreator = new UserCreator();
+    private static UserDaoImpl instance;
+
+    private UserDaoImpl() {
+    }
+
+    public static UserDao getInstance() {
+        if (instance == null) {
+            instance = new UserDaoImpl();
+        }
+        return instance;
+    }
 
     @Override
     public List<User> findAll() throws DaoException {
@@ -285,6 +298,26 @@ public class UserDaoImpl implements UserDao {
             }
             logger.log(Level.DEBUG, "findUserByPhoneNumber method from UserDaoImpl was completed successfully."
                     + ((userOptional.isPresent()) ? " User with phone number " + phone + " was found" : " User with phone number " + phone + " don't exist"));
+            return userOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find user by phone number. Database access error:", e);
+            throw new DaoException("Impossible to find user by phone number. Database access error:", e);
+        }
+    }
+
+    @Override
+    public Optional<User> findUserByLogin(String login) throws DaoException {
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = userCreator.create(resultSet);
+                userOptional = Optional.of(user);
+            }
+            logger.log(Level.DEBUG, "findUserByLogin method from UserDaoImpl was completed successfully."
+                    + ((userOptional.isPresent()) ? " User with login number " + login + " was found" : " User with login number " + login + " don't exist"));
             return userOptional;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find user by phone number. Database access error:", e);
