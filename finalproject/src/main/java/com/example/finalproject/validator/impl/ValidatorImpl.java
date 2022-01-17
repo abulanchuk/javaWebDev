@@ -3,22 +3,20 @@ package com.example.finalproject.validator.impl;
 import com.example.finalproject.validator.Validator;
 
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class ValidatorImpl implements Validator {
-    private static final String STRING_PASSWORD_NUMBER_PATTERN = "[A-Z]{2}[0-9]{7}";
+    private static final String STRING_PASSPORT_NUMBER_PATTERN = "[A-Z]{2}[0-9]{7}";
     private static final String STRING_EMAIL_PATTERN = "^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\\.[a-z]{2,4}$";
-   private static final String NAME_PATTERN = "^[A-Za-zА-Яа-я]{2,50}$";
-    private static final String LOGIN_PATTERN = "[A-Za-z]\\w{1,19}";
+   private static final String NAME_PATTERN = "^[A-ZА-Я][a-zа-я]{1,30}$";
+    private static final String SURNAME_PATTERN = "^[A-ZА-Я][a-zа-я]{2,50}$";
+    private static final String LOGIN_PATTERN = "[A-Za-z]{8,30}";
     private static final String USER_PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
     private static final String MOBILE_NUMBER_PATTERN = "(25|29|33|44)\\d{7}";
     private static final String NUMBER_OF_ROOM_PATTERN = "\\d+";
     private static final String PRICE_OF_ROOM_PATTERN = "\\d{1,3}(?:[.,]\\d{3})*(?:[.,]\\d{2})";
-    private static final String ENGLISH_LOCALE = "en_US";
-    private static final String RUSSIAN_LOCALE = "ru_RU";
     private static ValidatorImpl instance;
 
     public ValidatorImpl() {
@@ -36,7 +34,7 @@ public class ValidatorImpl implements Validator {
     }
 
     public boolean isPasswordNumberValid(String line) {
-        Pattern pattern = Pattern.compile(STRING_PASSWORD_NUMBER_PATTERN);
+        Pattern pattern = Pattern.compile(STRING_PASSPORT_NUMBER_PATTERN);
         Matcher matcher = pattern.matcher(line);
         boolean isValid = matcher.matches();
 
@@ -78,6 +76,10 @@ public class ValidatorImpl implements Validator {
 
     public boolean isCorrectName(String name) {
         return isNotNullOrEmpty(name) && name.matches(NAME_PATTERN);
+    }
+
+    public boolean isCorrectSurname(String surname) {
+        return isNotNullOrEmpty(surname) && surname.matches(SURNAME_PATTERN);
     }
 
     private boolean isNotNullOrEmpty(String line) {
@@ -129,8 +131,5 @@ public class ValidatorImpl implements Validator {
 //        return result;
 //    }
 //
-    public boolean isLocaleExist(String locale) {
-        return locale != null && locale.matches(ENGLISH_LOCALE + "|" + RUSSIAN_LOCALE);
-    }
 
 }

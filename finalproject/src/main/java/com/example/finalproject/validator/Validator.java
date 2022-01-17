@@ -9,11 +9,11 @@ public interface Validator {
     boolean isCorrectLogin(String login);
     boolean isCorrectPassword(String password);
     boolean isCorrectName(String name);
+    boolean isCorrectSurname(String surname);
     boolean isCorrectPhoneNumber(String phoneNumber);
     boolean isPercentValid(byte percent);
     boolean isRoomNumberValid(String numberOfRoom);
     boolean isPriceOfRoomValid(String priceRoom);
    // boolean checkRegistration(Map<String, String> map);
-    boolean isLocaleExist(String locale);
 
 }

@@ -6,14 +6,53 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="bundle/locale"/>
+
+<fmt:message key="registration.registration" var="Registration"/>
+<fmt:message key="registration.message" var="Message"/>
+<fmt:message key="registration.login" var="Login"/>
+<fmt:message key="registration.password" var="Password"/>
+<fmt:message key="registration.name" var="Name"/>
+<fmt:message key="registration.surname" var="Surname"/>
+<fmt:message key="registration.passportNumber" var="PassportNumber"/>
+<fmt:message key="registration.phoneNumber" var="PhoneNumber"/>
+<fmt:message key="registration.email" var="Email"/>
+<fmt:message key="registration.submit" var="Submit"/>
+<fmt:message key="registration.loginPlaceHolder" var="LoginHolder"/>
+<fmt:message key="registration.passwordPlaceHolder" var="PasswordHolder"/>
+<fmt:message key="registration.namePlaceHolder" var="NameHolder"/>
+<fmt:message key="registration.surnamePlaceHolder" var="SurnameHolder"/>
+<fmt:message key="registration.passportNumberPlaceHolder" var="PassportHolder"/>
+<fmt:message key="registration.phoneNumberPlaceHolder" var="PhoneHolder"/>
+<fmt:message key="registration.emailPlaceHolder" var="EmailHolder"/>
+
 <html>
 <head>
-    <title>Title</title>
+    <title>Registration</title>
+    <link rel="shortcut icon" type="image/jpg" href="${pageContext.request.contextPath}/images/favicon.ico"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/authorization.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registration.css" type="text/css">
+
+    <script type="text/javascript">
+        function disableBack() {
+            window.history.forward();
+        }
+
+        setTimeout("disableBack()", 0);
+        window.onunload = function () {
+            null
+        };
+    </script>
+    <title>Registration</title>
 </head>
 <body>
 <%@include file="../header/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <section class="vh-100 gradient-custom">
     <div class="container h-100">
@@ -24,47 +63,47 @@
 
                         <div class="mb-md-3 mt-md-3 pb-3">
 
-                            <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
-                            <p class="text-white-50 mb-5">Please enter information about you!</p>
+                            <h2 class="fw-bold mb-2 text-uppercase">${Registration}</h2>
+                            <p class="text-white-50 mb-5">${Message}</p>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="email" id="typeLogin" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeLogin">Login</label>
+                                <input type="email" id="typeLogin" placeholder="${LoginHolder}" required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeLogin">${Login}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Password</label>
+                                <input type="password" id="typePasswordX" placeholder="${PasswordHolder}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePasswordX">${Password}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typeName" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeName">Name</label>
+                                <input type="password" id="typeName" placeholder="${NameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeName">${Name}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typeSurname" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeSurname">Surname</label>
+                                <input type="password" id="typeSurname" placeholder="${SurnameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeSurname">${Surname}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePhoneNumber" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePhoneNumber">Phone number</label>
+                                <input type="password" id="typePhoneNumber" placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePhoneNumber">${PhoneNumber}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePassportNumber" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePassportNumber">Passport number</label>
+                                <input type="password" id="typePassportNumber" placeholder="${PassportHolder}" required pattern="[A-Z]{2}[0-9]{7}" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePassportNumber">${PassportNumber}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX">Email</label>
+                                <input type="email" id="typeEmailX" placeholder="${EmailHolder}" required pattern="^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\.[a-z]{2,4}$" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeEmailX">${Email}</label>
                             </div>
 
 
 
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit">${Submit}</button>
 
                             <div class="d-flex justify-content-center text-center mt-4 pt-1">
                                 <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
