@@ -3,6 +3,7 @@ package com.example.finalproject.model.dao.impl;
 import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;
+import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;
@@ -26,6 +27,10 @@ public class ButlerDaoImpl implements ButlerDao {
             SELECT butlers.id_user, butlers.id_butler, butlers.rating
             FROM butlers
             WHERE id_butler =?""";
+    private static final String SQL_SELECT_BUTLER_BY_ID_USER = """
+            SELECT butlers.id_user, butlers.id_butler, butlers.rating
+            FROM butlers
+            WHERE id_user =?""";
     private static final String SQL_DELETE_BUTLER_BY_ID = """
             DELETE users, butlers, orders FROM users 
             INNER JOIN butlers ON users.id_user = butlers.id_user 
@@ -180,6 +185,26 @@ public class ButlerDaoImpl implements ButlerDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update butler's rating. Database access error:", e);
             throw new DaoException("Impossible to update butler's rating. Database access error:", e);
+        }
+    }
+
+    @Override
+    public Optional<Butler> findByIdUser(Long id) throws DaoException {
+        Optional<Butler> butlerOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BUTLER_BY_ID_USER)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Butler butler = butlerCreator.create(resultSet);
+                butlerOptional = Optional.of(butler);
+            }
+            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+                    + ((butlerOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
+            return butlerOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
+            throw new DaoException("Impossible to find client by id. Database access error:", e);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
+import com.example.finalproject.controller.command.impl.DefaultCommand;
 import com.example.finalproject.controller.command.impl.SignInCommand;
 
 import java.util.EnumMap;
@@ -11,6 +12,7 @@ public class CommandProvider {
 
     private CommandProvider() {
         commands.put(CommandType.SIGN_IN, new SignInCommand());
+        commands.put(CommandType.DEFAULT, new DefaultCommand());
     }
 
     public static CommandProvider getInstance() {
@@ -21,7 +23,9 @@ public class CommandProvider {
     }
 
     public Command getCommand(CommandType commandType) {
-        // TODO: default command
+        if (commandType == null) {
+            return commands.get(CommandType.DEFAULT);
+        }
         return commands.get(commandType);
     }
 }

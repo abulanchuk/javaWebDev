@@ -11,6 +11,8 @@ public interface ButlerService<T extends CustomEntity> {
 
     Optional<T> findById(Long id) throws ServiceException;
 
+    Optional<T> findByIdUser(Long id) throws ServiceException;
+
     boolean deleteById(Long id) throws ServiceException;
 
     T insertNewEntity(CustomEntity... entities) throws ServiceException;
