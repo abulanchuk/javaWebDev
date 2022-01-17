@@ -23,7 +23,7 @@
             </div>
             <h6 class="text-uppercase font-weight-bold">Контакты</h6>
             <p>Fushifaru Maldives
-               info@mywebsite.com
+               info@fushifaru.com
                  + 01 234 567 89</p>
         </div>
         <div>

@@ -1,6 +1,7 @@
 package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
+import com.example.finalproject.controller.command.impl.ChangeLocaleCommand;
 import com.example.finalproject.controller.command.impl.DefaultCommand;
 import com.example.finalproject.controller.command.impl.SignInCommand;
 
@@ -13,6 +14,7 @@ public class CommandProvider {
     private CommandProvider() {
         commands.put(CommandType.SIGN_IN, new SignInCommand());
         commands.put(CommandType.DEFAULT, new DefaultCommand());
+        commands.put(CommandType.CHANGE_LOCALE,new ChangeLocaleCommand());
     }
 
     public static CommandProvider getInstance() {

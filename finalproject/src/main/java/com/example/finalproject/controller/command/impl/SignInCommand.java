@@ -1,7 +1,7 @@
 package com.example.finalproject.controller.command.impl;
 
 import com.example.finalproject.controller.QueryNamedArguments;
-import com.example.finalproject.controller.SessionAttributes;
+import com.example.finalproject.controller.SessionAttribute;
 import com.example.finalproject.controller.command.Command;
 import com.example.finalproject.controller.command.PagePath;
 import com.example.finalproject.controller.command.Router;
@@ -38,7 +38,7 @@ public class SignInCommand implements Command {
         String password = request.getParameter(QueryNamedArguments.PASSWORD.name().toLowerCase(Locale.ROOT));
 
         HttpSession session = request.getSession();
-        String currentPage = (String) session.getAttribute(SessionAttributes.CURRENT_PAGE);
+        String currentPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
 
         Optional<User> optionalUser = null;
         try {
@@ -52,13 +52,13 @@ public class SignInCommand implements Command {
 
             User user = optionalUser.get();
 
-            session.setAttribute(SessionAttributes.AUTHORIZATION, Boolean.TRUE);
-            session.setAttribute(SessionAttributes.USER_ID, user.getIdUser());
-            session.setAttribute(SessionAttributes.USER_LOGIN, user.getLogin());
-            session.setAttribute(SessionAttributes.USER_NAME, user.getName());
-            session.setAttribute(SessionAttributes.USER_SURNAME, user.getSurname());
-            session.setAttribute(SessionAttributes.USER_ROLE, user.getRole());
-            session.setAttribute(SessionAttributes.USER_PHONE_NUMBER, user.getPhoneNumber());
+            session.setAttribute(SessionAttribute.AUTHORIZATION, Boolean.TRUE);
+            session.setAttribute(SessionAttribute.USER_ID, user.getIdUser());
+            session.setAttribute(SessionAttribute.USER_LOGIN, user.getLogin());
+            session.setAttribute(SessionAttribute.USER_NAME, user.getName());
+            session.setAttribute(SessionAttribute.USER_SURNAME, user.getSurname());
+            session.setAttribute(SessionAttribute.USER_ROLE, user.getRole());
+            session.setAttribute(SessionAttribute.USER_PHONE_NUMBER, user.getPhoneNumber());
             switch (user.getRole()) {
                 case OWNER -> {
                     return new Router(PagePath.HOME, Router.RouterType.REDIRECT);

@@ -6,5 +6,6 @@ public enum QueryNamedArguments {
     PASSWORD,
 
     ERROR_MESSAGE,
-    EXCEPTION
+    EXCEPTION,
+    LOCALE
 }
