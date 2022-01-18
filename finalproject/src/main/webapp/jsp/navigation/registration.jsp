@@ -118,8 +118,6 @@
         </div>
     </div>
 </section>
-
-
 <%@include file="../footer/footer.jsp" %>
 </body>
 </html>

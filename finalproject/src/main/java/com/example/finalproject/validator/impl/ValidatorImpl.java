@@ -3,8 +3,13 @@ package com.example.finalproject.validator.impl;
 import com.example.finalproject.validator.Validator;
 
 
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.example.finalproject.controller.ErrorType.*;
+import static com.example.finalproject.controller.QueryNamedArguments.*;
 
 
 public class ValidatorImpl implements Validator {
@@ -87,49 +92,47 @@ public class ValidatorImpl implements Validator {
     }
 
 
-//    @Override
-//    public boolean checkRegistration(Map<String, String> map) {
-//        return false;
-//    }
-//        /*boolean result = true;
-//        String login = map.get(USERS_LOGIN);
-//        String password = map.get(USERS_PASSWORD);
-//        String name = map.get(USERS_NAME);
-//        String surname = map.get(USERS_SURNAME);
-//        String phone = map.get(USERS_PHONE_NUMBER);
-//        String passwordNumber = map.get(CLIENTS_PASSWORD_NUMBER);
-//        String email = map.get(CLIENTS_EMAIL);
-//
-//        if (!isCorrectName(name)) {
-//            map.put(USERS_NAME, INVALID_NAME);
-//            result = false;
-//        }
-//        if (!isCorrectName(surname)) {
-//            map.put(USERS_SURNAME, INVALID_SURNAME);
-//            result = false;
-//        }
-//        if (!isCorrectLogin(login)) {
-//            map.put(USERS_LOGIN, INVALID_LOGIN);
-//            result = false;
-//        }
-//        if (!isCorrectPassword(password)) {
-//            map.put(USERS_PASSWORD, INVALID_PASSWORD);
-//            result = false;
-//        }
-//        if (!isEmailValid(email)) {
-//            map.put(CLIENTS_EMAIL, INVALID_EMAIL);
-//            result = false;
-//        }
-//        if (!isCorrectPhoneNumber(phone)) {
-//            map.put(USERS_PHONE_NUMBER, INVALID_PHONE_NUMBER);
-//            result = false;
-//        }
-//        if (!isPasswordNumberValid(passwordNumber)) {
-//            map.put(CLIENTS_PASSWORD_NUMBER, INVALID_PASSWORD_NUMBER);
-//            result = false;
-//        }
-//        return result;
-//    }
-//
+    @Override
+    public boolean checkRegistration(Map<String, String> map) {
+        boolean result = true;
+        String login = map.get(LOGIN);
+        String password = map.get(PASSWORD);
+        String name = map.get(NAME);
+        String surname = map.get(SURNAME);
+        String phone = map.get(PHONE_NUMBER);
+        String passwordNumber = map.get(PASSPORT_NUMBER);
+        String email = map.get(EMAIL);
+
+        if (!isCorrectName(name)) {
+            map.put(NAME, INVALID_NAME.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectName(surname)) {
+            map.put(SURNAME, INVALID_SURNAME.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectLogin(login)) {
+            map.put(LOGIN, INVALID_LOGIN.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectPassword(password)) {
+            map.put(PASSWORD, INVALID_PASSWORD.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isEmailValid(email)) {
+            map.put(EMAIL, INVALID_EMAIL.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectPhoneNumber(phone)) {
+            map.put(PHONE_NUMBER, INVALID_PHONE_NUMBER.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isPasswordNumberValid(passwordNumber)) {
+            map.put(PASSPORT_NUMBER, INVALID_PASSWORD_NUMBER.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        return result;
+    }
+
 
 }

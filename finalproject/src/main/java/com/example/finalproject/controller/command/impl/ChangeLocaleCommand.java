@@ -13,7 +13,7 @@ import java.util.Locale;
 public class ChangeLocaleCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        String locale = request.getParameter(QueryNamedArguments.LOCALE.name().toLowerCase(Locale.ROOT));
+        String locale = request.getParameter(QueryNamedArguments.LOCALE);
         HttpSession session = request.getSession();
         session.setAttribute(SessionAttribute.LOCALE.toLowerCase(Locale.ROOT), locale);
         if (session.getAttribute(SessionAttribute.CURRENT_PAGE) == null) {

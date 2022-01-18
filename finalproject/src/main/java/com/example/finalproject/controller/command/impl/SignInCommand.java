@@ -1,5 +1,6 @@
 package com.example.finalproject.controller.command.impl;
 
+import com.example.finalproject.controller.ErrorType;
 import com.example.finalproject.controller.QueryNamedArguments;
 import com.example.finalproject.controller.SessionAttribute;
 import com.example.finalproject.controller.command.Command;
@@ -34,8 +35,8 @@ public class SignInCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
-        String login = request.getParameter(QueryNamedArguments.LOGIN.name().toLowerCase(Locale.ROOT));
-        String password = request.getParameter(QueryNamedArguments.PASSWORD.name().toLowerCase(Locale.ROOT));
+        String login = request.getParameter(QueryNamedArguments.LOGIN);
+        String password = request.getParameter(QueryNamedArguments.PASSWORD);
 
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
@@ -46,7 +47,7 @@ public class SignInCommand implements Command {
 
             if (!optionalUser.isPresent()) {
                 logger.log(Level.ERROR, "Failed to execute request LoginUserCommand: Invalid login or password");
-                request.setAttribute(QueryNamedArguments.ERROR_MESSAGE.name().toLowerCase(Locale.ROOT), "wrong.login.or.password");
+                request.setAttribute(ErrorType.ERROR_MESSAGE.name().toLowerCase(Locale.ROOT), "wrong.login.or.password");
                 return new Router(currentPage, Router.RouterType.FORWARD);
             }
 
@@ -86,7 +87,7 @@ public class SignInCommand implements Command {
 
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Failed to execute request SignInCommand: ", e);
-            request.setAttribute(QueryNamedArguments.EXCEPTION.name().toLowerCase(Locale.ROOT), e);
+            request.setAttribute(ErrorType.EXCEPTION.name().toLowerCase(Locale.ROOT), e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
     }

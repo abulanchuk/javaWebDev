@@ -30,7 +30,7 @@ public class MainController extends HttpServlet {
     }
 
     private void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandName = request.getParameter(QueryNamedArguments.COMMAND_NAME.name().toLowerCase());
+        String commandName = request.getParameter(QueryNamedArguments.COMMAND_NAME);
         CommandProvider provider = CommandProvider.getInstance();
 
         Command command = provider.getCommand(CommandType.valueOf(commandName.toUpperCase()));

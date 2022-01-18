@@ -9,6 +9,8 @@ public final class SessionAttribute {
     public static final String USER_NAME = "userName";
     public static final String USER_SURNAME = "userSurname";
     public static final String USER_LOGIN = "userLogin";
+    public static final String USER_PASSWORD = "userPassword";
     public static final String USER_ROLE = "userRole";
     public static final String USER_PHONE_NUMBER = "userPhoneNumber";
+    public static final String USER_EMAIL = "userLogin";
 }
