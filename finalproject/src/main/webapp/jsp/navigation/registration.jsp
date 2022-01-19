@@ -62,46 +62,46 @@
                     <div class="card-body p-3 text-center ">
 
                         <div class="mb-md-3 mt-md-3 pb-3">
+                            <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command_name" value="sign_up">
 
                             <h2 class="fw-bold mb-2 text-uppercase">${Registration}</h2>
                             <p class="text-white-50 mb-5">${Message}</p>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="email" id="typeLogin" placeholder="${LoginHolder}" required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg" />
+                                <input type="text" name="login" id="typeLogin" placeholder="${LoginHolder}" required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeLogin">${Login}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePasswordX" placeholder="${PasswordHolder}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="form-control form-control-lg" />
+                                <input type="password" name ="password" id="typePasswordX" placeholder="${PasswordHolder}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="form-control form-control-lg" />
                                 <label class="form-label" for="typePasswordX">${Password}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typeName" placeholder="${NameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg" />
+                                <input type="text" name ="name" id="typeName" placeholder="${NameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeName">${Name}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typeSurname" placeholder="${SurnameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$" class="form-control form-control-lg" />
+                                <input type="text" name = "surname"  id="typeSurname" placeholder="${SurnameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeSurname">${Surname}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePhoneNumber" placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}" class="form-control form-control-lg" />
+                                <input type="text" name = "phone_number"  id="typePhoneNumber" placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}" class="form-control form-control-lg" />
                                 <label class="form-label" for="typePhoneNumber">${PhoneNumber}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" id="typePassportNumber" placeholder="${PassportHolder}" required pattern="[A-Z]{2}[0-9]{7}" class="form-control form-control-lg" />
+                                <input type="text"  name = "passport_number" id="typePassportNumber" placeholder="${PassportHolder}" required pattern="[A-Z]{2}[0-9]{7}" class="form-control form-control-lg" />
                                 <label class="form-label" for="typePassportNumber">${PassportNumber}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="email" id="typeEmailX" placeholder="${EmailHolder}" required pattern="^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\.[a-z]{2,4}$" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX">${Email}</label>
+                                <input type="email" name = "email" id="email" placeholder="${EmailHolder}" required pattern="^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\.[a-z]{2,4}$" class="form-control form-control-lg" />
+                                <label class="form-label" for="email">${Email}</label>
                             </div>
-
-
 
                             <button class="btn btn-outline-light btn-lg px-5" type="submit">${Submit}</button>
 
@@ -110,7 +110,7 @@
                                 <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
                                 <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                             </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>

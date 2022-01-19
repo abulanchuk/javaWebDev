@@ -57,7 +57,7 @@
                             <p class="text-white-50 mb-5">${Message}</p>
 
                             <div class="form-outline form-white mb-4">
-                                <input type="email" name="login" id="typeEmailX" class="form-control form-control-lg" />
+                                <input type="text" name="login" id="typeEmailX" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX">${Login}</label>
                             </div>
 

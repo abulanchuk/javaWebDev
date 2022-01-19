@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
     private static UserServiceImpl instance;
     private final UserDao userDao = UserDaoImpl.getInstance();
 
-    private UserServiceImpl() {
+    public UserServiceImpl() {
     }
 
     public static UserService getInstance() {
@@ -103,6 +103,21 @@ public class UserServiceImpl implements UserService{
 
         String passwordToCheck = foundUser.get().getPassword();
         if (!passwordToCheck.equals(PasswordEncryptor.encrypt(password))) {
+            return Optional.empty();
+        }
+        return foundUser;
+    }
+
+    @Override
+    public Optional<User> findUserByLogin(String login) throws ServiceException {
+        Optional<User> foundUser;
+        try {
+            foundUser = userDao.findUserByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("login() - Failed to find user by login: ", e);
+        }
+
+        if (!foundUser.isPresent()) {
             return Optional.empty();
         }
         return foundUser;

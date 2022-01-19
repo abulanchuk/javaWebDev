@@ -10,5 +10,5 @@ public class  QueryNamedArguments {
     public static final String PASSPORT_NUMBER = "passport_number";
     public static final String EMAIL = "email";
     public static final String LOCALE = "locale";
-    public static final String FORM_DATA = "form_data";
+    public static final String FORM_REGISTRATION = "form_data";
 }

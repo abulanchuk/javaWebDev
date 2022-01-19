@@ -10,6 +10,9 @@ public enum ErrorType {
     INVALID_PHONE_NUMBER,
     INVALID_PASSWORD_NUMBER,
     INVALID_INPUT,
+    EMAIL_IS_NOT_FREE,
+    EMPTY_STRING,
+    LOGIN_IS_NOT_FREE,
     EXCEPTION;
 
     private ErrorType(){}

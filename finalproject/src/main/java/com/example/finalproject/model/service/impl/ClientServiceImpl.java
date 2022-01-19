@@ -16,7 +16,7 @@ public class ClientServiceImpl implements ClientService {
     private static ClientServiceImpl instance;
     private final ClientDao clientDao = ClientDaoImpl.getInstance();
 
-    private ClientServiceImpl() {
+    public ClientServiceImpl() {
     }
 
     public static ClientService getInstance() {
@@ -43,6 +43,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Optional<Client> findByEmail(String email) throws ServiceException {
+        Optional<Client> client;
+        try {
+            client = clientDao.findByEmail(email);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to find client by email " + email, e);
+        }
+        return client;
+    }
+
+    @Override
     public Optional findByIdUser(Long id) throws ServiceException {
         Optional<Client> client;
         try {
@@ -60,7 +71,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
-        return null;
+        Client client;
+        try {
+            client = clientDao.insertNewEntity(entities);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to create new client ", e);
+        }
+        return client;
     }
 
     @Override

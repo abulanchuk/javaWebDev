@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface ClientService <T extends CustomEntity>{
     List<T> findAll() throws ServiceException;
     Optional<T> findById(Long id) throws ServiceException;
+    Optional<Client> findByEmail(String email) throws ServiceException;
     Optional<T> findByIdUser(Long id) throws ServiceException;
     boolean deleteById(Long id) throws ServiceException;
     T insertNewEntity(CustomEntity... entities) throws ServiceException;

@@ -21,7 +21,7 @@ public class MailSender {
         PASSWORD = bundle.getString("mail.smtp.user.password");
     }
 
-    public void sentEmail(String recipientOfEmail,String subjectOfMail, String text) throws IOException, MessagingException {
+    public static void sentEmail(String recipientOfEmail,String subjectOfMail, String text) throws IOException, MessagingException {
 
 
         final Properties properties = new Properties();

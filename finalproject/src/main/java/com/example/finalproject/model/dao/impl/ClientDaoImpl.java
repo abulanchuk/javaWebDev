@@ -27,6 +27,10 @@ public class ClientDaoImpl implements ClientDao {
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
             FROM clients 
             WHERE id_client =?""";
+    private static final String SQL_SELECT_CLIENT_BY_EMAIL = """
+            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
+            FROM clients 
+            WHERE clients.email =?""";
     private static final String SQL_SELECT_CLIENT_BY_USER_ID = """
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
             FROM clients 
@@ -110,6 +114,26 @@ public class ClientDaoImpl implements ClientDao {
             }
             logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
+            return clientOptional;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
+            throw new DaoException("Impossible to find client by id. Database access error:", e);
+        }
+    }
+
+    @Override
+    public Optional<Client> findByEmail(String email) throws DaoException {
+        Optional<Client> clientOptional = Optional.empty();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_EMAIL)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Client client = clientCreator.create(resultSet);
+                clientOptional = Optional.of(client);
+            }
+            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+                    + ((clientOptional.isPresent()) ? " Client with email " + email + " was found" : " Client with email " + email + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);

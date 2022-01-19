@@ -11,4 +11,5 @@ public interface ClientDao extends BaseDao<Client> {
     boolean updateCashInBankAccount (Long id, BigDecimal howMuchToAdd) throws DaoException;
     boolean updatePassportNumber(String oldPasswordNumber,String newPasswordNumber) throws DaoException;
     Optional<Client> findByIdUser(Long id) throws DaoException;
+    Optional<Client> findByEmail(String email) throws DaoException;
 }

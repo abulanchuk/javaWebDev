@@ -4,6 +4,7 @@ import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.ChangeLocaleCommand;
 import com.example.finalproject.controller.command.impl.DefaultCommand;
 import com.example.finalproject.controller.command.impl.SignInCommand;
+import com.example.finalproject.controller.command.impl.SignUpCommand;
 
 import java.util.EnumMap;
 
@@ -15,6 +16,7 @@ public class CommandProvider {
         commands.put(CommandType.SIGN_IN, new SignInCommand());
         commands.put(CommandType.DEFAULT, new DefaultCommand());
         commands.put(CommandType.CHANGE_LOCALE,new ChangeLocaleCommand());
+        commands.put(CommandType.SIGN_UP, new SignUpCommand());
     }
 
     public static CommandProvider getInstance() {

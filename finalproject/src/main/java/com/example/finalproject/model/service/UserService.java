@@ -36,4 +36,6 @@ public interface UserService<T extends CustomEntity> {
     Optional<User> findUserByPhoneNumber(String phone) throws ServiceException;
 
     Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException;
+
+    Optional<User> findUserByLogin(String login) throws ServiceException;
 }
