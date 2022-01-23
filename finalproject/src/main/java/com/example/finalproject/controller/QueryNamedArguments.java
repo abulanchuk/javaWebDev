@@ -11,4 +11,6 @@ public class  QueryNamedArguments {
     public static final String EMAIL = "email";
     public static final String LOCALE = "locale";
     public static final String FORM_REGISTRATION = "form_data";
+    public static final String CATALOG = "catalog";
+    public static final String PAGE = "page";
 }

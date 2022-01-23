@@ -8,7 +8,7 @@ public class PagePath {
     public static final String HOME ="jsp/navigation/main.jsp";
     public static final String AUTHORIZATION ="jsp/navigation/authorization.jsp";
     public static final String REGISTRATION ="jsp/navigation/registration.jsp";
-
+    public static final String CATALOG ="jsp/navigation/rooms.jsp";
     private PagePath() {
     }
 }

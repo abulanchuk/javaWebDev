@@ -31,7 +31,7 @@ public class SignInCommand implements Command {
     private final UserService<User> userService = UserServiceImpl.getInstance();
     private final ClientService<Client> clientService = ClientServiceImpl.getInstance();
     private final ButlerService<Butler> butlerService = ButlerServiceImpl.getInstance();
-    private final String KEY_TO_BANK_ACCOUNT_IN_JSP = "balance";
+    private final String BANK_ACCOUNT = "balance";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -69,7 +69,7 @@ public class SignInCommand implements Command {
                     if (!client.isPresent()) {
                         logger.log(Level.ERROR, "Client can't find in database");
                     }
-                    session.setAttribute(KEY_TO_BANK_ACCOUNT_IN_JSP, client.get().getBankAccount());
+                    session.setAttribute(BANK_ACCOUNT, client.get().getBankAccount());
                     return new Router(PagePath.HOME, Router.RouterType.REDIRECT);
                 }
                 case BUTLER -> {

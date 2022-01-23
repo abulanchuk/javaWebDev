@@ -1,10 +1,7 @@
 package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
-import com.example.finalproject.controller.command.impl.ChangeLocaleCommand;
-import com.example.finalproject.controller.command.impl.DefaultCommand;
-import com.example.finalproject.controller.command.impl.SignInCommand;
-import com.example.finalproject.controller.command.impl.SignUpCommand;
+import com.example.finalproject.controller.command.impl.*;
 
 import java.util.EnumMap;
 
@@ -17,6 +14,7 @@ public class CommandProvider {
         commands.put(CommandType.DEFAULT, new DefaultCommand());
         commands.put(CommandType.CHANGE_LOCALE,new ChangeLocaleCommand());
         commands.put(CommandType.SIGN_UP, new SignUpCommand());
+        commands.put(CommandType.SHOW_ALL_ROOMS, new ShowAllRoomsCommand());
     }
 
     public static CommandProvider getInstance() {
