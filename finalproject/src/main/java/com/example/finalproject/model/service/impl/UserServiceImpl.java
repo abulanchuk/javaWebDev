@@ -9,14 +9,21 @@ import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.entity.UserRole;
 import com.example.finalproject.model.service.UserService;
 import com.example.finalproject.util.PasswordEncryptor;
+import com.example.finalproject.validator.Validator;
+import com.example.finalproject.validator.impl.ValidatorImpl;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
     private static UserServiceImpl instance;
     private final UserDao userDao = UserDaoImpl.getInstance();
+    Validator validator = new ValidatorImpl();
 
     public UserServiceImpl() {
     }
@@ -50,12 +57,23 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updatePasswordByLogin(String login, String oldPassword, String newPassword) throws ServiceException {
-        return false;
+        try {
+            String encryptedPassword = PasswordEncryptor.encrypt(newPassword);
+            return validator.isCorrectPassword(newPassword) && userDao.updatePasswordByLogin(login, oldPassword, encryptedPassword);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change password:", e);
+            throw new ServiceException("Impossible to change password:", e);
+        }
     }
 
     @Override
     public boolean updateLogin(String currentLogin, String newLogin, Long id) throws ServiceException {
-        return false;
+        try {
+            return validator.isCorrectLogin(newLogin) && userDao.updateLogin(currentLogin, newLogin, id);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change login:", e);
+            throw new ServiceException("Impossible to change login:", e);
+        }
     }
 
     @Override
@@ -70,17 +88,47 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updateSurname(Long id, String newSurname) throws ServiceException {
-        return false;
+        try {
+            return validator.isCorrectSurname(newSurname) && userDao.updateSurname(id, newSurname);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change user surname:", e);
+            throw new ServiceException("Impossible to change user surname:", e);
+        }
     }
 
     @Override
     public boolean updateName(String newName, Long id) throws ServiceException {
-        return false;
+        try {
+            return validator.isCorrectName(newName) && userDao.updateName(newName, id);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change user name:", e);
+            throw new ServiceException("Impossible to change user name:", e);
+        }
     }
 
     @Override
     public boolean updatePhoneNumber(String newPhoneNumber, Long id) throws ServiceException {
-        return false;
+        try {
+            return validator.isCorrectPhoneNumber(newPhoneNumber) && userDao.updatePhoneNumber(newPhoneNumber, id);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change user's phone number:", e);
+            throw new ServiceException("Impossible to change user's phone number:", e);
+        }
+    }
+
+    @Override
+    public boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException {
+        try {
+            boolean isCorrectNewFields = validator.isCorrectLogin(newLogin) && validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber);
+            String newEncryptedPassword = null;
+            if (isCorrectNewFields) {
+                newEncryptedPassword = PasswordEncryptor.encrypt(newPassword);
+            }
+            return isCorrectNewFields && userDao.updateUser(id, newLogin, newEncryptedPassword, newName, newSurname, newPhoneNumber);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to change user's fields:", e);
+            throw new ServiceException("Impossible to change user's fields:", e);
+        }
     }
 
     @Override

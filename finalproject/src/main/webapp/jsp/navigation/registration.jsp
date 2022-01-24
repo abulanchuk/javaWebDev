@@ -36,7 +36,6 @@
     <link rel="shortcut icon" type="image/jpg" href="${pageContext.request.contextPath}/images/favicon.ico"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/authorization.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registration.css" type="text/css">
-
     <script type="text/javascript">
         function disableBack() {
             window.history.forward();
@@ -104,7 +103,7 @@
                             </div>
 
                             <button class="btn btn-outline-light btn-lg px-5" type="submit">${Submit}</button>
-                                
+
                             </form>
                         </div>
                     </div>

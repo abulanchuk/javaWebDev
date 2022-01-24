@@ -29,6 +29,8 @@ public class UserDaoImpl implements UserDao {
             INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
             UPDATE users SET password = ? WHERE login = ? AND password =?""";
+    private static final String SQL_UPDATE_USER = """
+            UPDATE users SET login = ?, password = ?, name = ?, surname = ?, phone_number = ? WHERE id_user = ?""";
     private static final String SQL_UPDATE_LOGIN = """
             UPDATE users SET login = ? WHERE login = ? AND id_user =? """;
     private static final String SQL_SELECT_USERS_BY_ROLE = """
@@ -50,7 +52,7 @@ public class UserDaoImpl implements UserDao {
     private UserCreator userCreator = new UserCreator();
     private static UserDaoImpl instance;
 
-    private UserDaoImpl() {
+    public UserDaoImpl() {
     }
 
     public static UserDao getInstance() {
@@ -282,6 +284,29 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update phone number. Database access error:", e);
             throw new DaoException("Impossible to update phone number. Database access error:", e);
+        }
+    }
+
+    @Override
+    public boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
+            statement.setString(1, newLogin);
+            statement.setString(2, newPassword);
+            statement.setString(3, newName);
+            statement.setString(4, newSurname);
+            statement.setString(5, newPhoneNumber);
+            statement.setLong(6, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "User's fields didn't update with id " + id);
+                return false;
+            }
+            logger.log(Level.DEBUG, "Successfully updated user's fields");
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update user's fields. Database access error:", e);
+            throw new DaoException("Impossible to update user's fields. Database access error:", e);
         }
     }
 

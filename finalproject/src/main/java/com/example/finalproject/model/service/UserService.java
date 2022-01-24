@@ -33,6 +33,8 @@ public interface UserService<T extends CustomEntity> {
 
     boolean updatePhoneNumber(String newPhoneNumber, Long id) throws ServiceException;
 
+    boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException;
+
     Optional<User> findUserByPhoneNumber(String phone) throws ServiceException;
 
     Optional<User> findUserByLoginAndPassword(String login, String password) throws ServiceException;

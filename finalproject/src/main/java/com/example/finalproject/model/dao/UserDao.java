@@ -22,6 +22,8 @@ public interface UserDao extends BaseDao<User> {
 
     boolean updatePhoneNumber(String newPhoneNumber, Long id) throws DaoException;
 
+    boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException;
+
     Optional<User> findUserByPhoneNumber(String phone) throws DaoException;
 
     Optional<User> findUserByLogin(String login) throws DaoException;

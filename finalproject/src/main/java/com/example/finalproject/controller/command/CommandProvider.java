@@ -15,6 +15,7 @@ public class CommandProvider {
         commands.put(CommandType.CHANGE_LOCALE,new ChangeLocaleCommand());
         commands.put(CommandType.SIGN_UP, new SignUpCommand());
         commands.put(CommandType.SHOW_ALL_ROOMS, new ShowAllRoomsCommand());
+        commands.put(CommandType.EDIT_PERSONAL_INFORMATION, new EditPersonalInformationCommand());
     }
 
     public static CommandProvider getInstance() {
