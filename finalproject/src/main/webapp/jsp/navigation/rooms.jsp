@@ -50,7 +50,7 @@
             <div class="card-body">
                 <h5 class="card-title"><%=roomsAvailable.get(i).getRoomType()%></h5>
                 <p class="card-text">Price: <%=roomsAvailable.get(i).getPrice() + " $"%></p>
-                <p class="card-text"><small class="text-muted">Description</small></p>
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Оформить бронирование</button>
             </div>
         </div>
     </div>

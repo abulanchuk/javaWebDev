@@ -1,4 +1,4 @@
-package com.example.finalproject.controller.command.impl;
+package com.example.finalproject.controller.command.impl.common;
 
 import com.example.finalproject.controller.command.Command;
 import com.example.finalproject.controller.command.PagePath;

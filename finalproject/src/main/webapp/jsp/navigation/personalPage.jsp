@@ -11,6 +11,7 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rooms.css" type="text/css">
     <link rel="shortcut icon" type="image/jpg" href="${pageContext.request.contextPath}/images/favicon.ico"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -37,39 +38,44 @@
         crossorigin="anonymous"></script>
 <h1>Личный кабинет</h1>
 <h2>${sessionScope.userName} ${sessionScope.userSurname}</h2>
-
+<h3>Изменить персональные данные</h3>
 
 <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command_name" value="edit_personal_information">
     <div class="form-group row">
         <label for="login" class="col-sm-2 col-form-label">Login</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="login" id="login" placeholder="New login" required pattern="[A-Za-z]{8,30}">
+            <input type="text" class="form-control" name="login" id="login" placeholder="New login" required
+                   pattern="[A-Za-z]{8,30}">
         </div>
     </div>
     </div>
     <div class="form-group row">
         <label for="password" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" name="password" id="password" placeholder="New password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+            <input type="password" class="form-control" name="password" id="password" placeholder="New password"
+                   required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="name" id="name" placeholder="New name" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$">
+            <input type="text" class="form-control" name="name" id="name" placeholder="New name" required
+                   pattern="^[A-ZА-Я][a-zа-я]{1,30}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="surname" class="col-sm-2 col-form-label">Surname</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="surname" id="surname" placeholder="New surname" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$">
+            <input type="text" class="form-control" name="surname" id="surname" placeholder="New surname" required
+                   pattern="^[A-ZА-Я][a-zа-я]{2,50}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name ="phone_number" id="phoneNumber" placeholder="New phone number" required pattern="(25|29|33|44)\d{7}">
+            <input type="text" class="form-control" name="phone_number" id="phoneNumber" placeholder="New phone number"
+                   required pattern="(25|29|33|44)\d{7}">
         </div>
     </div>
     <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
