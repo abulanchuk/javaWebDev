@@ -14,6 +14,9 @@ public interface Validator {
     boolean isPercentValid(byte percent);
     boolean isRoomNumberValid(String numberOfRoom);
     boolean isPriceOfRoomValid(String priceRoom);
+    boolean isFloorValid(String floor);
+    boolean isRoomTypeValid(String roomType);
+    boolean isIdDiscountValid(String idDiscount);
     boolean checkRegistration(Map<String, String> map);
 
 }

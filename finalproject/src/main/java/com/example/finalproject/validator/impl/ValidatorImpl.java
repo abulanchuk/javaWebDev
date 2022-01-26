@@ -21,7 +21,9 @@ public class ValidatorImpl implements Validator {
     private static final String USER_PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
     private static final String MOBILE_NUMBER_PATTERN = "(25|29|33|44)\\d{7}";
     private static final String NUMBER_OF_ROOM_PATTERN = "\\d+";
+    private static final String NUMBER_OF_FLOOR_PATTERN = "[1-3]";
     private static final String PRICE_OF_ROOM_PATTERN = "\\d{1,3}(?:[.,]\\d{3})*(?:[.,]\\d{2})";
+    private static final String ID_DISCOUNT_PATTERN = "^[+]?[1-9]+(\\d+)?$";
     private static ValidatorImpl instance;
 
     public ValidatorImpl() {
@@ -77,6 +79,21 @@ public class ValidatorImpl implements Validator {
     @Override
     public boolean isPriceOfRoomValid(String priceRoom) {
         return isNotNullOrEmpty(priceRoom) && priceRoom.matches(PRICE_OF_ROOM_PATTERN);
+    }
+
+    @Override
+    public boolean isFloorValid(String floor) {
+        return isNotNullOrEmpty(floor) && floor.matches(NUMBER_OF_FLOOR_PATTERN);
+    }
+
+    @Override
+    public boolean isRoomTypeValid(String roomType) {
+        return roomType.equals("CLIENT") || roomType.equals("OWNER") || roomType.equals("BUTLER");
+    }
+
+    @Override
+    public boolean isIdDiscountValid(String idDiscount) {
+        return isNotNullOrEmpty(idDiscount) && idDiscount.matches(ID_DISCOUNT_PATTERN);
     }
 
     public boolean isCorrectName(String name) {

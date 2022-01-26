@@ -6,6 +6,7 @@ public enum CommandType {
     CHANGE_LOCALE,
     SIGN_UP,
     SHOW_ALL_ROOMS,
+    ADD_ROOM,
     EDIT_PERSONAL_INFORMATION,
     DEFAULT
 }

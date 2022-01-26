@@ -1,21 +1,22 @@
-package com.example.finalproject.controller.command.impl;
+package com.example.finalproject.controller.command.impl.client;
 
 import com.example.finalproject.controller.QueryNamedArguments;
 import com.example.finalproject.controller.SessionAttribute;
 import com.example.finalproject.controller.command.Command;
 import com.example.finalproject.controller.command.PagePath;
 import com.example.finalproject.controller.command.Router;
+import com.example.finalproject.controller.command.impl.EditPersonalInformationCommand;
 import com.example.finalproject.exception.ServiceException;
-import com.example.finalproject.model.service.UserService;
-import com.example.finalproject.model.service.impl.UserServiceImpl;
+import com.example.finalproject.model.service.ClientService;
+import com.example.finalproject.model.service.impl.ClientServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class EditPersonalInformationCommand implements Command {
+public class EditPersonalInformationAboutClient implements Command {
     private static final Logger logger = LogManager.getLogger(EditPersonalInformationCommand.class);
-    UserService userService = new UserServiceImpl();
+    ClientService userService = new ClientServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -27,10 +28,11 @@ public class EditPersonalInformationCommand implements Command {
         String name = request.getParameter(QueryNamedArguments.NAME);
         String surname = request.getParameter(QueryNamedArguments.SURNAME);
         String phoneNumber = request.getParameter(QueryNamedArguments.PHONE_NUMBER);
-
+        String email = request.getParameter(QueryNamedArguments.EMAIL);
+        String passportNumber = request.getParameter(QueryNamedArguments.PASSPORT_NUMBER);
 
         try {
-            userService.updateUser((Long) session.getAttribute(SessionAttribute.USER_ID),login,password,name,surname,phoneNumber);
+            userService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), login, password, name, surname, phoneNumber, email, passportNumber);
         } catch (ServiceException e) {
             e.printStackTrace();//todo
         }

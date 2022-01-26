@@ -13,4 +13,10 @@ public class  QueryNamedArguments {
     public static final String FORM_REGISTRATION = "form_data";
     public static final String CATALOG = "catalog";
     public static final String PAGE = "page";
+    public static final String PRICE = "price";
+    public static final String ROOM_TYPE = "room_type";
+    public static final String FLOOR = "floor";
+    public static final String ROOM_NUMBER = "room_number";
+    public static final String ID_DISCOUNT = "id_discount";
+    public static final String IMAGE_URL = "image_url";
 }

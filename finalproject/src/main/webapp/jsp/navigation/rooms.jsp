@@ -9,6 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<fmt:message key="registration.registration" var="Registration"/>
+
 <html>
 <head>
     <title>Rooms</title>
@@ -39,18 +42,59 @@
     List<Room> roomsAvailable = (List<Room>) (request.getAttribute("catalog"));
 %>
 
+<%--<c:if test="${sessionScope.userRole == 'OWNER'}">--%>
+<%--    <nav class="navbar-light bg-light m-4">--%>
+<%--        <form class="form-row" action="${pageContext.request.contextPath}/controller" method="post">--%>
+<%--            <input type="hidden" name="command_name" value="add_room">--%>
+<%--            <div style="display: flex; flex-direction: row; width: 100%">--%>
+<%--                <input class="form-control mr-sm-2" name="price" type="search" placeholder="Price, $"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="Room type"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor" aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="Room number"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="Id discount" aria-label="Search">--%>
+<%--                <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">Add</button>--%>
+
+<%--            </div>--%>
+<%--        </form>--%>
+<%--    </nav>--%>
+<%--</c:if>--%>
+
 
 <% for (int i = 0; i < roomsAvailable.size(); ++i) { %>
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-8">
-            <img src="${pageContext.request.contextPath}<%=roomsAvailable.get(i).getImageUrl()%>" class="img-fluid rounded-start" alt="...">
+            <img src="${pageContext.request.contextPath}<%=roomsAvailable.get(i).getImageUrl()%>"
+                 class="img-fluid rounded-start w-100" alt="номера на мальдивах">
         </div>
         <div class="col-md-4">
             <div class="card-body">
-                <h5 class="card-title"><%=roomsAvailable.get(i).getRoomType()%></h5>
-                <p class="card-text">Price: <%=roomsAvailable.get(i).getPrice() + " $"%></p>
-                <button class="btn btn-outline-light btn-lg px-5" type="submit">Оформить бронирование</button>
+                <h5 class="card-title"><%=roomsAvailable.get(i).getRoomType()%>
+                </h5>
+                <p class="card-text">Price: <%=roomsAvailable.get(i).getPrice() + " $"%>
+                </p>
+
+                <c:choose>
+                    <c:when test="${sessionScope.authorization}">
+                        <li class=" nav-item">
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Оформить бронирование
+                            </button>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class=" nav-item">
+                            <button class="btn btn-outline-light btn-lg px-5"
+                                    onclick="document.location='${pageContext.request.contextPath}/jsp/navigation/authorization.jsp'">
+                                Оформить бронирование
+                            </button>
+                        </li>
+                    </c:otherwise>
+
+                </c:choose>
+                <button type="submit" class="btn btn-secondary btn-lg ">Оформить бронирование</button>
             </div>
         </div>
     </div>

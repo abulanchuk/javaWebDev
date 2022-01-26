@@ -13,4 +13,5 @@ public interface RoomDao extends BaseDao<Room>{
     List<Room> findRoomsByTypeOnTheFloor (int floor, RoomType roomType) throws DaoException;
     int findFloorWhereTheRoom (int numberOfRoom) throws DaoException;
     List<Room> findRoomsWhosePriceLowerThanSpecified (BigDecimal price) throws DaoException;
+
 }

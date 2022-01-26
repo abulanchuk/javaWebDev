@@ -3,6 +3,7 @@ package com.example.finalproject.controller.command;
 import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
 import com.example.finalproject.controller.command.impl.common.*;
+import com.example.finalproject.controller.command.impl.owner.AddNewRoomCommand;
 
 import java.util.EnumMap;
 
@@ -18,6 +19,7 @@ public class CommandProvider {
         commands.put(CommandType.SHOW_ALL_ROOMS, new ShowAllRoomsCommand());
         commands.put(CommandType.EDIT_PERSONAL_INFORMATION, new EditPersonalInformationCommand());
         commands.put(CommandType.SIGN_OUT, new SignOutCommand());
+        commands.put(CommandType.ADD_ROOM, new AddNewRoomCommand());
     }
 
     public static CommandProvider getInstance() {

@@ -36,16 +36,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<h1>Личный кабинет</h1>
-<h2>${sessionScope.userName} ${sessionScope.userSurname}</h2>
-<h3>Изменить персональные данные</h3>
+<%--<h1>Личный кабинет</h1>--%>
+<%--<h2>${sessionScope.userName} ${sessionScope.userSurname}</h2>--%>
+<%--<h3>Изменить персональные данные</h3>--%>
 
-<form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
+<div style="display: flex; flex-direction: column; align-items: center">
+
+    <h1>Личный кабинет</h1>
+    <h2>${sessionScope.userName} ${sessionScope.userSurname}</h2>
+    <h3>Изменить персональные данные</h3>
+</div>
+
+<form class="mb-md-5 mt-md-4 pb-5 mx-5" action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command_name" value="edit_personal_information">
+
+    <c:if test="${sessionScope.userRole == 'CLIENT'}">
+        <input type="hidden" name="command_name" value="edit_personal_information_client">
+    </c:if>
+
+
     <div class="form-group row">
         <label for="login" class="col-sm-2 col-form-label">Login</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="login" id="login" placeholder="New login" required
+            <input type="text" class="form-control w-75" name="login" id="login" placeholder="New login" required
                    pattern="[A-Za-z]{8,30}">
         </div>
     </div>
@@ -53,31 +66,49 @@
     <div class="form-group row">
         <label for="password" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" name="password" id="password" placeholder="New password"
+            <input type="password" class="form-control w-75" name="password" id="password" placeholder="New password"
                    required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="name" id="name" placeholder="New name" required
+            <input type="text" class="form-control w-75" name="name" id="name" placeholder="New name" required
                    pattern="^[A-ZА-Я][a-zа-я]{1,30}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="surname" class="col-sm-2 col-form-label">Surname</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="surname" id="surname" placeholder="New surname" required
+            <input type="text" class="form-control w-75" name="surname" id="surname" placeholder="New surname" required
                    pattern="^[A-ZА-Я][a-zа-я]{2,50}$">
         </div>
     </div>
     <div class="form-group row">
         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="phone_number" id="phoneNumber" placeholder="New phone number"
+            <input type="text" class="form-control w-75" name="phone_number" id="phoneNumber" placeholder="New phone number"
                    required pattern="(25|29|33|44)\d{7}">
         </div>
     </div>
+
+    <c:if test="${sessionScope.userRole == 'CLIENT'}">
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control w-75" name="email" id="email" placeholder="New email"
+                       required pattern="^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\.[a-z]{2,4}$">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="passport_number" class="col-sm-2 col-form-label">Passport number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control w-75" name="passport_number" id="passport_number" placeholder="New passport number"
+                       required pattern="[A-Z]{2}[0-9]{7}">
+            </div>
+        </div>
+    </c:if>
+
     <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
 </form>
 

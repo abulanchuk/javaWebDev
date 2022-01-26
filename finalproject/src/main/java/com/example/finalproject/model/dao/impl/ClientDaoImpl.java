@@ -35,6 +35,8 @@ public class ClientDaoImpl implements ClientDao {
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
             FROM clients 
             WHERE id_user =?""";
+    private static final String SQL_UPDATE_CLIENT = """
+            UPDATE clients, users SET login = ?, password = ?, name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND id_client = ?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
@@ -142,6 +144,31 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public boolean updateClient(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
+            statement.setString(1, newLogin);
+            statement.setString(2, newPassword);
+            statement.setString(3, newName);
+            statement.setString(4, newSurname);
+            statement.setString(5, newPhoneNumber);
+            statement.setString(6, email);
+            statement.setString(7, passportNumber);
+            statement.setLong(8, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.INFO, "User's fields didn't update with id " + id);
+                return false;
+            }
+            logger.log(Level.DEBUG, "Successfully updated user's fields");
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to update user's fields. Database access error:", e);
+            throw new DaoException("Impossible to update user's fields. Database access error:", e);
+        }
+    }
+
+    @Override
     public boolean deleteById(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT_BY_ID)) {
@@ -206,7 +233,7 @@ public class ClientDaoImpl implements ClientDao {
                 }
             } catch (SQLException e) {
                 connection.rollback();
-                logger.log(Level.DEBUG, "Failed to create client",e);
+                logger.log(Level.DEBUG, "Failed to create client", e);
                 throw new DaoException("Failed to create client: " + client, e);
             } finally {
                 connection.setAutoCommit(true);
@@ -248,7 +275,7 @@ public class ClientDaoImpl implements ClientDao {
                 logger.log(Level.INFO, "Client's cash in bank account didn't update with id " + id);
                 return false;
             }
-            logger.log(Level.DEBUG, "Add "+ howMuchToAdd +" money in bank account for client with id " + id);
+            logger.log(Level.DEBUG, "Add " + howMuchToAdd + " money in bank account for client with id " + id);
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's cash in bank account. Database access error:", e);
