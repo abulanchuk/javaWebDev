@@ -104,14 +104,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateClient(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException {
+    public boolean updateClient(Long idUser, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException {
         try {
-            boolean isCorrectNewFields = validator.isCorrectLogin(newLogin) && validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber) && validator.isEmailValid(email) && validator.isPasswordNumberValid(passportNumber);
+            boolean isCorrectNewFields = validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber) && validator.isEmailValid(email) && validator.isPasswordNumberValid(passportNumber);
             String newEncryptedPassword = null;
             if (isCorrectNewFields) {
                 newEncryptedPassword = PasswordEncryptor.encrypt(newPassword);
             }
-            return isCorrectNewFields && clientDao.updateClient(id, newLogin, newEncryptedPassword, newName, newSurname, newPhoneNumber,email, passportNumber);
+            return isCorrectNewFields && clientDao.updateClient(idUser, newEncryptedPassword, newName, newSurname, newPhoneNumber,email, passportNumber);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to change user's fields:", e);
             throw new ServiceException("Impossible to change user's fields:", e);

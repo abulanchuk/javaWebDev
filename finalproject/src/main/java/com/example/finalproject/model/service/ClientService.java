@@ -18,5 +18,5 @@ public interface ClientService <T extends CustomEntity>{
     boolean updateEmail(Long id,String newEmail) throws ServiceException;
     boolean updateCashInBankAccount (Long id, BigDecimal howMuchToAdd) throws ServiceException;
     boolean updatePassportNumber(String oldPasswordNumber,String newPasswordNumber) throws ServiceException;
-    boolean updateClient(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException;
+    boolean updateClient(Long idUser, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException;
 }

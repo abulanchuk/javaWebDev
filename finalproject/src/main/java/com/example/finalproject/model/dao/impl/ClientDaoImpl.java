@@ -36,7 +36,7 @@ public class ClientDaoImpl implements ClientDao {
             FROM clients 
             WHERE id_user =?""";
     private static final String SQL_UPDATE_CLIENT = """
-            UPDATE clients, users SET login = ?, password = ?, name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND id_client = ?""";
+            UPDATE clients, users SET password = ?, name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND users.id_user = ?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
@@ -144,20 +144,19 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public boolean updateClient(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws DaoException {
+    public boolean updateClient(Long idUser, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws DaoException {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
-            statement.setString(1, newLogin);
-            statement.setString(2, newPassword);
-            statement.setString(3, newName);
-            statement.setString(4, newSurname);
-            statement.setString(5, newPhoneNumber);
-            statement.setString(6, email);
-            statement.setString(7, passportNumber);
-            statement.setLong(8, id);
+            statement.setString(1, newPassword);
+            statement.setString(2, newName);
+            statement.setString(3, newSurname);
+            statement.setString(4, newPhoneNumber);
+            statement.setString(5, email);
+            statement.setString(6, passportNumber);
+            statement.setLong(7, idUser);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
-                logger.log(Level.INFO, "User's fields didn't update with id " + id);
+                logger.log(Level.INFO, "User's fields didn't update with id " + idUser);
                 return false;
             }
             logger.log(Level.DEBUG, "Successfully updated user's fields");

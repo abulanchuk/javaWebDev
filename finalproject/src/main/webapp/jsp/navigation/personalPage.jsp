@@ -45,21 +45,18 @@
 </div>
 
 <form class="mb-md-5 mt-md-4 pb-5 mx-5" action="${pageContext.request.contextPath}/controller" method="post">
-    <input type="hidden" name="command_name" value="edit_personal_information">
-
-    <c:if test="${sessionScope.userRole == 'CLIENT'}">
-        <input type="hidden" name="command_name" value="edit_personal_information_client">
-    </c:if>
 
 
-    <div class="form-group row">
-        <label for="login" class="col-sm-2 col-form-label">Login</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control w-75" name="login" id="login" placeholder="New login" required
-                   pattern="[A-Za-z]{8,30}">
-        </div>
-    </div>
-    </div>
+    <c:choose>
+        <c:when test="${sessionScope.userRole == 'CLIENT'}">
+            <input type="hidden" name="command_name" value="edit_personal_information_about_client">
+        </c:when>
+        <c:otherwise>
+            <input type="hidden" name="command_name" value="edit_personal_information">
+        </c:otherwise>
+
+    </c:choose>
+
     <div class="form-group row">
         <label for="password" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
@@ -84,7 +81,8 @@
     <div class="form-group row">
         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control w-75" name="phone_number" id="phoneNumber" placeholder="New phone number"
+            <input type="text" class="form-control w-75" name="phone_number" id="phoneNumber"
+                   placeholder="New phone number"
                    required pattern="(25|29|33|44)\d{7}">
         </div>
     </div>
@@ -100,7 +98,8 @@
         <div class="form-group row">
             <label for="passport_number" class="col-sm-2 col-form-label">Passport number</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control w-75" name="passport_number" id="passport_number" placeholder="New passport number"
+                <input type="text" class="form-control w-75" name="passport_number" id="passport_number"
+                       placeholder="New passport number"
                        required pattern="[A-Z]{2}[0-9]{7}">
             </div>
         </div>

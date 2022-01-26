@@ -23,7 +23,6 @@ public class EditPersonalInformationAboutClient implements Command {
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
 
-        String login = request.getParameter(QueryNamedArguments.LOGIN);
         String password = request.getParameter(QueryNamedArguments.PASSWORD);
         String name = request.getParameter(QueryNamedArguments.NAME);
         String surname = request.getParameter(QueryNamedArguments.SURNAME);
@@ -32,7 +31,7 @@ public class EditPersonalInformationAboutClient implements Command {
         String passportNumber = request.getParameter(QueryNamedArguments.PASSPORT_NUMBER);
 
         try {
-            userService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), login, password, name, surname, phoneNumber, email, passportNumber);
+            userService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), password, name, surname, phoneNumber, email, passportNumber);
         } catch (ServiceException e) {
             e.printStackTrace();//todo
         }
