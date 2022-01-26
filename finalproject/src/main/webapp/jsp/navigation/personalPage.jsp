@@ -36,9 +36,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<%--<h1>Личный кабинет</h1>--%>
-<%--<h2>${sessionScope.userName} ${sessionScope.userSurname}</h2>--%>
-<%--<h3>Изменить персональные данные</h3>--%>
 
 <div style="display: flex; flex-direction: column; align-items: center">
 
@@ -109,7 +106,7 @@
         </div>
     </c:if>
 
-    <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
+    <button class="btn btn-secondary btn-lg " type="submit">Submit</button>
 </form>
 
 <%@include file="../footer/footer.jsp" %>
