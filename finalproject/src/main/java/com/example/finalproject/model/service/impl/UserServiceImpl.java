@@ -4,6 +4,7 @@ import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.exception.ServiceException;
 import com.example.finalproject.model.dao.UserDao;
 import com.example.finalproject.model.dao.impl.UserDaoImpl;
+import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.entity.UserRole;
@@ -52,7 +53,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
-        return null;
+        User user;
+        try {
+            user = userDao.insertNewEntity(entities);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to create new user ", e);
+        }
+        return user;
     }
 
     @Override

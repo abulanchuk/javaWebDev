@@ -17,6 +17,6 @@ public interface Validator {
     boolean isFloorValid(String floor);
     boolean isRoomTypeValid(String roomType);
     boolean isIdDiscountValid(String idDiscount);
-    boolean checkRegistration(Map<String, String> map);
-
+    boolean checkRegistrationClient(Map<String, String> map);
+    boolean checkRegistrationButlerOrOwner(Map<String, String> map);
 }

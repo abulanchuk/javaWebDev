@@ -19,7 +19,7 @@ public class ButlerServiceImpl implements ButlerService {
     private static ButlerServiceImpl instance;
     private final ButlerDao butlerDao = ButlerDaoImpl.getInstance();
 
-    private ButlerServiceImpl() {
+    public ButlerServiceImpl() {
     }
 
     public static ButlerService getInstance() {
@@ -62,7 +62,13 @@ public class ButlerServiceImpl implements ButlerService {
 
     @Override
     public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
-        return null;
+        Butler butler;
+        try {
+            butler = butlerDao.insertNewEntity(entities);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to create new butler ", e);
+        }
+        return butler;
     }
 
     @Override

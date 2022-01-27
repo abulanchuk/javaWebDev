@@ -110,7 +110,7 @@ public class ValidatorImpl implements Validator {
 
 
     @Override
-    public boolean checkRegistration(Map<String, String> map) {
+    public boolean checkRegistrationClient(Map<String, String> map) {
         boolean result = true;
         String login = map.get(LOGIN);
         String password = map.get(PASSWORD);
@@ -146,6 +146,38 @@ public class ValidatorImpl implements Validator {
         }
         if (!isPasswordNumberValid(passwordNumber)) {
             map.put(PASSPORT_NUMBER, INVALID_PASSWORD_NUMBER.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean checkRegistrationButlerOrOwner(Map<String, String> map) {
+        boolean result = true;
+        String login = map.get(LOGIN);
+        String password = map.get(PASSWORD);
+        String name = map.get(NAME);
+        String surname = map.get(SURNAME);
+        String phone = map.get(PHONE_NUMBER);
+
+        if (!isCorrectName(name)) {
+            map.put(NAME, INVALID_NAME.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectName(surname)) {
+            map.put(SURNAME, INVALID_SURNAME.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectLogin(login)) {
+            map.put(LOGIN, INVALID_LOGIN.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectPassword(password)) {
+            map.put(PASSWORD, INVALID_PASSWORD.name().toLowerCase(Locale.ROOT));
+            result = false;
+        }
+        if (!isCorrectPhoneNumber(phone)) {
+            map.put(PHONE_NUMBER, INVALID_PHONE_NUMBER.name().toLowerCase(Locale.ROOT));
             result = false;
         }
         return result;
