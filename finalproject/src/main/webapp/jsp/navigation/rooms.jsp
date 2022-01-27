@@ -10,7 +10,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<fmt:message key="registration.registration" var="Registration"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="bundle/locale"/>
 
 <html>
 <head>
@@ -42,25 +43,25 @@
     List<Room> roomsAvailable = (List<Room>) (request.getAttribute("catalog"));
 %>
 
-<c:if test="${sessionScope.userRole == 'OWNER'}">
-    <nav class="navbar-light bg-light m-4">
-        <form class="form-row" action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command_name" value="add_room">
-            <div style="display: flex; flex-direction: row; width: 100%">
-                <input class="form-control mr-sm-2" name="price" type="search" placeholder="Price, $"
-                       aria-label="Search">
-                <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="Room type"
-                       aria-label="Search">
-                <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor" aria-label="Search">
-                <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="Room number"
-                       aria-label="Search">
-                <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="Id discount" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">Add</button>
+<%--<c:if test="${sessionScope.userRole == 'OWNER'}">--%>
+<%--    <nav class="navbar-light bg-light m-4">--%>
+<%--        <form class="form-row" action="${pageContext.request.contextPath}/controller" method="post">--%>
+<%--            <input type="hidden" name="command_name" value="add_room">--%>
+<%--            <div style="display: flex; flex-direction: row; width: 100%">--%>
+<%--                <input class="form-control mr-sm-2" name="price" type="search" placeholder="Price, $"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="Room type"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor" aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="Room number"--%>
+<%--                       aria-label="Search">--%>
+<%--                <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="Id discount" aria-label="Search">--%>
+<%--                <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">Add</button>--%>
 
-            </div>
-        </form>
-    </nav>
-</c:if>
+<%--            </div>--%>
+<%--        </form>--%>
+<%--    </nav>--%>
+<%--</c:if>--%>
 
 
 <% for (int i = 0; i < roomsAvailable.size(); ++i) { %>

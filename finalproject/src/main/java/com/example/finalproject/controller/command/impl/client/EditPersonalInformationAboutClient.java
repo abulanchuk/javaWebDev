@@ -9,10 +9,14 @@ import com.example.finalproject.controller.command.impl.EditPersonalInformationC
 import com.example.finalproject.exception.ServiceException;
 import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.model.service.impl.ClientServiceImpl;
+import com.example.finalproject.util.MailSender;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 
 public class EditPersonalInformationAboutClient implements Command {
     private static final Logger logger = LogManager.getLogger(EditPersonalInformationCommand.class);
@@ -32,8 +36,13 @@ public class EditPersonalInformationAboutClient implements Command {
 
         try {
             userService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), password, name, surname, phoneNumber, email, passportNumber);
+            MailSender.sentEmail(email,"UPDATED INFORMATION FUSHIFARU","Your personal information was successfully updated!\nThanks for staying with us.\n Yours dreamy FUSHIFARU islands");
         } catch (ServiceException e) {
             e.printStackTrace();//todo
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return new Router(PagePath.HOME, Router.RouterType.FORWARD);
     }

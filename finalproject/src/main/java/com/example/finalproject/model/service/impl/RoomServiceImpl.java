@@ -49,6 +49,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Room insertNewEntity(Map<String, String> room) throws ServiceException {
+        Room newRoom = null;
         boolean resultFromValidate = validator.isPriceOfRoomValid(room.get(QueryNamedArguments.PRICE)) &&
                 validator.isRoomTypeValid(room.get(QueryNamedArguments.ROOM_TYPE)) &&
                 validator.isFloorValid(room.get(QueryNamedArguments.FLOOR)) &&
@@ -56,7 +57,8 @@ public class RoomServiceImpl implements RoomService {
                 validator.isIdDiscountValid(room.get(QueryNamedArguments.ID_DISCOUNT));
         if (resultFromValidate) {
             BigDecimal priceRoom = new BigDecimal(room.get(QueryNamedArguments.PRICE));
-            RoomType roomType = RoomType.valueOf(room.get(QueryNamedArguments.ROOM_TYPE.toUpperCase(Locale.ROOT)));
+            String roomTypeValue = room.get(QueryNamedArguments.ROOM_TYPE.toLowerCase(Locale.ROOT));
+            RoomType roomType = RoomType.valueOf(roomTypeValue.toUpperCase(Locale.ROOT));
             int floor = Integer.parseInt(room.get(QueryNamedArguments.FLOOR));
             int roomNumber = Integer.parseInt(room.get(QueryNamedArguments.ROOM_NUMBER));
             long idDiscount = Long.valueOf(room.get(QueryNamedArguments.ID_DISCOUNT));
@@ -70,7 +72,7 @@ public class RoomServiceImpl implements RoomService {
             if (!file.exists()) {
                 imagePath = pathToPhoto;
             }
-            Room newRoom = new Room(priceRoom, roomType, floor, roomNumber, idDiscount, imagePath);
+             newRoom = new Room(priceRoom, roomType, floor, roomNumber, idDiscount, imagePath);
             try {
                 roomDao.insertNewEntity(newRoom);
             } catch (DaoException e) {
@@ -78,7 +80,7 @@ public class RoomServiceImpl implements RoomService {
                 throw new ServiceException("Impossible to add new room to database", e);
             }
         }
-        return null;
+        return newRoom;
     }
 
 }

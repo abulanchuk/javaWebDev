@@ -10,6 +10,7 @@ public class PagePath {
     public static final String REGISTRATION ="jsp/navigation/registration.jsp";
     public static final String CATALOG ="jsp/navigation/rooms.jsp";
     public static final String PERSONAL_PAGE ="jsp/navigation/personalPage.jsp";
+    public static final String WORKING_ADMIN_PANEL ="jsp/navigation/owner/workingpanel.jsp";
     private PagePath() {
     }
 }

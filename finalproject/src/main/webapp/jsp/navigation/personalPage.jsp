@@ -9,6 +9,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="bundle/locale"/>
+
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rooms.css" type="text/css">

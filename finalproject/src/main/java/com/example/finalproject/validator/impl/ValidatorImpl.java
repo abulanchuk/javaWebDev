@@ -22,7 +22,7 @@ public class ValidatorImpl implements Validator {
     private static final String MOBILE_NUMBER_PATTERN = "(25|29|33|44)\\d{7}";
     private static final String NUMBER_OF_ROOM_PATTERN = "\\d+";
     private static final String NUMBER_OF_FLOOR_PATTERN = "[1-3]";
-    private static final String PRICE_OF_ROOM_PATTERN = "\\d{1,3}(?:[.,]\\d{3})*(?:[.,]\\d{2})";
+    private static final String PRICE_OF_ROOM_PATTERN = "(\\d{1,6}((.|,)[0-9]{1,2})?)";
     private static final String ID_DISCOUNT_PATTERN = "^[+]?[1-9]+(\\d+)?$";
     private static ValidatorImpl instance;
 
@@ -88,7 +88,7 @@ public class ValidatorImpl implements Validator {
 
     @Override
     public boolean isRoomTypeValid(String roomType) {
-        return roomType.equals("CLIENT") || roomType.equals("OWNER") || roomType.equals("BUTLER");
+        return roomType.equals("DELUXE") || roomType.equals("SUITE") || roomType.equals("STANDART");
     }
 
     @Override

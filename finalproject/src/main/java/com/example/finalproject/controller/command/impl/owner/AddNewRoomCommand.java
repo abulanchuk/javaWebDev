@@ -6,6 +6,7 @@ import com.example.finalproject.controller.command.Command;
 import com.example.finalproject.controller.command.PagePath;
 import com.example.finalproject.controller.command.Router;
 import com.example.finalproject.exception.ServiceException;
+import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.service.RoomService;
 import com.example.finalproject.model.service.impl.RoomServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,11 +30,11 @@ public class AddNewRoomCommand implements Command {
         newRoom.put(QueryNamedArguments.IMAGE_URL, request.getParameter(QueryNamedArguments.IMAGE_URL));
 
         try {
-            roomService.insertNewEntity(newRoom);
+         Room room =  roomService.insertNewEntity(newRoom);
         } catch (ServiceException e) {
             request.setAttribute(ErrorType.EXCEPTION.name(), e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
-        return new Router(PagePath.CATALOG, Router.RouterType.FORWARD);
+        return new Router(PagePath.WORKING_ADMIN_PANEL, Router.RouterType.FORWARD);
     }
 }
