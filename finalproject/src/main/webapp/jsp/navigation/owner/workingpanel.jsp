@@ -12,6 +12,21 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="bundle/locale"/>
 
+<fmt:message key="workingPanelAdmin.addRoom" var="AddRoom"/>
+<fmt:message key="workingPanelAdmin.addButler" var="AddButler"/>
+<fmt:message key="workingPanelAdmin.addOwner" var="AddOwner"/>
+<fmt:message key="workingPanelAdmin.deleteButler" var="DeleteButler"/>
+<fmt:message key="workingPanelAdmin.deleteClient" var="DeleteClient"/>
+<fmt:message key="workingPanelAdmin.listButlers" var="ListButlers"/>
+<fmt:message key="workingPanelAdmin.listClients" var="ListClients"/>
+<fmt:message key="workingPanelAdmin.price" var="Price"/>
+<fmt:message key="workingPanelAdmin.roomType" var="RoomType"/>
+<fmt:message key="workingPanelAdmin.Floor" var="Floor"/>
+<fmt:message key="workingPanelAdmin.numberRoom" var="RoomNumber"/>
+<fmt:message key="workingPanelAdmin.idDiscount" var="IdDiscount"/>
+<fmt:message key="workingPanelAdmin.imageUrl" var="ImageUrl"/>
+<fmt:message key="workingPanelAdmin.add" var="Add"/>
+
 <html>
 <head>
     <title>Owner's panel</title>
@@ -23,54 +38,34 @@
 <body>
 <%@include file="../../header/header.jsp" %>
 
-<%--<nav class="navbar-light bg-light m-4">--%>
-<%--    <form class="form-row" action="${pageContext.request.contextPath}/controller" method="post">--%>
-<%--        <input type="hidden" name="command_name" value="add_room">--%>
-<%--        <div style="display: flex; flex-direction: row; width: 100%">--%>
-<%--            <button class="btn btn-secondary mr-sm-2" type="button" id="deleteRoom"--%>
-<%--                    data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                Удалить комнату--%>
-<%--            </button>--%>
-<%--            <button class="btn btn-secondary mr-sm-2" type="button" id="addRoom"--%>
-<%--                    data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                Добавить комнату--%>
-<%--            </button>--%>
-<%--            <button class="btn btn-secondary mr-sm-2" type="button" id="ListClients"--%>
-<%--                    data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                Список клиентов--%>
-<%--            </button>--%>
-<%--            <button class="btn btn-secondary mr-sm-2" type="button" id="ListButlers"--%>
-<%--                    data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                Список батлеров--%>
-<%--            </button>--%>
-<%--            <button class="btn btn-secondary mr-sm-2" type="button" id="AddPerson"--%>
-<%--                    data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                Добавить человека--%>
-<%--            </button>--%>
-<%--        </div>--%>
-<%--    </form>--%>
-<%--</nav>--%>
-
 <p>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
-        Add room
+        ${AddRoom}
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
-        Delete room
+        ${AddOwner}
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
-        Client's list
+        ${AddButler}
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
-        Butler's list
+        ${DeleteButler}
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
-        Add new person
+        ${DeleteClient}
+    </button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+        ${ListButlers}
+    </button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+        ${ListClients}
     </button>
 </p>
 <div class="collapse" id="collapseExample">
@@ -84,17 +79,16 @@
     <form class="form-row" action="${pageContext.request.contextPath}/controller" method="post">
         <input type="hidden" name="command_name" value="add_room">
         <div style="display: flex; flex-direction: row; width: 100%">
-            <input class="form-control mr-sm-2" name="price" type="search" placeholder="Price, $"
+            <input class="form-control mr-sm-2" name="price" type="search" placeholder="${Price}"
                    aria-label="Search">
-            <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="Room type"
+            <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="${RoomType}"
                    aria-label="Search">
             <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor" aria-label="Search">
-            <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="Room number"
+            <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="${RoomNumber}"
                    aria-label="Search">
-            <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="Id discount" aria-label="Search">
-            <input class="form-control mr-sm-2" name = "image_url" type="search" placeholder="Image url" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">Add</button>
-
+            <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="${IdDiscount}" aria-label="Search">
+            <input class="form-control mr-sm-2" name = "image_url" type="search" placeholder="${ImageUrl}" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">${Add}</button>
         </div>
     </form>
 </nav>
