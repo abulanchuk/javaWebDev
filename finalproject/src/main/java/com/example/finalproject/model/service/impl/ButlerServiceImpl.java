@@ -11,11 +11,14 @@ import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.service.ButlerService;
 import com.example.finalproject.model.service.ClientService;
+import com.example.finalproject.validator.Validator;
+import com.example.finalproject.validator.impl.ValidatorImpl;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ButlerServiceImpl implements ButlerService {
+    Validator validator = new ValidatorImpl();
     private static ButlerServiceImpl instance;
     private final ButlerDao butlerDao = ButlerDaoImpl.getInstance();
 
@@ -58,6 +61,18 @@ public class ButlerServiceImpl implements ButlerService {
     @Override
     public boolean deleteById(Long id) throws ServiceException {
         return false;
+    }
+
+    @Override
+    public void deleteByLogin(String login) throws ServiceException {
+        try {
+            if (!validator.isCorrectLogin(login)){
+                throw new ServiceException("Invalid login for deleting " + login);
+            }
+            boolean result = butlerDao.deleteByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to delete butler by login " + login, e);
+        }
     }
 
     @Override

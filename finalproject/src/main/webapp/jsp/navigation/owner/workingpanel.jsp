@@ -235,6 +235,20 @@
     </div>
 </form>
 
+<form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller"
+      method="post">
+    <input type="hidden" name="command_name" value="delete_butler">
+    <div class="form-group row">
+        <label for="loginButler" class="col-sm-2 col-form-label">Butler's login for deleting</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control w-75" name="login" id="loginButler"
+                   placeholder="Delete butler by this login"
+                   required pattern="[A-Za-z]{8,30}">
+        </div>
+        <button class="btn btn-outline-secondary btn-lg px-5" type="submit">${Delete}</button>
+    </div>
+</form>
+
 <%@include file="../../footer/footer.jsp" %>
 </body>
 </html>

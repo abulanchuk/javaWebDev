@@ -35,6 +35,11 @@ public class ButlerDaoImpl implements ButlerDao {
             DELETE users, butlers, orders FROM users 
             INNER JOIN butlers ON users.id_user = butlers.id_user 
             INNER JOIN orders ON orders.id_butler = butlers.id_butler WHERE butlers.id_butler = ?""";
+    private static final String SQL_DELETE_BUTLER_BY_LOGIN = """
+            DELETE users, butlers, orders FROM users 
+            LEFT JOIN butlers ON users.id_user = butlers.id_user 
+            LEFT JOIN orders ON orders.id_butler = butlers.id_butler
+            WHERE users.login = ? AND users.role = 'BUTLER' """;
     private static final String SQL_INSERT_USER = """
             INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_INSERT_NEW_BUTLER = """
@@ -45,7 +50,7 @@ public class ButlerDaoImpl implements ButlerDao {
     private ButlerCreator butlerCreator = new ButlerCreator();
     private static ButlerDaoImpl instance;
 
-    private ButlerDaoImpl() {
+    public ButlerDaoImpl() {
     }
 
     public static ButlerDao getInstance() {
@@ -205,6 +210,18 @@ public class ButlerDaoImpl implements ButlerDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
             throw new DaoException("Impossible to find client by id. Database access error:", e);
+        }
+    }
+
+    @Override
+    public boolean deleteByLogin(String login) throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BUTLER_BY_LOGIN)) {
+            statement.setString(1, login);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to delete butler with such login: " + login, e);
+            throw new DaoException("Impossible to delete butler with such login: " + login, e);
         }
     }
 

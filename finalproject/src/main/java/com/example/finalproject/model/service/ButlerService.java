@@ -15,6 +15,8 @@ public interface ButlerService<T extends CustomEntity> {
 
     boolean deleteById(Long id) throws ServiceException;
 
+    void deleteByLogin(String login) throws ServiceException;
+
     T insertNewEntity(CustomEntity... entities) throws ServiceException;
 
     boolean updateRatingById(Long id, byte newRating) throws ServiceException;

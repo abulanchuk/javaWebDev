@@ -4,10 +4,7 @@ import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
 import com.example.finalproject.controller.command.impl.client.EditPersonalInformationAboutClient;
 import com.example.finalproject.controller.command.impl.common.*;
-import com.example.finalproject.controller.command.impl.owner.AddNewButlerCommand;
-import com.example.finalproject.controller.command.impl.owner.AddNewOwnerCommand;
-import com.example.finalproject.controller.command.impl.owner.AddNewRoomCommand;
-import com.example.finalproject.controller.command.impl.owner.DeleteClientCommand;
+import com.example.finalproject.controller.command.impl.owner.*;
 
 import java.util.EnumMap;
 
@@ -28,6 +25,7 @@ public class CommandProvider {
         commands.put(CommandType.ADD_BUTLER, new AddNewButlerCommand());
         commands.put(CommandType.ADD_OWNER, new AddNewOwnerCommand());
         commands.put(CommandType.DELETE_CLIENT, new DeleteClientCommand());
+        commands.put(CommandType.DELETE_BUTLER, new DeleteButlerCommand());
     }
 
     public static CommandProvider getInstance() {
