@@ -78,6 +78,19 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public void deleteByLogin(String login) throws ServiceException {
+        try {
+            if (!validator.isCorrectLogin(login)){
+                throw new ServiceException("Invalid login for deleting " + login);
+            }
+            boolean result = clientDao.deleteByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to delete client by login " + login, e);
+        }
+
+    }
+
+    @Override
     public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
         Client client;
         try {
@@ -111,7 +124,7 @@ public class ClientServiceImpl implements ClientService {
             if (isCorrectNewFields) {
                 newEncryptedPassword = PasswordEncryptor.encrypt(newPassword);
             }
-            return isCorrectNewFields && clientDao.updateClient(idUser, newEncryptedPassword, newName, newSurname, newPhoneNumber,email, passportNumber);
+            return isCorrectNewFields && clientDao.updateClient(idUser, newEncryptedPassword, newName, newSurname, newPhoneNumber, email, passportNumber);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to change user's fields:", e);
             throw new ServiceException("Impossible to change user's fields:", e);

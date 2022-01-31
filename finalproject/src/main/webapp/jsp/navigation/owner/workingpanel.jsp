@@ -26,6 +26,7 @@
 <fmt:message key="workingPanelAdmin.idDiscount" var="IdDiscount"/>
 <fmt:message key="workingPanelAdmin.imageUrl" var="ImageUrl"/>
 <fmt:message key="workingPanelAdmin.add" var="Add"/>
+<fmt:message key="workingPanelAdmin.delete" var="Delete"/>
 
 <fmt:message key="registration.login" var="Login"/>
 <fmt:message key="registration.password" var="Password"/>
@@ -100,15 +101,16 @@
             <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor" aria-label="Search">
             <input class="form-control mr-sm-2" name="room_number" type="search" placeholder="${RoomNumber}"
                    aria-label="Search">
-            <input class="form-control mr-sm-2" name = "id_discount" type="search" placeholder="${IdDiscount}" aria-label="Search">
-            <input class="form-control mr-sm-2" name = "image_url" type="search" placeholder="${ImageUrl}" aria-label="Search">
+            <input class="form-control mr-sm-2" name="id_discount" type="search" placeholder="${IdDiscount}"
+                   aria-label="Search">
+            <input class="form-control mr-sm-2" name="image_url" type="search" placeholder="${ImageUrl}"
+                   aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="Image path">${Add}</button>
         </div>
     </form>
 </nav>
 
 
-
 <div class="container h-100">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 invisible-scroll" style="overflow-y: auto; max-height:  100%">
@@ -116,37 +118,44 @@
                 <div class="card-body p-3 text-center ">
 
                     <div class="mb-md-3 mt-md-3 pb-3">
-                        <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
+                        <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller"
+                              method="post">
                             <input type="hidden" name="command_name" value="add_butler">
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name="login" id="typeLoginButler" placeholder="${LoginHolder}" required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg" />
+                                <input type="text" name="login" id="typeLoginButler" placeholder="${LoginHolder}"
+                                       required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg"/>
                                 <label class="form-label" for="typeLoginButler">${Login}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" name ="password" id="typePasswordButler" placeholder="${PasswordHolder}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="form-control form-control-lg" />
+                                <input type="password" name="password" id="typePasswordButler"
+                                       placeholder="${PasswordHolder}" required
+                                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                                       class="form-control form-control-lg"/>
                                 <label class="form-label" for="typePasswordButler">${Password}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name ="name" id="typeNameButler" placeholder="${NameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeName">${Name}</label>
+                                <input type="text" name="name" id="typeNameButler" placeholder="${NameHolder}" required
+                                       pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg"/>
+                                <label class="form-label" for="typeNameButler">${Name}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name = "surname"  id="typeSurnameButler" placeholder="${SurnameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeSurname">${Surname}</label>
+                                <input type="text" name="surname" id="typeSurnameButler" placeholder="${SurnameHolder}"
+                                       required pattern="^[A-ZА-Я][a-zа-я]{2,50}$"
+                                       class="form-control form-control-lg"/>
+                                <label class="form-label" for="typeSurnameButler">${Surname}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name = "phone_number"  id="typePhoneNumberButler" placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}" class="form-control form-control-lg" />
+                                <input type="text" name="phone_number" id="typePhoneNumberButler"
+                                       placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}"
+                                       class="form-control form-control-lg"/>
                                 <label class="form-label" for="typePhoneNumberButler">${PhoneNumber}</label>
                             </div>
-
-
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">${Submit}</button>
-
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit">${Add}</button>
                         </form>
                     </div>
                 </div>
@@ -163,36 +172,46 @@
                 <div class="card-body p-3 text-center ">
 
                     <div class="mb-md-3 mt-md-3 pb-3">
-                        <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller" method="post">
+                        <form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller"
+                              method="post">
                             <input type="hidden" name="command_name" value="add_owner">
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name="login" id="typeLoginOwner" placeholder="${LoginHolder}" required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg" />
+                                <input type="text" name="login" id="typeLoginOwner" placeholder="${LoginHolder}"
+                                       required pattern="[A-Za-z]{8,30}" class="form-control form-control-lg"/>
                                 <label class="form-label" for="typeLoginOwner">${Login}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="password" name ="password" id="typePasswordOwner" placeholder="${PasswordHolder}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="form-control form-control-lg" />
+                                <input type="password" name="password" id="typePasswordOwner"
+                                       placeholder="${PasswordHolder}" required
+                                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                                       class="form-control form-control-lg"/>
                                 <label class="form-label" for="typePasswordOwner">${Password}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name ="name" id="typeNameOwner" placeholder="${NameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg" />
+                                <input type="text" name="name" id="typeNameOwner" placeholder="${NameHolder}" required
+                                       pattern="^[A-ZА-Я][a-zа-я]{1,30}$" class="form-control form-control-lg"/>
                                 <label class="form-label" for="typeNameOwner">${Name}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name = "surname"  id="typeSurnameOwner" placeholder="${SurnameHolder}" required pattern="^[A-ZА-Я][a-zа-я]{2,50}$" class="form-control form-control-lg" />
+                                <input type="text" name="surname" id="typeSurnameOwner" placeholder="${SurnameHolder}"
+                                       required pattern="^[A-ZА-Я][a-zа-я]{2,50}$"
+                                       class="form-control form-control-lg"/>
                                 <label class="form-label" for="typeSurnameOwner">${Surname}</label>
                             </div>
 
                             <div class="form-outline form-white mb-2">
-                                <input type="text" name = "phone_number"  id="typePhoneNumberOwner" placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}" class="form-control form-control-lg" />
+                                <input type="text" name="phone_number" id="typePhoneNumberOwner"
+                                       placeholder="${PhoneHolder}" required pattern="(25|29|33|44)\d{7}"
+                                       class="form-control form-control-lg"/>
                                 <label class="form-label" for="typePhoneNumberOwner">${PhoneNumber}</label>
                             </div>
 
 
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">${Submit}</button>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit">${Add}</button>
 
                         </form>
                     </div>
@@ -201,6 +220,20 @@
         </div>
     </div>
 </div>
+
+<form class="mb-md-5 mt-md-4 pb-5" action="${pageContext.request.contextPath}/controller"
+      method="post">
+    <input type="hidden" name="command_name" value="delete_client">
+    <div class="form-group row">
+        <label for="login" class="col-sm-2 col-form-label">Client's login for deleting</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control w-75" name="login" id="login"
+                   placeholder="Delete client by this login"
+                   required pattern="[A-Za-z]{8,30}">
+        </div>
+        <button class="btn btn-outline-secondary btn-lg px-5" type="submit">${Delete}</button>
+    </div>
+</form>
 
 <%@include file="../../footer/footer.jsp" %>
 </body>

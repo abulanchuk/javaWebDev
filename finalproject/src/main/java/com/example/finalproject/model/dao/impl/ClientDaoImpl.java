@@ -41,6 +41,10 @@ public class ClientDaoImpl implements ClientDao {
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
             INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = ?""";
+    private static final String SQL_DELETE_CLIENT_BY_LOGIN = """
+            DELETE users, clients, orders FROM users 
+            LEFT JOIN clients ON users.id_user = clients.id_user 
+            LEFT JOIN orders ON orders.order_id_client = clients.id_client WHERE users.login = ? AND users.role = 'CLIENT' """;
     private static final String SQL_INSERT_USER = """
             INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
     private static final String SQL_INSERT_NEW_CLIENT = """
@@ -164,6 +168,18 @@ public class ClientDaoImpl implements ClientDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update user's fields. Database access error:", e);
             throw new DaoException("Impossible to update user's fields. Database access error:", e);
+        }
+    }
+
+    @Override
+    public boolean deleteByLogin(String login) throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT_BY_LOGIN)) {
+            statement.setString(1, login);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to delete client with such login: " + login, e);
+            throw new DaoException("Impossible to delete client with such login: " + login, e);
         }
     }
 
