@@ -2,6 +2,7 @@ package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
+import com.example.finalproject.controller.command.impl.client.AddMoneyToBankAccountCommand;
 import com.example.finalproject.controller.command.impl.client.EditPersonalInformationAboutClient;
 import com.example.finalproject.controller.command.impl.common.*;
 import com.example.finalproject.controller.command.impl.owner.*;
@@ -26,6 +27,7 @@ public class CommandProvider {
         commands.put(CommandType.ADD_OWNER, new AddNewOwnerCommand());
         commands.put(CommandType.DELETE_CLIENT, new DeleteClientCommand());
         commands.put(CommandType.DELETE_BUTLER, new DeleteButlerCommand());
+        commands.put(CommandType.UPDATE_CASH, new AddMoneyToBankAccountCommand());
     }
 
     public static CommandProvider getInstance() {

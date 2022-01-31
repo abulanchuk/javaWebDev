@@ -21,8 +21,9 @@ public class ClientDaoImpl implements ClientDao {
     private static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_CLIENTS = """
-            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
-            FROM clients""";
+            SELECT clients.id_client, clients.password_number, clients.email, clients.bank_account, users.login, users.name, users.surname, users.phone_number\s
+                        FROM clients
+                        INNER JOIN users ON users.id_user = clients.id_user """;
     private static final String SQL_SELECT_CLIENT_BY_ID = """
             SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
             FROM clients 
@@ -40,7 +41,7 @@ public class ClientDaoImpl implements ClientDao {
     private static final String SQL_DELETE_CLIENT_BY_ID = """
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
-            INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_client = ?""";
+            INNER JOIN orders ON orders.order_id_client = clients.id_client WHERE clients.id_user = ?""";
     private static final String SQL_DELETE_CLIENT_BY_LOGIN = """
             DELETE users, clients, orders FROM users 
             LEFT JOIN clients ON users.id_user = clients.id_user 
@@ -50,9 +51,9 @@ public class ClientDaoImpl implements ClientDao {
     private static final String SQL_INSERT_NEW_CLIENT = """
             INSERT INTO clients (password_number, email, bank_account, id_user) VALUES (?,?,?,?)""";
     private static final String SQL_UPDATE_EMAIL = """
-            UPDATE clients SET email = ? WHERE id_client = ?""";
+            UPDATE clients SET email = ? WHERE id_user = ?""";
     private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = """
-            UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_client = ?""";
+            UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_user = ?""";
     private static final String SQL_UPDATE_PASSPORT_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
     private ClientCreator clientCreator = new ClientCreator();

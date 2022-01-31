@@ -1,7 +1,7 @@
 package com.example.finalproject.model.mapper.impl;
 
 import com.example.finalproject.model.entity.Client;
-import com.example.finalproject.model.entity.User;
+import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.mapper.RowCreator;
 
 import java.sql.ResultSet;

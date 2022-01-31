@@ -43,7 +43,8 @@ public class RoomServiceImpl implements RoomService {
             List<Room> catalog = roomDao.findAll();
             return catalog;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.log(Level.ERROR, "Impossible to show all rooms:", e);
+            throw new ServiceException("Some problems in method showAllRooms(): " + e);
         }
     }
 
@@ -72,7 +73,7 @@ public class RoomServiceImpl implements RoomService {
             if (!file.exists()) {
                 imagePath = pathToPhoto;
             }
-             newRoom = new Room(priceRoom, roomType, floor, roomNumber, idDiscount, imagePath);
+            newRoom = new Room(priceRoom, roomType, floor, roomNumber, idDiscount, imagePath);
             try {
                 roomDao.insertNewEntity(newRoom);
             } catch (DaoException e) {

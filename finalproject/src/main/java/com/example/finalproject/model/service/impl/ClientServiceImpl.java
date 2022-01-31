@@ -6,6 +6,7 @@ import com.example.finalproject.model.dao.ClientDao;
 import com.example.finalproject.model.dao.impl.ClientDaoImpl;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
+import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.util.PasswordEncryptor;
 import com.example.finalproject.validator.Validator;
@@ -36,7 +37,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List findAll() throws ServiceException {
-        return null;
+        try {
+            List<Client> clientList = clientDao.findAll();
+            return clientList;
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to show all clients:", e);
+            throw new ServiceException("Some problems in method findAll(): " + e);
+        }
     }
 
     @Override
@@ -80,7 +87,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteByLogin(String login) throws ServiceException {
         try {
-            if (!validator.isCorrectLogin(login)){
+            if (!validator.isCorrectLogin(login)) {
                 throw new ServiceException("Invalid login for deleting " + login);
             }
             boolean result = clientDao.deleteByLogin(login);
@@ -107,7 +114,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateCashInBankAccount(Long id, BigDecimal howMuchToAdd) throws ServiceException {
+    public boolean updateCashInBankAccount(Long id, String howMuchToAdd) throws ServiceException {
+        if (!validator.isDepositAnAccountValid(howMuchToAdd)) {
+            logger.log(Level.ERROR, "Impossible to change user's fields:");
+            throw new ServiceException("Impossible to update cash, because " + howMuchToAdd + " has got invalid type ");
+        }
+        BigDecimal moneyForAdding = new BigDecimal(howMuchToAdd);
+        try {
+            boolean resultFromUpdating = clientDao.updateCashInBankAccount(id,moneyForAdding);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to update bank account:", e);
+            throw new ServiceException("Impossible to update bank account:", e);
+        }
         return false;
     }
 

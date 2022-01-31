@@ -15,7 +15,7 @@ import static com.example.finalproject.controller.QueryNamedArguments.*;
 public class ValidatorImpl implements Validator {
     private static final String STRING_PASSPORT_NUMBER_PATTERN = "[A-Z]{2}[0-9]{7}";
     private static final String STRING_EMAIL_PATTERN = "^[A-Za-z0-9-.]{1,30}@[a-z]{2,7}\\.[a-z]{2,4}$";
-   private static final String NAME_PATTERN = "^[A-ZА-Я][a-zа-я]{1,30}$";
+    private static final String NAME_PATTERN = "^[A-ZА-Я][a-zа-я]{1,30}$";
     private static final String SURNAME_PATTERN = "^[A-ZА-Я][a-zа-я]{2,50}$";
     private static final String LOGIN_PATTERN = "[A-Za-z]{8,30}";
     private static final String USER_PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
@@ -24,6 +24,7 @@ public class ValidatorImpl implements Validator {
     private static final String NUMBER_OF_FLOOR_PATTERN = "[1-3]";
     private static final String PRICE_OF_ROOM_PATTERN = "(\\d{1,6}((.|,)[0-9]{1,2})?)";
     private static final String ID_DISCOUNT_PATTERN = "^[+]?[1-9]+(\\d+)?$";
+    private static final String DEPOSIT_PATTERN = "^([1-9]|([1-9][0-9])|([1-9][0-9][0-9])||([1-9][0-9][0-9][0-9])|10000)$";
     private static ValidatorImpl instance;
 
     public ValidatorImpl() {
@@ -79,6 +80,20 @@ public class ValidatorImpl implements Validator {
     @Override
     public boolean isPriceOfRoomValid(String priceRoom) {
         return isNotNullOrEmpty(priceRoom) && priceRoom.matches(PRICE_OF_ROOM_PATTERN);
+    }
+
+    @Override
+    public boolean isDepositAnAccountValid(String sumOfMoney) {
+        if (!isNotNullOrEmpty(sumOfMoney)) {
+            return false;
+        }
+
+        try {
+            double amount = Double.parseDouble(sumOfMoney);
+            return sumOfMoney.matches(DEPOSIT_PATTERN);
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     @Override
