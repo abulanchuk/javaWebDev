@@ -20,4 +20,6 @@ public class  QueryNamedArguments {
     public static final String ROOM_NUMBER = "room_number";
     public static final String ID_DISCOUNT = "id_discount";
     public static final String IMAGE_URL = "image_url";
+    public static final String START_DATE = "start_date";
+    public static final String FINISH_DATE = "finish date";
 }

@@ -25,13 +25,15 @@ import org.apache.log4j.Level;
 import java.util.Locale;
 import java.util.Optional;
 
+import static com.example.finalproject.controller.SessionAttribute.BANK_ACCOUNT;
+
 
 public class SignInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
     private final UserService<User> userService = UserServiceImpl.getInstance();
     private final ClientService<Client> clientService = ClientServiceImpl.getInstance();
     private final ButlerService<Butler> butlerService = ButlerServiceImpl.getInstance();
-    private final String BANK_ACCOUNT = "balance";
+//    private final String BANK_ACCOUNT = "balance";
 
     @Override
     public Router execute(HttpServletRequest request) {

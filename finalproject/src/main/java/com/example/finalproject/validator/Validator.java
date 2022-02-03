@@ -20,4 +20,5 @@ public interface Validator {
     boolean isIdDiscountValid(String idDiscount);
     boolean checkRegistrationClient(Map<String, String> map);
     boolean checkRegistrationButlerOrOwner(Map<String, String> map);
+    boolean checkDatesFromOrders(Map<String, String> order);
 }

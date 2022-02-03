@@ -19,7 +19,6 @@ import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
     private static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
-    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT clients.id_client, clients.password_number, clients.email, clients.bank_account, users.login, users.name, users.surname, users.phone_number\s
                         FROM clients
@@ -56,8 +55,9 @@ public class ClientDaoImpl implements ClientDao {
             UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_user = ?""";
     private static final String SQL_UPDATE_PASSPORT_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
-    private ClientCreator clientCreator = new ClientCreator();
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static ClientDaoImpl instance;
+    private ClientCreator clientCreator = new ClientCreator();
 
     private ClientDaoImpl() {
     }
@@ -80,7 +80,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = clientCreator.create(resultSet);
                 clients.add(client);
             }
-            logger.log(Level.DEBUG, "findAll method by clients was completed successfully. " + clients.size() + " were found");
+            logger.log(Level.INFO, "findAll method by clients was completed successfully. " + clients.size() + " were found");
             return clients;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find clients. Database access error:", e);
@@ -99,7 +99,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = clientCreator.create(resultSet);
                 clientOptional = Optional.of(client);
             }
-            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+            logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = clientCreator.create(resultSet);
                 clientOptional = Optional.of(client);
             }
-            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+            logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
@@ -139,7 +139,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = clientCreator.create(resultSet);
                 clientOptional = Optional.of(client);
             }
-            logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
+            logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with email " + email + " was found" : " Client with email " + email + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
@@ -164,7 +164,7 @@ public class ClientDaoImpl implements ClientDao {
                 logger.log(Level.INFO, "User's fields didn't update with id " + idUser);
                 return false;
             }
-            logger.log(Level.DEBUG, "Successfully updated user's fields");
+            logger.log(Level.INFO, "Successfully updated user's fields");
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update user's fields. Database access error:", e);
@@ -249,7 +249,7 @@ public class ClientDaoImpl implements ClientDao {
                 }
             } catch (SQLException e) {
                 connection.rollback();
-                logger.log(Level.DEBUG, "Failed to create client", e);
+                logger.log(Level.ERROR, "Failed to create client", e);
                 throw new DaoException("Failed to create client: " + client, e);
             } finally {
                 connection.setAutoCommit(true);
@@ -257,7 +257,7 @@ public class ClientDaoImpl implements ClientDao {
         } catch (SQLException e) {
             throw new DaoException("Failed to create client: " + client, e);
         }
-        logger.log(Level.DEBUG, "Client successfully created: " + client);
+        logger.log(Level.INFO, "Client successfully created: " + client);
         return client;
     }
 
@@ -269,10 +269,10 @@ public class ClientDaoImpl implements ClientDao {
             statement.setLong(2, id);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
-                logger.log(Level.INFO, "Client's email didn't update with id " + id);
+                logger.log(Level.DEBUG, "Client's email didn't update with id " + id);
                 return false;
             }
-            logger.log(Level.DEBUG, "Result of update email for client with id " + id + " is " + newEmail);
+            logger.log(Level.INFO, "Result of update email for client with id " + id + " is " + newEmail);
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's email. Database access error:", e);
@@ -288,10 +288,10 @@ public class ClientDaoImpl implements ClientDao {
             statement.setLong(2, id);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
-                logger.log(Level.INFO, "Client's cash in bank account didn't update with id " + id);
+                logger.log(Level.DEBUG, "Client's cash in bank account didn't update with id " + id);
                 return false;
             }
-            logger.log(Level.DEBUG, "Add " + howMuchToAdd + " money in bank account for client with id " + id);
+            logger.log(Level.INFO, "Add " + howMuchToAdd + " money in bank account for client with id " + id);
             return true;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's cash in bank account. Database access error:", e);

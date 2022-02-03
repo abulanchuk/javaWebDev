@@ -6,7 +6,6 @@ import com.example.finalproject.model.dao.ClientDao;
 import com.example.finalproject.model.dao.impl.ClientDaoImpl;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
-import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.util.PasswordEncryptor;
 import com.example.finalproject.validator.Validator;
@@ -52,6 +51,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             client = clientDao.findById(id);
         } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to find client by id " + id, e);
             throw new ServiceException("Failed to find client by id " + id, e);
         }
         return client;
@@ -63,6 +63,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             client = clientDao.findByEmail(email);
         } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to find client by email " + email, e);
             throw new ServiceException("Failed to find client by email " + email, e);
         }
         return client;
@@ -74,6 +75,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             client = clientDao.findByIdUser(id);
         } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to find client by id ", e);
             throw new ServiceException("Failed to find client by id " + id, e);
         }
         return client;
@@ -92,6 +94,7 @@ public class ClientServiceImpl implements ClientService {
             }
             boolean result = clientDao.deleteByLogin(login);
         } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to delete client by login", e);
             throw new ServiceException("Failed to delete client by login " + login, e);
         }
 
@@ -103,6 +106,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             client = clientDao.insertNewEntity(entities);
         } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to create new client ", e);
             throw new ServiceException("Failed to create new client ", e);
         }
         return client;

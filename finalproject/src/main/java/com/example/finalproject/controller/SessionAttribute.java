@@ -13,4 +13,5 @@ public final class SessionAttribute {
     public static final String USER_ROLE = "userRole";
     public static final String USER_PHONE_NUMBER = "userPhoneNumber";
     public static final String USER_EMAIL = "userLogin";
+    public static final String BANK_ACCOUNT = "balance";
 }

@@ -3,7 +3,8 @@ package com.example.finalproject.controller.command;
 import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
 import com.example.finalproject.controller.command.impl.client.AddMoneyToBankAccountCommand;
-import com.example.finalproject.controller.command.impl.client.EditPersonalInformationAboutClient;
+import com.example.finalproject.controller.command.impl.client.CreateOrderCommand;
+import com.example.finalproject.controller.command.impl.client.EditPersonalInformationAboutClientCommand;
 import com.example.finalproject.controller.command.impl.common.*;
 import com.example.finalproject.controller.command.impl.owner.*;
 
@@ -20,7 +21,7 @@ public class CommandProvider {
         commands.put(CommandType.SIGN_UP, new SignUpCommand());
         commands.put(CommandType.SHOW_ALL_ROOMS, new ShowAllRoomsCommand());
         commands.put(CommandType.EDIT_PERSONAL_INFORMATION, new EditPersonalInformationCommand());
-        commands.put(CommandType.EDIT_PERSONAL_INFORMATION_ABOUT_CLIENT, new EditPersonalInformationAboutClient());
+        commands.put(CommandType.EDIT_PERSONAL_INFORMATION_ABOUT_CLIENT, new EditPersonalInformationAboutClientCommand());
         commands.put(CommandType.SIGN_OUT, new SignOutCommand());
         commands.put(CommandType.ADD_ROOM, new AddNewRoomCommand());
         commands.put(CommandType.ADD_BUTLER, new AddNewButlerCommand());
@@ -28,6 +29,7 @@ public class CommandProvider {
         commands.put(CommandType.DELETE_CLIENT, new DeleteClientCommand());
         commands.put(CommandType.DELETE_BUTLER, new DeleteButlerCommand());
         commands.put(CommandType.UPDATE_CASH, new AddMoneyToBankAccountCommand());
+        commands.put(CommandType.CREATE_ORDER, new CreateOrderCommand());
     }
 
     public static CommandProvider getInstance() {

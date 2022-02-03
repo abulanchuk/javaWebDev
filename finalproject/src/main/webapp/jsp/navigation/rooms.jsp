@@ -61,10 +61,12 @@
                 </p>
 
                 <c:choose>
-                    <c:when test="${sessionScope.authorization}">
+                    <c:when test="${sessionScope.userRole == 'CLIENT'}">
 
                         <li class=" nav-item">
-                            <button class="btn btn-secondary btn-lg px-5" type="submit">${Reservation}
+                            <button href="${pageContext.request.contextPath}/controller?command_name=create_room?id={i}"></button>
+                            <button class="btn btn-secondary btn-lg px-5"
+                                    onclick="document.location='${pageContext.request.contextPath}/jsp/navigation/client/basket.jsp'">${Reservation}
                             </button>
                         </li>
 

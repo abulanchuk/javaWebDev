@@ -15,4 +15,11 @@
 <!--        <error-code>404</error-code>-->
 <!--        <location>/jsp/errors/error404.jsp</location>-->
 <!--    </error-page>-->
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>copyrighttags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/taglib.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 </web-app>

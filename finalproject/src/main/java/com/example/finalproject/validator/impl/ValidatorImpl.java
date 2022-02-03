@@ -25,6 +25,7 @@ public class ValidatorImpl implements Validator {
     private static final String PRICE_OF_ROOM_PATTERN = "(\\d{1,6}((.|,)[0-9]{1,2})?)";
     private static final String ID_DISCOUNT_PATTERN = "^[+]?[1-9]+(\\d+)?$";
     private static final String DEPOSIT_PATTERN = "^([1-9]|([1-9][0-9])|([1-9][0-9][0-9])||([1-9][0-9][0-9][0-9])|10000)$";
+    private static final String DATE_PATTERN = "/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/";
     private static ValidatorImpl instance;
 
     public ValidatorImpl() {
@@ -196,6 +197,19 @@ public class ValidatorImpl implements Validator {
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public boolean checkDatesFromOrders(Map<String, String> order) {
+        String start_date= order.get(START_DATE);
+        String finish_date = order.get(FINISH_DATE);
+        if(!isNotNullOrEmpty(start_date) && start_date.matches(DATE_PATTERN)){ //yyyy/mm/dd
+            return false;
+        }
+        if(!isNotNullOrEmpty(finish_date) && finish_date.matches(DATE_PATTERN)){
+            return false;
+        }
+        return true;
     }
 
 

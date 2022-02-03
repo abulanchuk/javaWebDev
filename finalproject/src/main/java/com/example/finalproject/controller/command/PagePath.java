@@ -9,8 +9,10 @@ public class PagePath {
     public static final String AUTHORIZATION ="jsp/navigation/authorization.jsp";
     public static final String REGISTRATION ="jsp/navigation/registration.jsp";
     public static final String CATALOG ="jsp/navigation/rooms.jsp";
-    public static final String PERSONAL_PAGE ="jsp/navigation/personalPage.jsp";
+    public static final String UPDATE_PERSONAL_INFORMATION ="jsp/navigation/updatePersonalInformation.jsp";
     public static final String WORKING_ADMIN_PANEL ="jsp/navigation/owner/workingpanel.jsp";
+    public static final String PERSONAL_PAGE = "jsp/navigation/client/personalClientPage.jsp";
+    public static final String BASKET = "jsp/navigation/client/basket.jsp";
     private PagePath() {
     }
 }
