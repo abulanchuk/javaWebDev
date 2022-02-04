@@ -15,6 +15,7 @@
 <fmt:message key="bankAccount.replenish" var="Replenish"/>
 <fmt:message key="registration.submit" var="Submit"/>
 <fmt:message key="bankAccount.replenishFor" var="ReplenishFor"/>
+<fmt:message key="personalClientPage.replace" var="Replace"/>
 <html>
 <head>
     <link rel="shortcut icon" type="image/jpg" href="${pageContext.request.contextPath}/images/favicon.ico"/>
@@ -46,22 +47,36 @@
         <label for="bank_account" class="col-sm-2 col-form-label">${ReplenishFor}</label>
         <div class="col-sm-10">
             <input type="text" class="form-control w-75" name="bank_account" id="bank_account"
-                   placeholder="You can add less than 10 000$"
+                   placeholder="You can add less than 10 000$ (100, 500, 1000)"
                    required pattern="^([1-9]|([1-9][0-9])|([1-9][0-9][0-9])||([1-9][0-9][0-9][0-9])|10000)$">
         </div>
         <button class="btn btn-outline-secondary btn-lg px-5" type="submit">${Replenish}</button>
     </div>
 </form>
 
+<h3>Изменить пароль</h3>
+<form class="mb-md-5 mt-md-4 pb-5 mx-5" action="${pageContext.request.contextPath}/controller" method="post">
+    <input type="hidden" name="command_name" value="change_password">
+    <div class="form-group row">
+        <label for="old_password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control w-75" name="old_password" id="old_password" placeholder="Old password"
+                   required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="new_password" class="col-sm-2 col-form-label">Новый пароль</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control w-75" name="new_password" id="new_password" placeholder="New password" required
+                   pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+        </div>
+    </div>
+    <button class="btn btn-secondary btn-lg " type="submit">${Replace}</button>
+</form>
+
 <h3>Изменить персональные данные</h3>
 <form class="mb-md-5 mt-md-4 pb-5 mx-5" action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command_name" value="edit_personal_information_about_client">
-    <div class="form-group row">
-        <label for="password" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control w-75" name="password" id="password" placeholder="New password"
-                   required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-        </div>
     </div>
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>

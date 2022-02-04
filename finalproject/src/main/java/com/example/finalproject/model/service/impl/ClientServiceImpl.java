@@ -118,19 +118,37 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public boolean updatePassword(Long id, String oldPassword, String newPassword) throws ServiceException {
+        if(!validator.isCorrectPassword(newPassword)){
+            return false;
+        }
+        boolean resultFromUpdating;
+        try {
+            String encryptedOldPassword = PasswordEncryptor.encrypt(oldPassword);
+            String encryptedNewPassword = PasswordEncryptor.encrypt(newPassword);
+           resultFromUpdating = clientDao.updatePassword(id,encryptedOldPassword,encryptedNewPassword);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to update password:", e);
+            throw new ServiceException("Impossible to update password:", e);
+        }
+        return resultFromUpdating;
+    }
+
+    @Override
     public boolean updateCashInBankAccount(Long id, String howMuchToAdd) throws ServiceException {
         if (!validator.isDepositAnAccountValid(howMuchToAdd)) {
             logger.log(Level.ERROR, "Impossible to change user's fields:");
             throw new ServiceException("Impossible to update cash, because " + howMuchToAdd + " has got invalid type ");
         }
         BigDecimal moneyForAdding = new BigDecimal(howMuchToAdd);
+        boolean resultFromUpdating;
         try {
-            boolean resultFromUpdating = clientDao.updateCashInBankAccount(id,moneyForAdding);
+             resultFromUpdating = clientDao.updateCashInBankAccount(id,moneyForAdding);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to update bank account:", e);
             throw new ServiceException("Impossible to update bank account:", e);
         }
-        return false;
+        return resultFromUpdating;
     }
 
     @Override
@@ -139,14 +157,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateClient(Long idUser, String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException {
+    public boolean updateClient(Long idUser, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws ServiceException {
         try {
-            boolean isCorrectNewFields = validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber) && validator.isEmailValid(email) && validator.isPasswordNumberValid(passportNumber);
-            String newEncryptedPassword = null;
-            if (isCorrectNewFields) {
-                newEncryptedPassword = PasswordEncryptor.encrypt(newPassword);
-            }
-            return isCorrectNewFields && clientDao.updateClient(idUser, newEncryptedPassword, newName, newSurname, newPhoneNumber, email, passportNumber);
+            boolean isCorrectNewFields =  validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber) && validator.isEmailValid(email) && validator.isPasswordNumberValid(passportNumber);
+
+            return isCorrectNewFields && clientDao.updateClient(idUser, newName, newSurname, newPhoneNumber, email, passportNumber);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to change user's fields:", e);
             throw new ServiceException("Impossible to change user's fields:", e);

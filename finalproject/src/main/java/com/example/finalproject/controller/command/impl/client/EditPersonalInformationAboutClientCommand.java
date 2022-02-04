@@ -21,14 +21,12 @@ import java.io.IOException;
 
 public class EditPersonalInformationAboutClientCommand implements Command {
     private static final Logger logger = LogManager.getLogger(EditPersonalInformationCommand.class);
-    ClientService userService = new ClientServiceImpl();
+    ClientService clientService = new ClientServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String currentPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
 
-        String password = request.getParameter(QueryNamedArguments.PASSWORD);
         String name = request.getParameter(QueryNamedArguments.NAME);
         String surname = request.getParameter(QueryNamedArguments.SURNAME);
         String phoneNumber = request.getParameter(QueryNamedArguments.PHONE_NUMBER);
@@ -36,7 +34,7 @@ public class EditPersonalInformationAboutClientCommand implements Command {
         String passportNumber = request.getParameter(QueryNamedArguments.PASSPORT_NUMBER);
 
         try {
-            userService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), password, name, surname, phoneNumber, email, passportNumber);
+            clientService.updateClient((Long) session.getAttribute(SessionAttribute.USER_ID), name, surname, phoneNumber, email, passportNumber);
             MailSender.sentEmail(email,"UPDATED INFORMATION FUSHIFARU","Your personal information was successfully updated!\nThanks for staying with us.\n Yours dreamy FUSHIFARU islands");
         } catch (ServiceException e) {
             request.setAttribute(ErrorType.EXCEPTION.name(), e);

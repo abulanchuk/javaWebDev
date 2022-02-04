@@ -13,6 +13,7 @@ public interface ClientDao extends BaseDao<Client> {
     boolean updatePassportNumber(String oldPasswordNumber,String newPasswordNumber) throws DaoException;
     Optional<Client> findByIdUser(Long id) throws DaoException;
     Optional<Client> findByEmail(String email) throws DaoException;
-    boolean updateClient(Long idUser,String newPassword, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws DaoException;
+    boolean updateClient(Long idUser, String newName, String newSurname, String newPhoneNumber, String email, String passportNumber) throws DaoException;
     boolean deleteByLogin(String login) throws DaoException;
+    boolean updatePassword(Long id, String oldPassword, String newPassword) throws DaoException;
 }

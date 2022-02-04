@@ -4,6 +4,7 @@ public class  QueryNamedArguments {
     public static final String COMMAND_NAME = "command_name";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
+    public static final String NEW_PASSWORD = "new_password";
     public static final String NAME ="name";
     public static final String SURNAME = "surname";
     public static final String PHONE_NUMBER ="phone_number";
@@ -22,4 +23,5 @@ public class  QueryNamedArguments {
     public static final String IMAGE_URL = "image_url";
     public static final String START_DATE = "start_date";
     public static final String FINISH_DATE = "finish date";
+    public static final String OLD_PASSWORD = "old_password";
 }
