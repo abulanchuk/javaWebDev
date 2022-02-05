@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 public class RoomServiceImpl implements RoomService {
     private static final Logger logger = LogManager.getLogger(RoomServiceImpl.class);
@@ -82,6 +83,18 @@ public class RoomServiceImpl implements RoomService {
             }
         }
         return newRoom;
+    }
+
+    @Override
+    public Optional<Room> findById(Long id) throws ServiceException {
+        Optional<Room> room;
+        try {
+            room = roomDao.findById(id);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to find room from database:", e);
+            throw new ServiceException("Impossible to find room from database", e);
+        }
+        return room;
     }
 
 }

@@ -2,10 +2,7 @@ package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
-import com.example.finalproject.controller.command.impl.client.AddMoneyToBankAccountCommand;
-import com.example.finalproject.controller.command.impl.client.ChangePasswordCommand;
-import com.example.finalproject.controller.command.impl.client.CreateOrderCommand;
-import com.example.finalproject.controller.command.impl.client.EditPersonalInformationAboutClientCommand;
+import com.example.finalproject.controller.command.impl.client.*;
 import com.example.finalproject.controller.command.impl.common.*;
 import com.example.finalproject.controller.command.impl.owner.*;
 
@@ -32,6 +29,7 @@ public class CommandProvider {
         commands.put(CommandType.UPDATE_CASH, new AddMoneyToBankAccountCommand());
         commands.put(CommandType.CREATE_ORDER, new CreateOrderCommand());
         commands.put(CommandType.CHANGE_PASSWORD, new ChangePasswordCommand());
+        commands.put(CommandType.SELECT_BOOKING_DATES, new SelectBookingDates());
     }
 
     public static CommandProvider getInstance() {

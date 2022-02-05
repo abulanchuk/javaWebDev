@@ -25,7 +25,7 @@ public class ValidatorImpl implements Validator {
     private static final String PRICE_OF_ROOM_PATTERN = "(\\d{1,6}((.|,)[0-9]{1,2})?)";
     private static final String ID_DISCOUNT_PATTERN = "^[+]?[1-9]+(\\d+)?$";
     private static final String DEPOSIT_PATTERN = "^([1-9]|([1-9][0-9])|([1-9][0-9][0-9])||([1-9][0-9][0-9][0-9])|10000)$";
-    private static final String DATE_PATTERN = "/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/";
+    private static final String DATE_PATTERN = "(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(\\d{4})";
     private static ValidatorImpl instance;
 
     public ValidatorImpl() {

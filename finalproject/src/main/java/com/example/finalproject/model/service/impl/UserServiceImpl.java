@@ -140,7 +140,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findUserByPhoneNumber(String phone) throws ServiceException {
-        return Optional.empty();
+        Optional<User> user;
+        try {
+            user = userDao.findUserByPhoneNumber(phone);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to find user by phone number:", e);
+            throw new ServiceException("Impossible to find user by phone number:", e);
+        }
+        return user;
     }
 
     @Override

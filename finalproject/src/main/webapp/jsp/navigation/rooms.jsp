@@ -63,12 +63,11 @@
                 <c:choose>
                     <c:when test="${sessionScope.userRole == 'CLIENT'}">
 
-                        <li class=" nav-item">
-                            <button href="${pageContext.request.contextPath}/controller?command_name=create_room?id={i}"></button>
-                            <button class="btn btn-secondary btn-lg px-5"
-                                    onclick="document.location='${pageContext.request.contextPath}/jsp/navigation/client/basket.jsp'">${Reservation}
-                            </button>
-                        </li>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command_name" value="select_booking_dates">
+                            <input type="hidden" name="room_id" value="<%=roomsAvailable.get(i).getIdRoom()%>">
+                            <input type="submit" class="btn btn-secondary btn-lg px-5" value="${Reservation}" />
+                        </form>
 
                     </c:when>
                     <c:otherwise>

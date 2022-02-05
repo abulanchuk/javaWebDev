@@ -63,7 +63,7 @@ public class RoomDaoImpl implements RoomDao {
     public Optional<Room> findById(Long id) throws DaoException {
         Optional<Room> roomOptional = Optional.empty();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ROOM_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ROOM_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
