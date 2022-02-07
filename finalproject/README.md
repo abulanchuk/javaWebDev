@@ -31,3 +31,4 @@ about hotel and control hotel occupancy.
 * can create order;
 * can sign out;
 
+[hotel_database](https://github.com/abulanchuk/javaWebDev/blob/master/finalproject/database/2022-02-07_12-17-35.png)
