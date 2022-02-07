@@ -39,6 +39,7 @@
             if (Number.isNaN(start_date) || Number.isNaN(leave_date) || start_date >= leave_date) {
                 $("#days_count").text("");
                 $("#total").text("");
+                // TODO
                 $("#submitButton").prop('disabled', true);
                 return;
             }
@@ -47,7 +48,9 @@
             var days = millisBetween / (1000 * 3600 * 24);
             days = Math.round(Math.abs(days));
             $("#days_count").text(days);
-            $("#total").text(days * parseInt($("#room_price").text()));
+            var totalCost = days * parseInt($("#room_price").text());
+            $("#total_ui").text(totalCost);
+            $("#total").val(totalCost);
             $("#submitButton").prop('disabled', false);
         }
 
@@ -84,22 +87,25 @@
     </thead>
     <tbody>
     <tr>
-        <form>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command_name" value="create_order">
+            <input type="hidden" id="total" name="total" value="0">
+
             <th scope="row"><img src="${pageContext.request.contextPath}<%=room.getImageUrl()%>"
                                  class="img-fluid rounded-start w-10" alt="номера на мальдивах"></th>
             <td><%=room.getRoomType()%>
             </td>
             <td>
-                <input id="start_date" type="date" required
+                <input id="start_date" type="date" name="start_date" required
                        pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})">
             </td>
-            <td><input id="leave_date" type="date" required
+            <td><input id="leave_date" type="date" name="leave_date" required
                        pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})"></td>
             <td id="room_price"><%= room.getPrice() + " $"%>
             </td>
             <td id="days_count">
             </td>
-            <td id="total"></td>
+            <td id="total_ui"></td>
             <td>
                 <input class="btn btn-secondary btn-lg " type="submit" id="submitButton"
                        disabled="true" value="Оформить"/>

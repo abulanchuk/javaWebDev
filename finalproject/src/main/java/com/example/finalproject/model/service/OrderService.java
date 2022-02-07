@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface OrderService {
     Order insertNewEntity(Map<String, String> order) throws ServiceException;
+    Long findIdButlerWithMinNumbersOfOrders() throws ServiceException;
 }

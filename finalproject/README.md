@@ -1,8 +1,10 @@
 ## Fushifaru Maldives website
-This web system gives people an opportunity to book some 
-rooms and pay online. The hotel has 2 type of rooms: standart, deluxe and suite. A butler is attached to each client,
-which acts as an assistant. You can evaluate his work after the rest. Also, there is a role of owner who edit information
-about hotel and control hotel occupancy.
+This web system gives people an opportunity to book accommodation and pay online.
+The hotel has 3 types of rooms: standart, deluxe and suite. 
+Every customer will have a personal butler and you can evaluate the quality of his work at the end of your stay. 
+Also, there is a role of owner.
+He is responsible for editing the information about the hotel and managing hotel occupancy.
+
 
 ###### Guest
 * can sign in;

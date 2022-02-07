@@ -61,7 +61,7 @@ public class ClientDaoImpl implements ClientDao {
     private static ClientDaoImpl instance;
     private ClientCreator clientCreator = new ClientCreator();
 
-    private ClientDaoImpl() {
+    public ClientDaoImpl() {
     }
 
     public static ClientDao getInstance() {

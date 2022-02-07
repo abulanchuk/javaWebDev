@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.finalproject.model.mapper.ColumnTableName.ORDERS_ID_BUTLER;
+
 public class OrderDaoImpl implements OrderDao {
     static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -47,6 +49,11 @@ public class OrderDaoImpl implements OrderDao {
             SELECT id_order,name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
              INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid <1 """;
+    private static final String SQL_SELECT_ID_BUTLER_WITH_MIN_NUMBERS_OF_ORDERS = "with orders_counts as (\n" +
+            "\tSELECT id_butler, COUNT(*) as cnt FROM orders WHERE is_active = 1 group by id_butler\n" +
+            ")\n" +
+            "SELECT id_butler from orders_counts WHERE orders_counts.cnt = (select MIN(cnt) from orders_counts) ORDER BY id_butler ASC\n" +
+            "LIMIT 1";
     OrderCreator orderCreator = new OrderCreator();
 
     @Override
@@ -101,16 +108,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-      public Order insertNewEntity(CustomEntity... entities) throws DaoException {
-        if (entities.length != 1) {
-            logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
-            throw new DaoException("Expected 1 argument, got " + entities.length);
-        }
-        if (!(entities[0] instanceof Order)) {
-            logger.log(Level.ERROR, "Expected type Order, got " + entities[0].getClass());
-            throw new DaoException("Expected type Order, got " + entities[0].getClass());
-        }
-        Order order = (Order) entities[0];
+    public Order insertNewEntity(CustomEntity... entites) throws DaoException {
+        Order order = (Order) entites[0];
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ORDER)) {
 
@@ -120,7 +119,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setBoolean(4, order.getIsPaid());
             statement.setBoolean(5, order.getIsActive());
             statement.setLong(6, order.getIdClient());
-            statement.setBigDecimal(7,order.getTotalPrice());
+            statement.setBigDecimal(7, order.getTotalPrice());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -128,7 +127,7 @@ public class OrderDaoImpl implements OrderDao {
             throw new DaoException("Failed to create order: ", e);
         }
         return order;
-     }
+    }
 
     @Override
     public boolean updateStartDate(LocalDate currentStartDate, LocalDate newStartDate) throws DaoException {
@@ -239,6 +238,20 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find orders which are not paid. Database access error: ", e);
             throw new DaoException("Impossible to find orders which are not paid. Database access error: ", e);
+        }
+    }
+
+    @Override
+    public Long findIdButlerWithMinNumbersOfOrders() throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ID_BUTLER_WITH_MIN_NUMBERS_OF_ORDERS)) {
+            resultSet.next();
+            Long id = resultSet.getLong("id_butler");
+            return id;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find idButler in orders with min numbers of orders: ", e);
+            throw new DaoException("Impossible to find idButler in orders with min numbers of orders: ", e);
         }
     }
 }

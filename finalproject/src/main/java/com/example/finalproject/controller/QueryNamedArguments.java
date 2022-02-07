@@ -22,7 +22,8 @@ public class  QueryNamedArguments {
     public static final String ID_DISCOUNT = "id_discount";
     public static final String IMAGE_URL = "image_url";
     public static final String START_DATE = "start_date";
-    public static final String FINISH_DATE = "finish date";
+    public static final String LEAVE_DATE = "leave_date";
+    public static final String TOTAL = "total";
     public static final String OLD_PASSWORD = "old_password";
     public static final String ROOM_ID = "room_id";
     public static final String ROOM = "room";

@@ -1,6 +1,7 @@
 package com.example.finalproject.model.service;
 
 import com.example.finalproject.exception.ServiceException;
+import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.CustomEntity;
 
 import java.util.List;
