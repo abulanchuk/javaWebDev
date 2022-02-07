@@ -20,17 +20,17 @@ public class OrderDaoImpl implements OrderDao {
     static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_ORDERS = """
-            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, orders.order_id_client  FROM orders
+            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, orders.order_id_client, orders.total_price  FROM orders
             INNER JOIN clients ON orders.order_id_client = clients.id_client
             INNER JOIN users ON clients.id_user = users.id_user""";
     private static final String SQL_SELECT_ORDER_BY_ID = """
-            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
             INNER JOIN clients ON orders.order_id_client = clients.id_client
             INNER JOIN users ON clients.id_user = users.id_user WHERE orders.id_order = ?""";
     private static final String SQL_DELETE_ORDER_BY_ID = """
             DELETE FROM orders WHERE orders.id_order = ?""";
     private static final String SQL_INSERT_ORDER = """
-            INSERT INTO orders (id_butler, start_date, finish_date, is_paid, is_active, order_id_client) VALUES (?,?,?,?,?,?)""";
+            INSERT INTO orders (id_butler, start_date, finish_date, is_paid, is_active, order_id_client, total_price) VALUES (?,?,?,?,?,?,?)""";
     private static final String SQL_UPDATE_START_TIME = """
             UPDATE orders SET start_date = ? WHERE start_date = ?""";
     private static final String SQL_UPDATE_FINISH_TIME = """
@@ -40,11 +40,11 @@ public class OrderDaoImpl implements OrderDao {
     private static final String SQL_UPDATE_ACTIVE_STATUS = """
             UPDATE orders SET is_active = ? WHERE id_order = ?""";
     private static final String SQL_SELECT_PAID_ORDERS = """
-            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
              INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid >0 """;
     private static final String SQL_SELECT_NOT_PAID_ORDERS = """
-            SELECT id_order,name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active FROM orders
+            SELECT id_order,name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
              INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid <1 """;
     OrderCreator orderCreator = new OrderCreator();
@@ -120,6 +120,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setBoolean(4, order.getIsPaid());
             statement.setBoolean(5, order.getIsActive());
             statement.setLong(6, order.getIdClient());
+            statement.setBigDecimal(7,order.getTotalPrice());
             statement.executeUpdate();
 
         } catch (SQLException e) {

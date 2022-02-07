@@ -15,15 +15,19 @@ about hotel and control hotel occupancy.
 * can delete client;
 * can add butler;
 * can add owner;
+* can edit personal information;
+* can sign out;
 
 ###### Butler
 * can see the list of orders where he butler;
+* can edit personal information;
+* can sign out;
 
 ###### Client
 * can edit personal information;
 * can change password;
 * can top up a bank account;
 * can choose the room;
+* can create order;
 * can sign out;
 
-![database](https://ibb.co/vs9mzNh)

@@ -1,5 +1,6 @@
 package com.example.finalproject.model.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Order extends CustomEntity{
@@ -10,8 +11,9 @@ public class Order extends CustomEntity{
     private boolean isPaid;
     private boolean isActive;
     private long idClient;
+    private BigDecimal totalPrice;
 
-    public Order(long idOrder, long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
+    public Order(long idOrder, long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient, BigDecimal totalPrice) {
         this.idOrder = idOrder;
         this.idButler = idButler;
         this.startDate = startDate;
@@ -19,18 +21,24 @@ public class Order extends CustomEntity{
         this.isPaid = isPaid;
         this.isActive = isActive;
         this.idClient = idClient;
+        this.totalPrice = totalPrice;
     }
 
-    public Order(long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient) {
+    public Order(long idButler, LocalDate startDate, LocalDate finishDate, boolean isPaid, boolean isActive, long idClient, BigDecimal totalPrice) {
         this.idButler = idButler;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.isPaid = isPaid;
         this.isActive = isActive;
         this.idClient = idClient;
+        this.totalPrice = totalPrice;
     }
-
     public Order (){}
+
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
 
     public long getIdOrder() {
         return idOrder;
@@ -101,7 +109,8 @@ public class Order extends CustomEntity{
         if (isActive != order.isActive) return false;
         if (idClient != order.idClient) return false;
         if (!startDate.equals(order.startDate)) return false;
-        return finishDate.equals(order.finishDate);
+        if (!finishDate.equals(order.finishDate)) return false;
+        return totalPrice.equals(order.totalPrice);
     }
 
     @Override
@@ -113,6 +122,7 @@ public class Order extends CustomEntity{
         result = 31 * result + (isPaid ? 1 : 0);
         result = 31 * result + (isActive ? 1 : 0);
         result = 31 * result + (int) (idClient ^ (idClient >>> 32));
+        result = 31 * result + totalPrice.hashCode();
         return result;
     }
 
@@ -126,6 +136,7 @@ public class Order extends CustomEntity{
         sb.append(", isPaid=").append(isPaid);
         sb.append(", isActive=").append(isActive);
         sb.append(", idClient=").append(idClient);
+        sb.append(", totalPrice").append(totalPrice);
         sb.append('}');
         return sb.toString();
     }

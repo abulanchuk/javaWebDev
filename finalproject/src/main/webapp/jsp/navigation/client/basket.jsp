@@ -90,9 +90,11 @@
             <td><%=room.getRoomType()%>
             </td>
             <td>
-                <input id="start_date" type="date" required pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})">
+                <input id="start_date" type="date" required
+                       pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})">
             </td>
-            <td><input id="leave_date" type="date" required pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})"></td>
+            <td><input id="leave_date" type="date" required
+                       pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(\d{4})"></td>
             <td id="room_price"><%= room.getPrice() + " $"%>
             </td>
             <td id="days_count">
