@@ -3,7 +3,6 @@ package com.example.finalproject.model.dao.impl;
 import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;
-import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;

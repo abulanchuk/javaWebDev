@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ClientDao extends BaseDao<Client> {
     boolean updateEmail(Long id,String newEmail) throws DaoException;
     boolean updateCashInBankAccount (Long id, BigDecimal howMuchToAdd) throws DaoException;
+    boolean withdrawalCashFromBankAccount (Long id, BigDecimal howMuchToWithdrawal) throws DaoException;
     boolean updatePassportNumber(String oldPasswordNumber,String newPasswordNumber) throws DaoException;
     Optional<Client> findByIdUser(Long id) throws DaoException;
     Optional<Client> findByEmail(String email) throws DaoException;

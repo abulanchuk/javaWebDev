@@ -53,6 +53,8 @@ public class ClientDaoImpl implements ClientDao {
             UPDATE clients SET email = ? WHERE id_user = ?""";
     private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = """
             UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_user = ?""";
+    private static final String SQL_WITHDRAWAL_CASH_IN_BANK_ACCOUNT = """
+            UPDATE clients SET bank_account = bank_account - ? WHERE clients.id_user = ?""";
     private static final String SQL_UPDATE_PASSPORT_NUMBER = """
             UPDATE clients SET password_number = ? WHERE password_number = ?""";
     private static final String SQL_UPDATE_PASSWORD = """
@@ -311,6 +313,25 @@ public class ClientDaoImpl implements ClientDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to update client's cash in bank account. Database access error:", e);
             throw new DaoException("Impossible to update client's cash in bank account. Database access error:", e);
+        }
+    }
+
+    @Override
+    public boolean withdrawalCashFromBankAccount(Long id, BigDecimal howMuchToWithdrawal) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_WITHDRAWAL_CASH_IN_BANK_ACCOUNT)) {
+            statement.setBigDecimal(1, howMuchToWithdrawal);
+            statement.setLong(2, id);
+            boolean isUpdated = statement.executeUpdate() == 1;
+            if (!isUpdated) {
+                logger.log(Level.DEBUG, "Client's cash in bank account didn't update with id " + id);
+                return false;
+            }
+            logger.log(Level.INFO, "Withdrawal " + howMuchToWithdrawal + " money from bank account for client with id " + id);
+            return true;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to withdrawal client's cash from bank account. Database access error:", e);
+            throw new DaoException("Impossible to withdrawal client's cash from bank account. Database access error:", e);
         }
     }
 

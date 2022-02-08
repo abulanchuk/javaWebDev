@@ -24,7 +24,7 @@ public class ShowAllRoomsCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request){
         String page = request.getParameter(QueryNamedArguments.PAGE);
-        int currentPageNumber = page != null ? Integer.parseInt(page) : 1;
+        int currentPageNumber = page != null ? Integer.parseInt(page) : 1;//todo
 
         try {
             List<Room> allRooms = roomService.showAllRooms();

@@ -33,4 +33,4 @@ He is responsible for editing the information about the hotel and managing hotel
 * can create order;
 * can sign out;
 
-[hotel_database](https://github.com/abulanchuk/javaWebDev/blob/master/finalproject/database/2022-02-07_12-17-35.png)
+[hotel_database](https://github.com/abulanchuk/javaWebDev/blob/master/finalproject/database/db_hotel.png)

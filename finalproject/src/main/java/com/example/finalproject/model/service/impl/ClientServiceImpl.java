@@ -137,13 +137,30 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean updateCashInBankAccount(Long id, String howMuchToAdd) throws ServiceException {
         if (!validator.isDepositAnAccountValid(howMuchToAdd)) {
-            logger.log(Level.ERROR, "Impossible to change user's fields:");
+            logger.log(Level.ERROR, "Impossible to update cash, because \" + howMuchToAdd + \" has got invalid type ");
             throw new ServiceException("Impossible to update cash, because " + howMuchToAdd + " has got invalid type ");
         }
         BigDecimal moneyForAdding = new BigDecimal(howMuchToAdd);
         boolean resultFromUpdating;
         try {
              resultFromUpdating = clientDao.updateCashInBankAccount(id,moneyForAdding);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to update bank account:", e);
+            throw new ServiceException("Impossible to update bank account:", e);
+        }
+        return resultFromUpdating;
+    }
+
+    @Override
+    public boolean withdrawalCashFromBankAccount(Long id, String howMuchToWithdrawal) throws ServiceException {
+        if (!validator.isDepositAnAccountValid(howMuchToWithdrawal)) {
+            logger.log(Level.ERROR, "Impossible to change user's fields:");
+            throw new ServiceException("Impossible to update cash, because " + howMuchToWithdrawal + " has got invalid type ");
+        }
+        BigDecimal howMuchCostsRoom = new BigDecimal(howMuchToWithdrawal);
+        boolean resultFromUpdating;
+        try {
+            resultFromUpdating = clientDao.withdrawalCashFromBankAccount(id,howMuchCostsRoom);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to update bank account:", e);
             throw new ServiceException("Impossible to update bank account:", e);

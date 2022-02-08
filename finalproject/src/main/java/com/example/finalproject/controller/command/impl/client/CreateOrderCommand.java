@@ -6,7 +6,10 @@ import com.example.finalproject.controller.command.Command;
 import com.example.finalproject.controller.command.PagePath;
 import com.example.finalproject.controller.command.Router;
 import com.example.finalproject.exception.ServiceException;
+import com.example.finalproject.model.entity.Client;
+import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.model.service.OrderService;
+import com.example.finalproject.model.service.impl.ClientServiceImpl;
 import com.example.finalproject.model.service.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,13 +17,13 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateOrderCommand.class);
     OrderService orderService = new OrderServiceImpl();
+    ClientService clientService = new ClientServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -37,7 +40,14 @@ public class CreateOrderCommand implements Command {
             logger.log(Level.ERROR, "Failed to insert new order:", e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
-        //todo изменить сумму на счете. написать сервис класс и дао и в сессии поменять
+        try {
+            clientService.withdrawalCashFromBankAccount((Long) session.getAttribute(SessionAttribute.USER_ID), request.getParameter(QueryNamedArguments.TOTAL));
+        } catch (ServiceException e) {
+            logger.log(Level.ERROR, "Failed to withdrawal cash from BankAccount:", e);
+            return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
+        }
+        Client client = new Client();
+        session.setAttribute(SessionAttribute.BANK_ACCOUNT, client.getBankAccount());
         return new Router(PagePath.HOME, Router.RouterType.FORWARD);
     }
 }
