@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class CreateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateOrderCommand.class);
@@ -46,8 +47,13 @@ public class CreateOrderCommand implements Command {
             logger.log(Level.ERROR, "Failed to withdrawal cash from BankAccount:", e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
-        Client client = new Client();
-        session.setAttribute(SessionAttribute.BANK_ACCOUNT, client.getBankAccount());
+        Optional<Client> client=null;
+        try {
+            client=clientService.findByIdUser((Long) session.getAttribute(SessionAttribute.USER_ID));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        session.setAttribute(SessionAttribute.BANK_ACCOUNT, client.get().getBankAccount());
         return new Router(PagePath.HOME, Router.RouterType.FORWARD);
     }
 }

@@ -83,16 +83,12 @@ public class DiscountDaoImpl implements DiscountDao {
     }
 
  @Override
- public Discount insertNewEntity(CustomEntity... entities) throws DaoException {
-     if (entities.length != 1) {
-         logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
-         throw new DaoException("Expected 1 argument, got " + entities.length);
+ public Discount insertNewEntity(CustomEntity entity) throws DaoException {
+     if (!(entity instanceof Discount)) {
+         logger.log(Level.ERROR, "Expected type Discount, got " + entity.getClass());
+         throw new DaoException("Expected type Discount, got " + entity.getClass());
      }
-     if (!(entities[0] instanceof Discount)) {
-         logger.log(Level.ERROR, "Expected type Discount, got " + entities[0].getClass());
-         throw new DaoException("Expected type Discount, got " + entities[0].getClass());
-     }
-     Discount comment = (Discount) entities[0];
+     Discount comment = (Discount) entity;
      try (Connection connection = ConnectionPool.getInstance().getConnection();
           PreparedStatement statement = connection.prepareStatement(SQL_INSERT_DISCOUNT)) {
 

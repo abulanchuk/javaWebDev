@@ -2,6 +2,7 @@ package com.example.finalproject.controller.command;
 
 import com.example.finalproject.controller.CommandType;
 import com.example.finalproject.controller.command.impl.*;
+import com.example.finalproject.controller.command.impl.butler.ShowOrdersWhereButlerWorkingCommand;
 import com.example.finalproject.controller.command.impl.client.*;
 import com.example.finalproject.controller.command.impl.common.*;
 import com.example.finalproject.controller.command.impl.owner.*;
@@ -30,6 +31,8 @@ public class CommandProvider {
         commands.put(CommandType.CREATE_ORDER, new CreateOrderCommand());
         commands.put(CommandType.CHANGE_PASSWORD, new ChangePasswordCommand());
         commands.put(CommandType.SELECT_BOOKING_DATES, new SelectBookingDates());
+        commands.put(CommandType.SHOW_BUTLERS_ORDER, new ShowOrdersWhereButlerWorkingCommand());
+        commands.put(CommandType.SHOW_ACTIVE_OR_NOT_ORDERS, new ShowAllActiveOrdersOrNotCommand());
     }
 
     public static CommandProvider getInstance() {

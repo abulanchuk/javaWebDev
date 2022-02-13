@@ -6,7 +6,6 @@ import com.example.finalproject.controller.command.PagePath;
 import com.example.finalproject.controller.command.Router;
 import com.example.finalproject.exception.ServiceException;
 import com.example.finalproject.model.entity.Client;
-import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.model.service.impl.ClientServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static com.example.finalproject.controller.QueryNamedArguments.CATALOG;
 
-public class ShowAllClientsCommand implements Command {
+public class ShowAllClientsCommand implements Command {//todo
     private static final Logger logger = LogManager.getLogger(ShowAllClientsCommand.class);
     ClientService clientService = new ClientServiceImpl();
     @Override

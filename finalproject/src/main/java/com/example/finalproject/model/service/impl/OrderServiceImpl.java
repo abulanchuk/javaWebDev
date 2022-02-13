@@ -8,7 +8,6 @@ import com.example.finalproject.model.dao.ClientDao;
 import com.example.finalproject.model.dao.OrderDao;
 import com.example.finalproject.model.dao.impl.ClientDaoImpl;
 import com.example.finalproject.model.dao.impl.OrderDaoImpl;
-import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.model.service.OrderService;
@@ -20,6 +19,8 @@ import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -75,4 +76,30 @@ public class OrderServiceImpl implements OrderService {
         }
         return idButler;
     }
+
+    @Override
+    public List<Order> showActiveOrders(boolean isActive) throws ServiceException {
+        List<Order> orders;
+        try {
+            orders = orderDao.selectOrders(isActive);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to show all active orders ", e);
+            throw new ServiceException("Failed to show all active orders ", e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> showOrdersByButler(Long id_butler) throws ServiceException {
+        List<Order> orders;
+        try {
+            orders = orderDao.showOrdersByButler(id_butler);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Failed to show all butler's order ", e);
+            throw new ServiceException("Failed to show all butler's order ", e);
+        }
+        return orders;
+    }
+
+
 }

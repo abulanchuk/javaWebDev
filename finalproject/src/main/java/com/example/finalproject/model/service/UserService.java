@@ -17,7 +17,7 @@ public interface UserService<T extends CustomEntity> {
 
     boolean deleteById(Long id) throws ServiceException;
 
-    T insertNewEntity(CustomEntity... entities) throws ServiceException;
+    T insertNewEntity(CustomEntity entity) throws ServiceException;
 
     boolean updatePasswordByLogin(String login, String oldPassword, String newPassword) throws ServiceException;
 
@@ -33,7 +33,7 @@ public interface UserService<T extends CustomEntity> {
 
     boolean updatePhoneNumber(String newPhoneNumber, Long id) throws ServiceException;
 
-    boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException;
+    boolean updateUser(Long id, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException;
 
     Optional<User> findUserByPhoneNumber(String phone) throws ServiceException;
 

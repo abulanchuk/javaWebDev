@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
             UPDATE users SET password = ? WHERE login = ? AND password =?""";
     private static final String SQL_UPDATE_USER = """
-            UPDATE users SET login = ?, password = ?, name = ?, surname = ?, phone_number = ? WHERE id_user = ?""";
+            UPDATE users SET  password = ?, name = ?, surname = ?, phone_number = ? WHERE id_user = ?""";
     private static final String SQL_UPDATE_LOGIN = """
             UPDATE users SET login = ? WHERE login = ? AND id_user =? """;
     private static final String SQL_SELECT_USERS_BY_ROLE = """
@@ -114,16 +114,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insertNewEntity(CustomEntity... entity) throws DaoException {
-        if (entity.length != 1){
-            throw  new DaoException("Expected 1 argument, got " + entity.length);
+    public User insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof User)) {
+            throw new DaoException("Expected type User, got " + entity.getClass());
         }
 
-        if (!(entity[0] instanceof User)) {
-            throw new DaoException("Expected type User, got " + entity[0].getClass());
-        }
-
-        User user = (User) entity[0];
+        User user = (User) entity;
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER,
@@ -288,15 +284,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException {
+    public boolean updateUser(Long id,String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
-            statement.setString(1, newLogin);
-            statement.setString(2, newPassword);
-            statement.setString(3, newName);
-            statement.setString(4, newSurname);
-            statement.setString(5, newPhoneNumber);
-            statement.setLong(6, id);
+            statement.setString(1, newPassword);
+            statement.setString(2, newName);
+            statement.setString(3, newSurname);
+            statement.setString(4, newPhoneNumber);
+            statement.setLong(5, id);
             boolean isUpdated = statement.executeUpdate() == 1;
             if (!isUpdated) {
                 logger.log(Level.INFO, "User's fields didn't update with id " + id);

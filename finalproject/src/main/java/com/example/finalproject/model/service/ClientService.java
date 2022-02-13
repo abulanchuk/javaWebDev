@@ -15,7 +15,7 @@ public interface ClientService <T extends CustomEntity>{
     Optional<T> findByIdUser(Long id) throws ServiceException;
     boolean deleteById(Long id) throws ServiceException;
     void deleteByLogin(String login) throws ServiceException;
-    T insertNewEntity(CustomEntity... entities) throws ServiceException;
+    T insertNewEntity(CustomEntity entity) throws ServiceException;
     boolean updateEmail(Long id,String newEmail) throws ServiceException;
     boolean updatePassword(Long id, String oldPassword, String newPassword) throws ServiceException;
     boolean updateCashInBankAccount (Long id, String howMuchToAdd) throws ServiceException;

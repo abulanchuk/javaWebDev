@@ -13,6 +13,7 @@ public class PagePath {
     public static final String WORKING_ADMIN_PANEL ="jsp/navigation/owner/workingpanel.jsp";
     public static final String PERSONAL_PAGE = "jsp/navigation/client/personalClientPage.jsp";
     public static final String BASKET = "jsp/navigation/client/basket.jsp";
+    public static final String LIST_BUTLERS_ORDERS = "jsp/navigation/butler/ordersWhereButlerWorking.jsp";
     private PagePath() {
     }
 }

@@ -13,5 +13,9 @@ public interface OrderDao extends BaseDao<Order> {
     boolean updateActiveStatus (boolean status, long id) throws DaoException;
     List<Order> showPaidOrders () throws DaoException;
     List<Order> showNotPaidOrders () throws DaoException;
+    List<Order> showActiveOrders () throws DaoException;
+    List<Order> showNotActiveOrders () throws DaoException;
+    List<Order> showOrdersByButler (Long id_butler) throws DaoException;
+    List<Order> selectOrders(boolean isActive) throws DaoException;
     Long findIdButlerWithMinNumbersOfOrders() throws DaoException;
 }

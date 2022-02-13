@@ -20,21 +20,26 @@ import java.util.Optional;
 public class ClientDaoImpl implements ClientDao {
     private static final Logger logger = LogManager.getLogger(ClientDaoImpl.class);
     private static final String SQL_SELECT_ALL_CLIENTS = """
-            SELECT clients.id_client, clients.password_number, clients.email, clients.bank_account, users.login, users.name, users.surname, users.phone_number\s
+            SELECT id_client, password_number, email, bank_account,
+                users.id_user, login, password, role, name, surname, phone_number
                         FROM clients
                         INNER JOIN users ON users.id_user = clients.id_user """;
     private static final String SQL_SELECT_CLIENT_BY_ID = """
-            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
-            FROM clients 
+            SELECT id_client, password_number, email, bank_account,
+                users.id_user, login, password, role, name, surname, phone_number
+            FROM clients INNER JOIN users ON users.id_user = clients.id_user
             WHERE id_client =?""";
-    private static final String SQL_SELECT_CLIENT_BY_EMAIL = """
-            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
-            FROM clients 
-            WHERE clients.email =?""";
+
     private static final String SQL_SELECT_CLIENT_BY_USER_ID = """
-            SELECT clients.id_client, clients.id_user, clients.password_number, clients.email, clients.bank_account
-            FROM clients 
-            WHERE id_user =?""";
+            SELECT id_client, password_number, email, bank_account,
+                users.id_user, login, password, role, name, surname, phone_number
+            FROM clients INNER JOIN users ON users.id_user = clients.id_user
+            WHERE users.id_user =?""";
+    private static final String SQL_SELECT_CLIENT_BY_EMAIL = """
+            SELECT id_client, password_number, email, bank_account,
+                users.id_user, login, password, role, name, surname, phone_number
+            FROM clients INNER JOIN users ON users.id_user = clients.id_user
+            WHERE clients.email =?""";
     private static final String SQL_UPDATE_CLIENT = """
             UPDATE clients, users SET name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND users.id_user = ?""";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
@@ -214,19 +219,12 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client insertNewEntity(CustomEntity... entities) throws DaoException {
-        if (entities.length != 2) {
-            throw new DaoException("Expected 2 argument, got " + entities.length);
+    public Client insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof Client)) {
+            throw new DaoException("Expected type Client, got " + entity.getClass());
         }
 
-        if (!(entities[0] instanceof User)) {
-            throw new DaoException("Expected type User, got " + entities[0].getClass());
-        }
-        if (!(entities[1] instanceof Client)) {
-            throw new DaoException("Expected type Client, got " + entities[1].getClass());
-        }
-        User user = (User) entities[0];
-        Client client = (Client) entities[1];
+        Client client = (Client) entity;
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement userStatement = connection.prepareStatement(SQL_INSERT_USER,
@@ -236,12 +234,12 @@ public class ClientDaoImpl implements ClientDao {
 
             try {
                 connection.setAutoCommit(false);
-                userStatement.setString(1, user.getLogin());
-                userStatement.setString(2, user.getPassword());
-                userStatement.setString(3, user.getRole().toString());
-                userStatement.setString(4, user.getName());
-                userStatement.setString(5, user.getSurname());
-                userStatement.setString(6, user.getPhoneNumber());
+                userStatement.setString(1, client.getLogin());
+                userStatement.setString(2, client.getPassword());
+                userStatement.setString(3, client.getRole().toString());
+                userStatement.setString(4, client.getName());
+                userStatement.setString(5, client.getSurname());
+                userStatement.setString(6, client.getPhoneNumber());
 
                 userStatement.executeUpdate();
                 try (ResultSet userResultSet = userStatement.getGeneratedKeys()) {

@@ -42,6 +42,7 @@ public final class ColumnTableName {
     public static final String ORDERS_IS_ACTIVE = "orders.is_active";
     public static final String ORDERS_ID_BUTLER = "orders.id_butler";
     public static final String ORDERS_ID_CLIENT = "orders.order_id_client";
+    public static final String ORDERS_TOTAL_PRICE = "orders.total_price";
 
     private ColumnTableName() {
     }

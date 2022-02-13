@@ -19,6 +19,8 @@ He is responsible for editing the information about the hotel and managing hotel
 * can add owner;
 * can edit personal information;
 * can sign out;
+* can see active orders;
+* can see no active orders;
 
 ###### Butler
 * can see the list of orders where he butler;

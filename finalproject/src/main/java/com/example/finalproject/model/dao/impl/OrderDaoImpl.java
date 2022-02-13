@@ -4,6 +4,7 @@ import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.OrderDao;
+import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.mapper.impl.OrderCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.Level;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.finalproject.model.mapper.ColumnTableName.ORDERS_ID_BUTLER;
 
 public class OrderDaoImpl implements OrderDao {
     static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
@@ -54,6 +54,10 @@ public class OrderDaoImpl implements OrderDao {
             ")\n" +
             "SELECT id_butler from orders_counts WHERE orders_counts.cnt = (select MIN(cnt) from orders_counts) ORDER BY id_butler ASC\n" +
             "LIMIT 1";
+    private static final String SQL_SELECT_ORDERS_BY_ACTIVE_STATUS = """
+            SELECT id_butler, start_date, finish_date, total_price FROM orders WHERE is_active = ?""";
+    private static final String SQL_SELECT_ORDERS_BY_BUTLER = """
+            SELECT start_date, finish_date, order_id_client FROM orders WHERE id_butler = ? AND is_active = 1""";
     OrderCreator orderCreator = new OrderCreator();
 
     @Override
@@ -108,8 +112,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order insertNewEntity(CustomEntity... entites) throws DaoException {
-        Order order = (Order) entites[0];
+    public Order insertNewEntity(CustomEntity entity) throws DaoException {
+        // TODO: Check type of entity
+        Order order = (Order) entity;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ORDER)) {
 
@@ -238,6 +243,55 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find orders which are not paid. Database access error: ", e);
             throw new DaoException("Impossible to find orders which are not paid. Database access error: ", e);
+        }
+    }
+
+    public List<Order> selectOrders(boolean isActive) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ORDERS_BY_ACTIVE_STATUS);
+        ) {
+            // TODO: Not in try
+            statement.setInt(1, isActive ? 1 : 0);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()) {
+                Order order = orderCreator.create(resultSet);
+                orders.add(order);
+            }
+            logger.log(Level.DEBUG, "showActiveOrders method from OrdersDaoImpl was completed successfully. " + orders.size() + " were found");
+            return orders;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find active orders. Database access error: ", e);
+            throw new DaoException("Impossible to find orders with active status. Database access error: ", e);
+        }
+    }
+
+    @Override
+    public List<Order> showActiveOrders() throws DaoException {
+        return selectOrders(true);
+    }
+
+    @Override
+    public List<Order> showNotActiveOrders() throws DaoException {
+        return selectOrders(false);
+    }
+
+    @Override
+    public List<Order> showOrdersByButler(Long id_butler) throws DaoException {
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ORDERS_BY_BUTLER)) {
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()) {
+                Order order = orderCreator.create(resultSet);
+                orders.add(order);
+            }
+            logger.log(Level.DEBUG, "findAll method by rooms was completed successfully. " + orders.size() + " were found");
+            return orders;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "Impossible to find rooms. Database access error:", e);
+            throw new DaoException("Impossible to find rooms. Database access error:", e);
         }
     }
 

@@ -47,9 +47,7 @@
 </div>
 
 <form class="mb-md-5 mt-md-4 pb-5 mx-5" action="${pageContext.request.contextPath}/controller" method="post">
-
-
-
+    <input type="hidden" name="command_name" value="edit_personal_information">
     <div class="form-group row">
         <label for="password" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">

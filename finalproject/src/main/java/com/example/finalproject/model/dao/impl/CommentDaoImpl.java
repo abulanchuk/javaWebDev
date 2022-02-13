@@ -81,16 +81,12 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Comment insertNewEntity(CustomEntity... entities) throws DaoException {
-        if (entities.length != 1) {
-            logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
-            throw new DaoException("Expected 1 argument, got " + entities.length);
+    public Comment insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof Comment)) {
+            logger.log(Level.ERROR, "Expected type Comment, got " + entity.getClass());
+            throw new DaoException("Expected type Comment, got " + entity.getClass());
         }
-        if (!(entities[0] instanceof Comment)) {
-            logger.log(Level.ERROR, "Expected type Comment, got " + entities[0].getClass());
-            throw new DaoException("Expected type Comment, got " + entities[0].getClass());
-        }
-        Comment comment = (Comment) entities[0];
+        Comment comment = (Comment) entity;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_NEW_COMMENT)) {
 

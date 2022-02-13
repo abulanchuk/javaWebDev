@@ -1,5 +1,6 @@
 package com.example.finalproject.controller.command.impl;
 
+import com.example.finalproject.controller.ErrorType;
 import com.example.finalproject.controller.QueryNamedArguments;
 import com.example.finalproject.controller.SessionAttribute;
 import com.example.finalproject.controller.command.Command;
@@ -30,9 +31,10 @@ public class EditPersonalInformationCommand implements Command {
 
 
         try {
-            userService.updateUser((Long) session.getAttribute(SessionAttribute.USER_ID),login,password,name,surname,phoneNumber);
+            userService.updateUser((Long) session.getAttribute(SessionAttribute.USER_ID),password,name,surname,phoneNumber);
         } catch (ServiceException e) {
-            e.printStackTrace();//todo
+            request.setAttribute(ErrorType.EXCEPTION.name(), e);
+            return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
         return new Router(PagePath.HOME, Router.RouterType.FORWARD);
     }

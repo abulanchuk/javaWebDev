@@ -25,6 +25,9 @@ import java.util.Optional;
 import static com.example.finalproject.controller.ErrorType.*;
 
 public class AddNewButlerCommand implements Command {
+
+    private static final byte DEFAULT_BUTLER_RATING = 5;
+
     Validator validator = new ValidatorImpl();
     UserService userService = new UserServiceImpl();
     ButlerService butlerService = new ButlerServiceImpl();
@@ -61,9 +64,11 @@ public class AddNewButlerCommand implements Command {
                 return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
             }
             String encryptedPassword = PasswordEncryptor.encrypt(password);
-            User userFieldsForNewButler = new User(login, encryptedPassword, UserRole.BUTLER, name, surname, phoneNumber);
-            Butler butlerFieldsForNewButler = new Butler((byte) 5);
-            Butler created = (Butler) butlerService.insertNewEntity(userFieldsForNewButler, butlerFieldsForNewButler);
+            Butler newButler = new Butler(
+                    login, encryptedPassword, UserRole.BUTLER, name,
+                    surname, phoneNumber, DEFAULT_BUTLER_RATING);
+
+            butlerService.insertNewEntity(newButler);
             return new Router(PagePath.HOME, Router.RouterType.REDIRECT);
         } catch (ServiceException e) {
             request.setAttribute(ErrorType.EXCEPTION.name(), e);

@@ -101,10 +101,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
+    public CustomEntity insertNewEntity(CustomEntity entity) throws ServiceException {
         Client client;
         try {
-            client = clientDao.insertNewEntity(entities);
+            client = clientDao.insertNewEntity(entity);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Failed to create new client ", e);
             throw new ServiceException("Failed to create new client ", e);

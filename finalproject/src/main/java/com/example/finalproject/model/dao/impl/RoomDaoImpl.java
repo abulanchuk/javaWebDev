@@ -92,16 +92,12 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public Room insertNewEntity(CustomEntity... entities) throws DaoException {
-        if (entities.length != 1) {
-            logger.log(Level.ERROR, "Expected 1 argument, got " + entities.length);
-            throw new DaoException("Expected 1 argument, got " + entities.length);
+    public Room insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof Room)) {
+            logger.log(Level.ERROR, "Expected type Room, got " + entity.getClass());
+            throw new DaoException("Expected type Room, got " + entity.getClass());
         }
-        if (!(entities[0] instanceof Room)) {
-            logger.log(Level.ERROR, "Expected type Room, got " + entities[0].getClass());
-            throw new DaoException("Expected type Room, got " + entities[0].getClass());
-        }
-        Room room = (Room) entities[0];
+        Room room = (Room) entity;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ROOM)) {
 

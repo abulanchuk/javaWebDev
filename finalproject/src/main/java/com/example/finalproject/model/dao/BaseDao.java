@@ -24,7 +24,7 @@ public interface BaseDao<T extends CustomEntity> {
 
     boolean deleteById(Long id) throws DaoException;
 
-    T insertNewEntity(CustomEntity... entities) throws DaoException;
+    T insertNewEntity(CustomEntity entity) throws DaoException;
 
     default void close(Connection connection) throws DaoException {
         try {

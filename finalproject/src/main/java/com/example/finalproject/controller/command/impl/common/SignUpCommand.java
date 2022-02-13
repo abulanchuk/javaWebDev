@@ -74,11 +74,16 @@ public class SignUpCommand implements Command {
                 request.setAttribute(String.valueOf(ErrorType.ERROR_MESSAGE), EMAIL_IS_NOT_FREE);
                 return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
             }
+
             String encryptedPassword = PasswordEncryptor.encrypt(password);
-            User userFieldsForNewClient = new User(login, encryptedPassword, UserRole.CLIENT, name, surname, phoneNumber);
-            Client clientFieldsForNewClient = new Client(passportNumber, email, new BigDecimal("0"));
-            Client created = (Client) clientService.insertNewEntity(userFieldsForNewClient, clientFieldsForNewClient);
+            Client newClient = new Client(
+                    login, encryptedPassword, UserRole.CLIENT, name, surname, phoneNumber,
+                    passportNumber, email, new BigDecimal("0"));
+
+            clientService.insertNewEntity(newClient);
+
             MailSender.sentEmail(email,"WELCOME TO FUSHIFARU",name+" thank you for registering on the site! We wish you an unforgettable holiday");
+
             return new Router(PagePath.AUTHORIZATION, Router.RouterType.REDIRECT);
         } catch (ServiceException e) {
             request.setAttribute(ErrorType.EXCEPTION.name(), e);

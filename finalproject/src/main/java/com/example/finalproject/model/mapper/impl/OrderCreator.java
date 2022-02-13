@@ -25,6 +25,7 @@ public class OrderCreator implements RowCreator {
         order.setFinishDate(LocalDate.parse(resultSet.getString(ORDERS_FINISH_DATE), FORMATTER));
         order.setPaid(resultSet.getBoolean(ORDERS_IS_PAID));
         order.setActive(resultSet.getBoolean(ORDERS_IS_ACTIVE));
+        order.setActive(resultSet.getBoolean(ORDERS_TOTAL_PRICE));
         return order;
     }
 }

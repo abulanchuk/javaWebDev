@@ -20,16 +20,21 @@ public class ButlerDaoImpl implements ButlerDao {
     private static final Logger logger = LogManager.getLogger(ButlerDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_BUTLERS = """
-            SELECT butlers.id_user, butlers.id_butler, butlers.rating
-            FROM butlers""";
-    private static final String SQL_SELECT_BUTLER_BY_ID = """
-            SELECT butlers.id_user, butlers.id_butler, butlers.rating
+            SELECT butlers.id_butler, butlers.rating,
+             users.id_user, login, password, role, name, surname, phone_number
             FROM butlers
+            INNER JOIN users ON users.id_user = butlers.id_user""";
+    private static final String SQL_SELECT_BUTLER_BY_ID = """
+            SELECT butlers.id_butler, butlers.rating,
+             users.id_user, login, password, role, name, surname, phone_number
+            FROM butlers
+            INNER JOIN users ON users.id_user = butlers.id_user
             WHERE id_butler =?""";
     private static final String SQL_SELECT_BUTLER_BY_ID_USER = """
-            SELECT butlers.id_user, butlers.id_butler, butlers.rating
-            FROM butlers
-            WHERE id_user =?""";
+            SELECT  butlers.id_butler, butlers.rating,
+             users.id_user, login, password, role, name, surname, phone_number
+            FROM butlers INNER JOIN users ON users.id_user = butlers.id_user
+            WHERE users.id_user =?""";
     private static final String SQL_DELETE_BUTLER_BY_ID = """
             DELETE users, butlers, orders FROM users 
             INNER JOIN butlers ON users.id_user = butlers.id_user 
@@ -111,19 +116,11 @@ public class ButlerDaoImpl implements ButlerDao {
     }
 
     @Override
-    public Butler insertNewEntity(CustomEntity... entities) throws DaoException {
-        if (entities.length != 2) {
-            throw new DaoException("Expected 2 argument, got " + entities.length);
+    public Butler insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof Butler)) {
+            throw new DaoException("Expected type Butler, got " + entity.getClass());
         }
-
-        if (!(entities[0] instanceof User)) {
-            throw new DaoException("Expected type User, got " + entities[0].getClass());
-        }
-        if (!(entities[1] instanceof Butler)) {
-            throw new DaoException("Expected type Butler, got " + entities[1].getClass());
-        }
-        User user = (User) entities[0];
-        Butler butler = (Butler) entities[1];
+        Butler butler = (Butler) entity;
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement userStatement = connection.prepareStatement(SQL_INSERT_USER,
@@ -133,12 +130,12 @@ public class ButlerDaoImpl implements ButlerDao {
 
             try {
                 connection.setAutoCommit(false);
-                userStatement.setString(1, user.getLogin());
-                userStatement.setString(2, user.getPassword());
-                userStatement.setString(3, user.getRole().toString());
-                userStatement.setString(4, user.getName());
-                userStatement.setString(5, user.getSurname());
-                userStatement.setString(6, user.getPhoneNumber());
+                userStatement.setString(1, butler.getLogin());
+                userStatement.setString(2, butler.getPassword());
+                userStatement.setString(3, butler.getRole().toString());
+                userStatement.setString(4, butler.getName());
+                userStatement.setString(5, butler.getSurname());
+                userStatement.setString(6, butler.getPhoneNumber());
 
                 userStatement.executeUpdate();
                 try (ResultSet resultSet = userStatement.getGeneratedKeys()) {
@@ -147,9 +144,8 @@ public class ButlerDaoImpl implements ButlerDao {
                         butler.setIdUser(idUser);
                     }
 
-
                     butlerStatement.setLong(1, butler.getIdUser());
-                    butlerStatement.setByte(2, (byte) 0);
+                    butlerStatement.setByte(2, (byte) 5);
                     butlerStatement.executeUpdate();
                     try (ResultSet butlerResultSet = butlerStatement.getGeneratedKeys()) {
                         if (butlerResultSet.next()) {

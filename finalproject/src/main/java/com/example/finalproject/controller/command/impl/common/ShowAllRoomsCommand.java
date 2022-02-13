@@ -29,7 +29,7 @@ public class ShowAllRoomsCommand implements Command {
         try {
             List<Room> allRooms = roomService.showAllRooms();
             request.setAttribute(CATALOG, allRooms);
-            request.setAttribute(QueryNamedArguments.PAGE, currentPageNumber);
+            request.setAttribute(QueryNamedArguments.PAGE, currentPageNumber);//todo
             return new Router(PagePath.CATALOG, Router.RouterType.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Failed to execute ShowAllRoomsCommand:", e);

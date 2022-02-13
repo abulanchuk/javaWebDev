@@ -52,10 +52,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
+    public CustomEntity insertNewEntity(CustomEntity entity) throws ServiceException {
         User user;
         try {
-            user = userDao.insertNewEntity(entities);
+            user = userDao.insertNewEntity(entity);
         } catch (DaoException e) {
             throw new ServiceException("Failed to create new user ", e);
         }
@@ -124,14 +124,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(Long id, String newLogin, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException {
+    public boolean updateUser(Long id, String newPassword, String newName, String newSurname, String newPhoneNumber) throws ServiceException {
         try {
-            boolean isCorrectNewFields = validator.isCorrectLogin(newLogin) && validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber);
+            boolean isCorrectNewFields = validator.isCorrectPassword(newPassword) && validator.isCorrectName(newName) && validator.isCorrectSurname(newSurname) && validator.isCorrectPhoneNumber(newPhoneNumber);
             String newEncryptedPassword = null;
             if (isCorrectNewFields) {
                 newEncryptedPassword = PasswordEncryptor.encrypt(newPassword);
             }
-            return isCorrectNewFields && userDao.updateUser(id, newLogin, newEncryptedPassword, newName, newSurname, newPhoneNumber);
+            return isCorrectNewFields && userDao.updateUser(id, newEncryptedPassword, newName, newSurname, newPhoneNumber);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Impossible to change user's fields:", e);
             throw new ServiceException("Impossible to change user's fields:", e);

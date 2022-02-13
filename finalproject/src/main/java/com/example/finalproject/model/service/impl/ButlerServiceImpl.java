@@ -76,10 +76,10 @@ public class ButlerServiceImpl implements ButlerService {
     }
 
     @Override
-    public CustomEntity insertNewEntity(CustomEntity... entities) throws ServiceException {
+    public CustomEntity insertNewEntity(CustomEntity entity) throws ServiceException {
         Butler butler;
         try {
-            butler = butlerDao.insertNewEntity(entities);
+            butler = butlerDao.insertNewEntity(entity);
         } catch (DaoException e) {
             throw new ServiceException("Failed to create new butler ", e);
         }
