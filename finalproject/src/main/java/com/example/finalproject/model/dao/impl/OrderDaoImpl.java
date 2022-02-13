@@ -57,7 +57,9 @@ public class OrderDaoImpl implements OrderDao {
     private static final String SQL_SELECT_ORDERS_BY_ACTIVE_STATUS = """
             SELECT id_butler, start_date, finish_date, total_price FROM orders WHERE is_active = ?""";
     private static final String SQL_SELECT_ORDERS_BY_BUTLER = """
-            SELECT start_date, finish_date, order_id_client FROM orders WHERE id_butler = ? AND is_active = 1""";
+            SELECT start_date, finish_date, order_id_client, id_butler, is_paid, is_active, total_price FROM orders
+             INNER JOIN butlers ON orders.id_butler = butlers.id_butler
+             WHERE butlers.id_user = ? AND is_active = 1""";
     OrderCreator orderCreator = new OrderCreator();
 
     @Override
@@ -278,11 +280,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> showOrdersByButler(Long id_butler) throws DaoException {
+    public List<Order> showOrdersByButler(Long id_user) throws DaoException {
+        List<Order> orders = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ORDERS_BY_BUTLER)) {
-            List<Order> orders = new ArrayList<>();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ORDER_BY_ID)) {
+            statement.setLong(1, id_user);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Order order = orderCreator.create(resultSet);
                 orders.add(order);

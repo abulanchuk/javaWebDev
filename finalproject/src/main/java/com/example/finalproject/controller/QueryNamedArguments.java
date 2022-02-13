@@ -29,6 +29,7 @@ public class  QueryNamedArguments {
     public static final String ROOM = "room";
     public static final String IS_ACTIVE_ORDER = "is_active_order";
     public static final String ORDERS = "orders";
+    public static final String BUTLER_ORDERS = "butler_orders";
     public static final String ID_BUTLER = "id_butler";
     public static final String CLIENTS_LIST = "clients_list";
     public static final String BUTLERS_LIST = "butlers_list";

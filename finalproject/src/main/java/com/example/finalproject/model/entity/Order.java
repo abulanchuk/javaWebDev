@@ -35,6 +35,9 @@ public class Order extends CustomEntity{
     }
     public Order (){}
 
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;

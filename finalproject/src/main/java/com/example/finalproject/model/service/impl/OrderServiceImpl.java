@@ -90,10 +90,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> showOrdersByButler(Long id_butler) throws ServiceException {
+    public List<Order> showOrdersByButler(Long id_user) throws ServiceException {
         List<Order> orders;
         try {
-            orders = orderDao.showOrdersByButler(id_butler);
+            orders = orderDao.showOrdersByButler(id_user);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Failed to show all butler's order ", e);
             throw new ServiceException("Failed to show all butler's order ", e);

@@ -31,7 +31,7 @@ public class CommandProvider {
         commands.put(CommandType.CREATE_ORDER, new CreateOrderCommand());
         commands.put(CommandType.CHANGE_PASSWORD, new ChangePasswordCommand());
         commands.put(CommandType.SELECT_BOOKING_DATES, new SelectBookingDates());
-        commands.put(CommandType.SHOW_BUTLERS_ORDER, new ShowOrdersWhereButlerWorkingCommand());
+        commands.put(CommandType.SHOW_BUTLERS_ORDERS, new ShowOrdersWhereButlerWorkingCommand());
         commands.put(CommandType.SHOW_ACTIVE_OR_NOT_ORDERS, new ShowAllActiveOrdersOrNotCommand());
         commands.put(CommandType.SHOW_ALL_CLIENTS, new ShowAllClientsCommand());
         commands.put(CommandType.SHOW_ALL_BUTLERS, new ShowAllButlersCommand());
