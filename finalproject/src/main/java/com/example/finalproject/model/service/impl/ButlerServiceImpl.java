@@ -13,16 +13,21 @@ import com.example.finalproject.model.service.ButlerService;
 import com.example.finalproject.model.service.ClientService;
 import com.example.finalproject.validator.Validator;
 import com.example.finalproject.validator.impl.ValidatorImpl;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ButlerServiceImpl implements ButlerService {
+    private static final Logger logger = LogManager.getLogger(ButlerServiceImpl.class);
     Validator validator = new ValidatorImpl();
     private static ButlerServiceImpl instance;
     private final ButlerDao butlerDao = ButlerDaoImpl.getInstance();
 
     public ButlerServiceImpl() {
+
     }
 
     public static ButlerService getInstance() {
@@ -33,7 +38,13 @@ public class ButlerServiceImpl implements ButlerService {
     }
     @Override
     public List findAll() throws ServiceException {
-        return null;
+        try {
+            List<Butler> butlerList = butlerDao.findAll();
+            return butlerList;
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "Impossible to show all butlers:", e);
+            throw new ServiceException("Some problems in method findAll(): " + e);
+        }
     }
 
     @Override

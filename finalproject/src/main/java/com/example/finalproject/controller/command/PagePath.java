@@ -14,6 +14,8 @@ public class PagePath {
     public static final String PERSONAL_PAGE = "jsp/navigation/client/personalClientPage.jsp";
     public static final String BASKET = "jsp/navigation/client/basket.jsp";
     public static final String LIST_BUTLERS_ORDERS = "jsp/navigation/butler/ordersWhereButlerWorking.jsp";
+    public static final String LIST_CLIENTS = "jsp/navigation/owner/allClients.jsp";
+    public static final String LIST_BUTLERS = "jsp/navigation/owner/allButlers.jsp";
     private PagePath() {
     }
 }

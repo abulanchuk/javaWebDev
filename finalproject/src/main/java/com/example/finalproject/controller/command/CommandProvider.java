@@ -33,6 +33,8 @@ public class CommandProvider {
         commands.put(CommandType.SELECT_BOOKING_DATES, new SelectBookingDates());
         commands.put(CommandType.SHOW_BUTLERS_ORDER, new ShowOrdersWhereButlerWorkingCommand());
         commands.put(CommandType.SHOW_ACTIVE_OR_NOT_ORDERS, new ShowAllActiveOrdersOrNotCommand());
+        commands.put(CommandType.SHOW_ALL_CLIENTS, new ShowAllClientsCommand());
+        commands.put(CommandType.SHOW_ALL_BUTLERS, new ShowAllButlersCommand());
     }
 
     public static CommandProvider getInstance() {
