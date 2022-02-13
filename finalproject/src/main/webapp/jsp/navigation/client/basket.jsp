@@ -23,6 +23,7 @@
         window.onunload = function () {
             null
         };
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
             integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -34,6 +35,8 @@
     <link rel="shortcut icon" type="image/jpg" href="${pageContext.request.contextPath}/images/favicon.ico"/>
 
     <script type="text/javascript">
+        let account_balance = ${sessionScope.balance};
+
         function updateTotalSum() {
             var start_date = Date.parse($("#start_date").val());
             var leave_date = Date.parse($("#leave_date").val());
@@ -52,6 +55,10 @@
             var totalCost = days * parseInt($("#room_price").text());
             $("#total_ui").text(totalCost);
             $("#total").val(totalCost);
+            if (account_balance < totalCost) {
+                $("#submitButton").prop('disabled', true);
+                return;
+            }
             $("#submitButton").prop('disabled', false);
         }
 
