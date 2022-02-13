@@ -8,6 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="bundle/locale"/>
 
@@ -315,12 +316,12 @@
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample"
-            onclick="document.location='${pageContext.request.contextPath}/jsp/navigation/owner/allOrders.jsp'">
+            onclick="document.location='${pageContext.request.contextPath}/controller?command_name=show_active_or_not_orders&is_active_order=true'">
         ${ActiveOrders}
     </button>
     <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample"
-            onclick="document.location='${pageContext.request.contextPath}/jsp/navigation/owner/allOrders.jsp'">
+            onclick="document.location='${pageContext.request.contextPath}/controller?command_name=show_active_or_not_orders&is_active_order=false'">
         ${NoActiveOrders}
     </button>
 </p>

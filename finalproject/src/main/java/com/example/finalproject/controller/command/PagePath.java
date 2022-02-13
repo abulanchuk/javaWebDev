@@ -16,6 +16,7 @@ public class PagePath {
     public static final String LIST_BUTLERS_ORDERS = "jsp/navigation/butler/ordersWhereButlerWorking.jsp";
     public static final String LIST_CLIENTS = "jsp/navigation/owner/allClients.jsp";
     public static final String LIST_BUTLERS = "jsp/navigation/owner/allButlers.jsp";
+    public static final String ALL_ORDERS = "jsp/navigation/owner/allOrders.jsp";
     private PagePath() {
     }
 }

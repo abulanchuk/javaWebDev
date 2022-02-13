@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 <html>
 <head>
     <title>List of butlers</title>
@@ -35,7 +36,7 @@
     List<Butler> butlersList = (List<Butler>) (request.getAttribute("butlers_list"));
 %>
 
-<% for (int i = 0; i < butlersList.size(); ++i) { %>
+
 <table class="table">
     <thead>
     <tr>
@@ -45,12 +46,15 @@
     </tr>
     </thead>
     <tbody>
-    <td><%=butlersList.get(i).getName()%>
-    </td>
-    <td><%=butlersList.get(i).getSurname()%>
-    </td>
-    <td><%=butlersList.get(i).getRating()%>
-    </td>
+    <% for (int i = 0; i < butlersList.size(); ++i) { %>
+    <tr>
+        <td><%=butlersList.get(i).getName()%>
+        </td>
+        <td><%=butlersList.get(i).getSurname()%>
+        </td>
+        <td><%=butlersList.get(i).getRating()%>
+        </td>
+    </tr>
     </tbody>
 </table>
 </form>

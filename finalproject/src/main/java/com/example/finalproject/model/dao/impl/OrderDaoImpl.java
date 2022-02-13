@@ -55,7 +55,7 @@ public class OrderDaoImpl implements OrderDao {
             "SELECT id_butler from orders_counts WHERE orders_counts.cnt = (select MIN(cnt) from orders_counts) ORDER BY id_butler ASC\n" +
             "LIMIT 1";
     private static final String SQL_SELECT_ORDERS_BY_ACTIVE_STATUS = """
-            SELECT id_butler, start_date, finish_date, total_price FROM orders WHERE is_active = ?""";
+            SELECT id_butler, id_order, is_paid, is_active, start_date, finish_date, total_price FROM orders WHERE is_active = ?""";
     private static final String SQL_SELECT_ORDERS_BY_BUTLER = """
             SELECT start_date, finish_date, order_id_client, id_butler, is_paid, is_active, total_price FROM orders
              INNER JOIN butlers ON orders.id_butler = butlers.id_butler

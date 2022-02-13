@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 <html>
 <head>
     <title>Client's list</title>
@@ -36,7 +37,7 @@
     List<Client> clientsList = (List<Client>) (request.getAttribute("clients_list"));
 %>
 
-<% for (int i = 0; i < clientsList.size(); ++i) { %>
+
 <table class="table">
     <thead>
     <tr>
@@ -48,16 +49,19 @@
     </tr>
     </thead>
     <tbody>
-    <td><%=clientsList.get(i).getName()%>
-    </td>
-    <td><%=clientsList.get(i).getSurname()%>
-    </td>
-    <td><%=clientsList.get(i).getEmail()%>
-    </td>
-    <td><%=clientsList.get(i).getPasswordNumber()%>
-    </td>
-    <td><%=clientsList.get(i).getBankAccount()%>
-    </td>
+    <% for (int i = 0; i < clientsList.size(); ++i) { %>
+    <tr>
+        <td><%=clientsList.get(i).getName()%>
+        </td>
+        <td><%=clientsList.get(i).getSurname()%>
+        </td>
+        <td><%=clientsList.get(i).getEmail()%>
+        </td>
+        <td><%=clientsList.get(i).getPasswordNumber()%>
+        </td>
+        <td><%=clientsList.get(i).getBankAccount()%>
+        </td>
+    </tr>
     </tbody>
 </table>
 </form>

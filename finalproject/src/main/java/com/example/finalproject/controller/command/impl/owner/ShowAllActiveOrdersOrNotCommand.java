@@ -19,15 +19,17 @@ import java.util.List;
 public class ShowAllActiveOrdersOrNotCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ShowAllActiveOrdersOrNotCommand.class);
     OrderService orderService = new OrderServiceImpl();
+
     @Override
     public Router execute(HttpServletRequest request) {
         try {
-            List<Order> allOrders = orderService.showActiveOrders(Boolean.parseBoolean(request.getParameter(QueryNamedArguments.IS_ACTIVE_ORDER)));
-        request.setAttribute(QueryNamedArguments.ORDERS, allOrders);
+            boolean isActive = Boolean.parseBoolean(request.getParameter(QueryNamedArguments.IS_ACTIVE_ORDER));
+            List<Order> allOrders = orderService.showActiveOrders(isActive);
+            request.setAttribute(QueryNamedArguments.ORDERS, allOrders);
+            return new Router(PagePath.ALL_ORDERS, Router.RouterType.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Failed to execute ShowAllActiveOrdersCommand:", e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
-        return null;
     }
 }

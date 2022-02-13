@@ -20,9 +20,11 @@ public class OrderCreator implements RowCreator {
         Order order = new Order();
         order.setIdOrder(resultSet.getLong(ORDERS_ID_ORDER));
         String startDateAsString = resultSet.getString(ORDERS_START_DATE);
+        String finishDateAsString = resultSet.getString(ORDERS_FINISH_DATE);
 
         order.setStartDate(LocalDate.parse(startDateAsString, FORMATTER));
-        order.setFinishDate(LocalDate.parse(resultSet.getString(ORDERS_FINISH_DATE), FORMATTER));
+        order.setFinishDate(LocalDate.parse(finishDateAsString, FORMATTER));
+
         order.setPaid(resultSet.getBoolean(ORDERS_IS_PAID));
         order.setActive(resultSet.getBoolean(ORDERS_IS_ACTIVE));
         order.setTotalPrice(resultSet.getBigDecimal(ORDERS_TOTAL_PRICE));

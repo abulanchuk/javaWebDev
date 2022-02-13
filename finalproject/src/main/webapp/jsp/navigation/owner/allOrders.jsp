@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 <html>
 <head>
     <title>Show orders</title>
@@ -46,18 +47,20 @@
     </thead>
     <tbody>
     <% for (int i = 0; i < orderList.size(); ++i) { %>
-    <td><%=orderList.get(i).getIdButler()%>
-    </td>
-    <td><%=orderList.get(i).getStartDate()%>
-    </td>
-    <td><%=orderList.get(i).getFinishDate()%>
-    </td>
-    <td><%=orderList.get(i).getTotalPrice()%>
-    </td>
+    <tr>
+        <td><%=orderList.get(i).getIdButler()%>
+        </td>
+        <td><%=orderList.get(i).getStartDate()%>
+        </td>
+        <td><%=orderList.get(i).getFinishDate()%>
+        </td>
+        <td><%=orderList.get(i).getTotalPrice()%>
+        </td>
+    </tr>
     <%} %>
     </tbody>
+</table>
 
-
-    <%@include file="../../footer/footer.jsp" %>
+<%@include file="../../footer/footer.jsp" %>
 </body>
 </html>

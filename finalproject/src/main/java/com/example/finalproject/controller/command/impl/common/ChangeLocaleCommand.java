@@ -16,11 +16,14 @@ public class ChangeLocaleCommand implements Command {
         String locale = request.getParameter(QueryNamedArguments.LOCALE);
         HttpSession session = request.getSession();
         session.setAttribute(SessionAttribute.LOCALE.toLowerCase(Locale.ROOT), locale);
-        if (session.getAttribute(SessionAttribute.CURRENT_PAGE) == null) {
+
+        String currentPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
+
+        if (currentPage == null) {
             return new Router(PagePath.INDEX, Router.RouterType.FORWARD);
         }
 
-        return new Router((String) session.getAttribute(SessionAttribute.CURRENT_PAGE), Router.RouterType.FORWARD);
+        return new Router(currentPage, Router.RouterType.FORWARD);
 
     }
 }
