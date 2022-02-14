@@ -89,10 +89,11 @@ public class ButlerDaoImpl implements ButlerDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BUTLER_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Butler butler = butlerCreator.create(resultSet);
-                butlerOptional = Optional.of(butler);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Butler butler = butlerCreator.create(resultSet);
+                    butlerOptional = Optional.of(butler);
+                }
             }
             logger.log(Level.DEBUG, "findById method from ButlersDaoImpl was completed successfully."
                     + ((butlerOptional.isPresent()) ? " Butler with id " + id + " was found" : " Butler with id " + id + " don't exist"));
@@ -194,10 +195,11 @@ public class ButlerDaoImpl implements ButlerDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BUTLER_BY_ID_USER)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Butler butler = butlerCreator.create(resultSet);
-                butlerOptional = Optional.of(butler);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Butler butler = butlerCreator.create(resultSet);
+                    butlerOptional = Optional.of(butler);
+                }
             }
             logger.log(Level.DEBUG, "findById method from ClientDaoImpl was completed successfully."
                     + ((butlerOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));

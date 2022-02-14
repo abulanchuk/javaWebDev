@@ -19,9 +19,9 @@ public class DiscountDaoImpl implements DiscountDao {
     static final Logger logger = LogManager.getLogger(DiscountDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String SQL_SELECT_ALL_DISCOUNTS = """
-    SELECT id_discount, percent FROM discounts""";
+            SELECT id_discount, percent FROM discounts""";
     private static final String SQL_SELECT_DISCOUNT_BY_ID = """
-    SELECT id_discount, percent FROM discounts WHERE id_discount = ?""";
+            SELECT id_discount, percent FROM discounts WHERE id_discount = ?""";
     private static final String SQL_DELETE_DISCOUNT_BY_ID = """
             DELETE FROM discounts WHERE id_discount = ?""";
     private static final String SQL_INSERT_DISCOUNT = """
@@ -29,7 +29,7 @@ public class DiscountDaoImpl implements DiscountDao {
     private static final String SQL_UPDATE_DISCOUNT_BY_ID = """
             UPDATE discounts SET percent = ? WHERE percent = ?""";
     private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = """
-    SELECT id_discount, percent FROM discounts WHERE percent = ?""";
+            SELECT id_discount, percent FROM discounts WHERE percent = ?""";
     private DiscountCreator discountCreator = new DiscountCreator();
 
     @Override
@@ -56,10 +56,11 @@ public class DiscountDaoImpl implements DiscountDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DISCOUNT_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Discount discount = discountCreator.create(resultSet);
-                discountOptional = Optional.of(discount);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Discount discount = discountCreator.create(resultSet);
+                    discountOptional = Optional.of(discount);
+                }
             }
             logger.log(Level.DEBUG, "findById method from DiscountDaoImpl was completed successfully."
                     + ((discountOptional.isPresent()) ? " Discount with id " + id + " was found" : " Discount with id " + id + " don't exist"));
@@ -82,24 +83,24 @@ public class DiscountDaoImpl implements DiscountDao {
         }
     }
 
- @Override
- public Discount insertNewEntity(CustomEntity entity) throws DaoException {
-     if (!(entity instanceof Discount)) {
-         logger.log(Level.ERROR, "Expected type Discount, got " + entity.getClass());
-         throw new DaoException("Expected type Discount, got " + entity.getClass());
-     }
-     Discount comment = (Discount) entity;
-     try (Connection connection = ConnectionPool.getInstance().getConnection();
-          PreparedStatement statement = connection.prepareStatement(SQL_INSERT_DISCOUNT)) {
+    @Override
+    public Discount insertNewEntity(CustomEntity entity) throws DaoException {
+        if (!(entity instanceof Discount)) {
+            logger.log(Level.ERROR, "Expected type Discount, got " + entity.getClass());
+            throw new DaoException("Expected type Discount, got " + entity.getClass());
+        }
+        Discount comment = (Discount) entity;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_DISCOUNT)) {
 
-         statement.setByte(1, comment.getPercent());
-         statement.executeUpdate();
+            statement.setByte(1, comment.getPercent());
+            statement.executeUpdate();
 
-     } catch (SQLException e) {
-         logger.log(Level.DEBUG, "Failed to create discount", e);
-         throw new DaoException("Failed to create discount: ", e);
-     }
-     return comment;
+        } catch (SQLException e) {
+            logger.log(Level.DEBUG, "Failed to create discount", e);
+            throw new DaoException("Failed to create discount: ", e);
+        }
+        return comment;
     }
 
     @Override
@@ -108,10 +109,11 @@ public class DiscountDaoImpl implements DiscountDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DISCOUNTS_BY_PERCENT)) {
             statement.setLong(1, percent);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Discount discount = discountCreator.create(resultSet);
-                discountOptional = Optional.of(discount);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Discount discount = discountCreator.create(resultSet);
+                    discountOptional = Optional.of(discount);
+                }
             }
             logger.log(Level.DEBUG, "findById method from DiscountDaoImpl was completed successfully."
                     + ((discountOptional.isPresent()) ? " Discount with percent " + percent + " was found" : " Discount with percent " + percent + " don't exist"));

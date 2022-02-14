@@ -54,10 +54,11 @@ public class CommentDaoImpl implements CommentDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_COMMENT_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Comment comment = commentCreator.create(resultSet);
-                commentOptional = Optional.of(comment);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Comment comment = commentCreator.create(resultSet);
+                    commentOptional = Optional.of(comment);
+                }
             }
             logger.log(Level.DEBUG, "findById method from CommentDaoImpl was completed successfully."
                     + ((commentOptional.isPresent()) ? " Comment with id " + id + " was found" : " Comment with id " + id + " don't exist"));
@@ -99,7 +100,7 @@ public class CommentDaoImpl implements CommentDao {
             throw new DaoException("Failed to create comment: ", e);
         }
         return comment;
-  }
+    }
 
 
     @Override

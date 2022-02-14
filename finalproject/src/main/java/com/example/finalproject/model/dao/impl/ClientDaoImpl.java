@@ -4,7 +4,6 @@ import com.example.finalproject.model.dao.ClientDao;
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.entity.CustomEntity;
-import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ClientCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.Level;
@@ -123,10 +122,11 @@ public class ClientDaoImpl implements ClientDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_USER_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Client client = clientCreator.create(resultSet);
-                clientOptional = Optional.of(client);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Client client = clientCreator.create(resultSet);
+                    clientOptional = Optional.of(client);
+                }
             }
             logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
                     + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));

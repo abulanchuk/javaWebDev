@@ -8,9 +8,9 @@ He is responsible for editing the information about the hotel and managing hotel
 
 ###### Guest
 * can sign in;
-* can sign out;
+* can sign up;
 * can see list of hotel's rooms;
-*  change language on website;
+* change language on website;
 
 ###### Owner
 * can delete butler;

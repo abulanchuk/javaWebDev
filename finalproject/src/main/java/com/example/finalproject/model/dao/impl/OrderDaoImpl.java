@@ -1,5 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
+import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.exception.DaoException;
@@ -86,10 +87,11 @@ public class OrderDaoImpl implements OrderDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ORDER_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Order order = orderCreator.create(resultSet);
-                orderOptional = Optional.of(order);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Order order = orderCreator.create(resultSet);
+                    orderOptional = Optional.of(order);
+                }
             }
             logger.log(Level.DEBUG, "findById method from OrderDaoImpl was completed successfully."
                     + ((orderOptional.isPresent()) ? " Discount with id " + id + " was found" : " Discount with id " + id + " don't exist"));
@@ -115,7 +117,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order insertNewEntity(CustomEntity entity) throws DaoException {
-        // TODO: Check type of entity
+        if (!(entity instanceof Order)) {
+            throw new DaoException("Expected type Order, got " + entity.getClass());
+        }
         Order order = (Order) entity;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ORDER)) {
@@ -252,14 +256,13 @@ public class OrderDaoImpl implements OrderDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ORDERS_BY_ACTIVE_STATUS);
         ) {
-            // TODO: Not in try
             statement.setInt(1, isActive ? 1 : 0);
-            ResultSet resultSet = statement.executeQuery();
-
             List<Order> orders = new ArrayList<>();
-            while (resultSet.next()) {
-                Order order = orderCreator.create(resultSet);
-                orders.add(order);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Order order = orderCreator.create(resultSet);
+                    orders.add(order);
+                }
             }
             logger.log(Level.DEBUG, "showActiveOrders method from OrdersDaoImpl was completed successfully. " + orders.size() + " were found");
             return orders;
@@ -285,10 +288,11 @@ public class OrderDaoImpl implements OrderDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ORDER_BY_ID)) {
             statement.setLong(1, id_user);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Order order = orderCreator.create(resultSet);
-                orders.add(order);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Order order = orderCreator.create(resultSet);
+                    orders.add(order);
+                }
             }
             logger.log(Level.DEBUG, "findAll method by rooms was completed successfully. " + orders.size() + " were found");
             return orders;

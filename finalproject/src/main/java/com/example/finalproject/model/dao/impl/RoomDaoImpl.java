@@ -65,10 +65,11 @@ public class RoomDaoImpl implements RoomDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ROOM_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Room room = roomCreator.create(resultSet);
-                roomOptional = Optional.of(room);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Room room = roomCreator.create(resultSet);
+                    roomOptional = Optional.of(room);
+                }
             }
             logger.log(Level.DEBUG, "findById method from RoomDaoImpl was completed successfully."
                     + ((roomOptional.isPresent()) ? " Room with id " + id + " was found" : " Room with id " + id + " don't exist"));
@@ -140,12 +141,12 @@ public class RoomDaoImpl implements RoomDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ROOM_BY_FLOOR)) {
             statement.setInt(1, floor);
-            ResultSet resultSet = statement.executeQuery();
-
             List<Room> rooms = new ArrayList<>();
-            while (resultSet.next()) {
-                Room room = roomCreator.create(resultSet);
-                rooms.add(room);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Room room = roomCreator.create(resultSet);
+                    rooms.add(room);
+                }
             }
             logger.log(Level.DEBUG, "findAllRoomsInThisFloor method by rooms was completed successfully. " + rooms.size() + " were found");
             return rooms;
@@ -180,14 +181,14 @@ public class RoomDaoImpl implements RoomDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_FLOOR_BY_NUMBER_OF_ROOM)) {
             statement.setInt(1, numberOfRoom);
-            ResultSet resultSet = statement.executeQuery();
-
-            boolean hasNext = resultSet.next();
-            if (!hasNext) {
-                logger.log(Level.ERROR, "Impossible to find rooms with number " + numberOfRoom);
-                throw new DaoException("Impossible to find rooms with number " + numberOfRoom);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                boolean hasNext = resultSet.next();
+                if (!hasNext) {
+                    logger.log(Level.ERROR, "Impossible to find rooms with number " + numberOfRoom);
+                    throw new DaoException("Impossible to find rooms with number " + numberOfRoom);
+                }
+                return resultSet.getInt(ColumnTableName.ROOMS_FLOOR);
             }
-            return resultSet.getInt(ColumnTableName.ROOMS_FLOOR);
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find rooms by floor and type. Database access error:", e);
             throw new DaoException("Impossible to find rooms by floor and type. Database access error:", e);
@@ -199,11 +200,12 @@ public class RoomDaoImpl implements RoomDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ROOMS_BY_PRICE)) {
             statement.setBigDecimal(1, price);
-            ResultSet resultSet = statement.executeQuery();
             List<Room> rooms = new ArrayList<>();
-            while (resultSet.next()) {
-                Room room = roomCreator.create(resultSet);
-                rooms.add(room);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Room room = roomCreator.create(resultSet);
+                    rooms.add(room);
+                }
             }
             logger.log(Level.DEBUG, "findRoomsWhosePriceLowerThanSpecified method was completed successfully. \" + rooms.size() + \" were found");
             return rooms;

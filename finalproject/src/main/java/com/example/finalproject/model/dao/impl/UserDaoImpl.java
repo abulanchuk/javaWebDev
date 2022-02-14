@@ -87,10 +87,11 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                userOptional = Optional.of(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    userOptional = Optional.of(user);
+                }
             }
             logger.log(Level.DEBUG, "findById method from UserDaoImpl was completed successfully."
                     + ((userOptional.isPresent()) ? " User with id " + id + " was found" : " User with id " + id + " don't exist"));
@@ -190,12 +191,12 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USERS_BY_ROLE)) {
             statement.setString(1, role.toString());
-            ResultSet resultSet = statement.executeQuery();
-
             List<User> users = new ArrayList<>();
-            while (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                users.add(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    users.add(user);
+                }
             }
             logger.log(Level.DEBUG, "findAllUsersByRole method by rooms was completed successfully. " + users.size() + " were found");
             return users;
@@ -211,12 +212,12 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USERS_BY_SURNAME)) {
             statement.setString(1, surname);
-            ResultSet resultSet = statement.executeQuery();
-
             List<User> users = new ArrayList<>();
-            while (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                users.add(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    users.add(user);
+                }
             }
             logger.log(Level.DEBUG, "findAllUsersWithSuchSurname method by rooms was completed successfully. " + users.size() + " were found");
             return users;
@@ -284,7 +285,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateUser(Long id,String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException {
+    public boolean updateUser(Long id, String newPassword, String newName, String newSurname, String newPhoneNumber) throws DaoException {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
             statement.setString(1, newPassword);
@@ -311,10 +312,11 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_PHONE_NUMBER)) {
             statement.setString(1, phone);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                userOptional = Optional.of(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    userOptional = Optional.of(user);
+                }
             }
             logger.log(Level.DEBUG, "findUserByPhoneNumber method from UserDaoImpl was completed successfully."
                     + ((userOptional.isPresent()) ? " User with phone number " + phone + " was found" : " User with phone number " + phone + " don't exist"));
@@ -331,10 +333,11 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN)) {
             statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                userOptional = Optional.of(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    userOptional = Optional.of(user);
+                }
             }
             logger.log(Level.DEBUG, "findUserByLogin method from UserDaoImpl was completed successfully."
                     + ((userOptional.isPresent()) ? " User with login number " + login + " was found" : " User with login number " + login + " don't exist"));
@@ -352,10 +355,11 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD)) {
             statement.setString(1, login);
             statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                User user = userCreator.create(resultSet);
-                userOptional = Optional.of(user);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = userCreator.create(resultSet);
+                    userOptional = Optional.of(user);
+                }
             }
             logger.log(Level.DEBUG, "findUserByPhoneNumber method from UserDaoImpl was completed successfully."
                     + ((userOptional.isPresent()) ? " User by login and password was found" : "by login and password wasn't found"));
