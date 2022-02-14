@@ -9,18 +9,20 @@
 <html>
 <head>
     <title>Error 404</title>
-    <br>
-    Request From -> ${pageContext.errorData.requestURI}
-    <hr/>
-    Exception -> ${pageContext.exception}
-    <hr/>
-    Exception Status -> ${pageContext.errorData.statusCode}
-    <hr/>
-    Servlet Name -> ${pageContext.errorData.servletName}
-    <hr/>
-    <a href="${pageContext.request.contextPath}/index.jsp">backToStartPage</a>
+
 </head>
 <body>
-
+<%@include file="../header/header.jsp" %>
+<br>
+Request From -> ${pageContext.errorData.requestURI}
+<hr/>
+Exception -> ${pageContext.exception}
+<hr/>
+Exception Status -> ${pageContext.errorData.statusCode}
+<hr/>
+Servlet Name -> ${pageContext.errorData.servletName}
+<hr/>
+<a href="${pageContext.request.contextPath}/index.jsp">backToStartPage</a>
+<%@include file="../footer/footer.jsp" %>
 </body>
 </html>
