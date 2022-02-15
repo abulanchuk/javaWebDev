@@ -8,6 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The type Password encryptor.
+ */
 public class PasswordEncryptor {
     private static final Logger logger = LogManager.getLogger(PasswordEncryptor.class);
     private static final String HASH_FUNCTION = "SHA-256";
@@ -16,6 +19,12 @@ public class PasswordEncryptor {
     private PasswordEncryptor() {
     }
 
+    /**
+     * Encrypt string.
+     *
+     * @param password the password for encrypt
+     * @return the string password after encryption
+     */
     public static String encrypt(String password) {
         StringBuilder hash = new StringBuilder();
         byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);

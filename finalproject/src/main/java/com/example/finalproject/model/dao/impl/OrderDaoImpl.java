@@ -5,7 +5,6 @@ import com.example.finalproject.model.entity.CustomEntity;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.OrderDao;
-import com.example.finalproject.model.entity.Room;
 import com.example.finalproject.model.mapper.impl.OrderCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.Level;

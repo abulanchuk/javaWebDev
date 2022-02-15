@@ -11,6 +11,9 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 
+/**
+ * The type Mail sender.
+ */
 public class MailSender {
     private static final ResourceBundle bundle;
     private static final String USER_NAME;
@@ -21,6 +24,15 @@ public class MailSender {
         PASSWORD = bundle.getString("mail.smtp.user.password");
     }
 
+    /**
+     * Sent email.
+     *
+     * @param recipientOfEmail the recipient of email
+     * @param subjectOfMail    the subject of mail
+     * @param text             the text to add to message
+     * @throws IOException        the io exception
+     * @throws MessagingException the messaging exception
+     */
     public static void sentEmail(String recipientOfEmail,String subjectOfMail, String text) throws IOException, MessagingException {
 
 

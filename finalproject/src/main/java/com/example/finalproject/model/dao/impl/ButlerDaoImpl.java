@@ -4,7 +4,6 @@ import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.exception.DaoException;
 import com.example.finalproject.model.dao.ButlerDao;
 import com.example.finalproject.model.entity.CustomEntity;
-import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.mapper.impl.ButlerCreator;
 import com.example.finalproject.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
