@@ -15,17 +15,58 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The interface Base dao.
+ *
+ * @param <T> the type parameter
+ */
 public interface BaseDao<T extends CustomEntity> {
+    /**
+     * The constant logger.
+     */
     static Logger logger = LogManager.getLogger(BaseDao.class);
 
+    /**
+     * Find all list.
+     *
+     * @return the list of entities
+     * @throws DaoException the dao exception
+     */
     List<T> findAll() throws DaoException;
 
+    /**
+     * Find by id optional.
+     *
+     * @param id the id
+     * @return the optional after finding by id
+     * @throws DaoException the dao exception
+     */
     Optional<T> findById(Long id) throws DaoException;
 
+    /**
+     * Delete by id boolean.
+     *
+     * @param id the id
+     * @return the successful result or not (boolean)
+     * @throws DaoException the dao exception
+     */
     boolean deleteById(Long id) throws DaoException;
 
+    /**
+     * Insert new entity t.
+     *
+     * @param entity the entity
+     * @return created entity
+     * @throws DaoException the dao exception
+     */
     T insertNewEntity(CustomEntity entity) throws DaoException;
 
+    /**
+     * Close.
+     *
+     * @param connection the connection
+     * @throws DaoException the dao exception
+     */
     default void close(Connection connection) throws DaoException {
         try {
             if (connection != null) {
@@ -39,6 +80,12 @@ public interface BaseDao<T extends CustomEntity> {
         }
     }
 
+    /**
+     * Close.
+     *
+     * @param statement the statement
+     * @throws DaoException the dao exception
+     */
     default void close(Statement statement) throws DaoException {
         try {
             if (statement != null) {
