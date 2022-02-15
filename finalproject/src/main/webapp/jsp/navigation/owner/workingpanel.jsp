@@ -74,16 +74,16 @@
                         <input type="hidden" name="command_name" value="add_room">
 
                         <div style="display: flex; flex-direction: row; width: 100%">
-                            <input class="form-control mr-sm-2" name="price" type="search" placeholder="${Price}"
+                            <input class="form-control mr-sm-2" name="price" type="search" placeholder="${Price}" required pattern="^([1-9]{1,6}((.|,)[0-9]{1,2})?)$"
                                    aria-label="Search">
-                            <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="${RoomType}"
+                            <input class="form-control mr-sm-2" name="room_type" type="search" placeholder="${RoomType}" required pattern="(SUITE)|(DELUXE)|(STANDART)"
                                    aria-label="Search">
-                            <input class="form-control mr-sm-2" name="floor" type="search" placeholder="Floor"
+                            <input class="form-control mr-sm-2" name="floor" type="search" placeholder="${Floor}" required pattern="[1-3]"
                                    aria-label="Search">
-                            <input class="form-control mr-sm-2" name="room_number" type="search"
+                            <input class="form-control mr-sm-2" name="room_number" type="search" required pattern="\d+"
                                    placeholder="${RoomNumber}"
                                    aria-label="Search">
-                            <input class="form-control mr-sm-2" name="id_discount" type="search"
+                            <input class="form-control mr-sm-2" name="id_discount" type="search" required pattern="[1-4]"
                                    placeholder="${IdDiscount}"
                                    aria-label="Search">
                             <input class="form-control mr-sm-2" name="image_url" type="search" placeholder="${ImageUrl}"
