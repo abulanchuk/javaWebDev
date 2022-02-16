@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
+
 <html>
 <head>
     <title>List of butlers</title>
@@ -55,10 +55,10 @@
         <td><%=butlersList.get(i).getRating()%>
         </td>
     </tr>
+    <%} %>
     </tbody>
 </table>
 </form>
-<%} %>
 
 <%@include file="../../footer/footer.jsp" %>
 </body>

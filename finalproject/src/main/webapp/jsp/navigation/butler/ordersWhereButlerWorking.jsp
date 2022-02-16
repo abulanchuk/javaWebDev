@@ -6,7 +6,6 @@
   Time: 15:28
   To change this template use File | Settings | File Templates.
 --%>
-<c:set var="current_page" value="${pageContext.request.requestURI}" scope="session"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
