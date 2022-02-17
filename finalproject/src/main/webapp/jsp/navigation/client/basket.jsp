@@ -43,7 +43,6 @@
             if (Number.isNaN(start_date) || Number.isNaN(leave_date) || start_date >= leave_date) {
                 $("#days_count").text("");
                 $("#total").text("");
-                // TODO
                 $("#submitButton").prop('disabled', true);
                 return;
             }

@@ -27,9 +27,6 @@ public class SelectBookingDates implements Command {
             if (room.isPresent()) {
                 request.setAttribute(QueryNamedArguments.ROOM, room.get());
             }
-            else {
-                //TODO
-            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Failed to select room by id:" + roomId, e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
