@@ -23,13 +23,9 @@ public class ShowAllRoomsCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request){
-        String page = request.getParameter(QueryNamedArguments.PAGE);
-        int currentPageNumber = page != null ? Integer.parseInt(page) : 1;//todo
-
         try {
             List<Room> allRooms = roomService.showAllRooms();
             request.setAttribute(CATALOG, allRooms);
-            request.setAttribute(QueryNamedArguments.PAGE, currentPageNumber);//todo
             return new Router(PagePath.CATALOG, Router.RouterType.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Failed to execute ShowAllRoomsCommand:", e);

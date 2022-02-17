@@ -40,9 +40,9 @@ public class EditPersonalInformationAboutClientCommand implements Command {
             request.setAttribute(ErrorType.EXCEPTION.name(), e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         } catch (MessagingException e) {
-            e.printStackTrace(); //todo
+            return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         } catch (IOException e) {
-            e.printStackTrace(); //todo
+            return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
         return new Router(PagePath.HOME, Router.RouterType.FORWARD);
     }

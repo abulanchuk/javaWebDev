@@ -33,7 +33,6 @@ public class SignInCommand implements Command {
     private final UserService<User> userService = UserServiceImpl.getInstance();
     private final ClientService<Client> clientService = ClientServiceImpl.getInstance();
     private final ButlerService<Butler> butlerService = ButlerServiceImpl.getInstance();
-//    private final String BANK_ACCOUNT = "balance";
 
     @Override
     public Router execute(HttpServletRequest request) {

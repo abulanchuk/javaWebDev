@@ -87,7 +87,7 @@ public class Client extends User {
         result = 31 * result + bankAccount.hashCode();
         return result;
     }
-// TODO toString
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Client{");
