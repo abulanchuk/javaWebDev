@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("login() - Failed to find user by login: ", e);
         }
 
-        if (!foundUser.isPresent()) {
+        if (foundUser.isEmpty()) {
             return Optional.empty();
         }
 
@@ -176,10 +176,6 @@ public class UserServiceImpl implements UserService {
             foundUser = userDao.findUserByLogin(login);
         } catch (DaoException e) {
             throw new ServiceException("login() - Failed to find user by login: ", e);
-        }
-
-        if (!foundUser.isPresent()) {
-            return Optional.empty();
         }
         return foundUser;
     }

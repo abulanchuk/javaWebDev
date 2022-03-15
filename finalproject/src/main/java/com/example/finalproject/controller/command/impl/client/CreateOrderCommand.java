@@ -47,7 +47,7 @@ public class CreateOrderCommand implements Command {
             logger.log(Level.ERROR, "Failed to withdrawal cash from BankAccount:", e);
             return new Router(PagePath.ERROR_500_PAGE, Router.RouterType.FORWARD);
         }
-        Optional<Client> client=null;
+        Optional<Client> client=null; //todo
         try {
             client=clientService.findByIdUser((Long) session.getAttribute(SessionAttribute.USER_ID));
         } catch (ServiceException e) {

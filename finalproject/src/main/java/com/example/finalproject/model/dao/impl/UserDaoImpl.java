@@ -322,7 +322,7 @@ public class UserDaoImpl implements UserDao {
                     + ((userOptional.isPresent()) ? " User with phone number " + phone + " was found" : " User with phone number " + phone + " don't exist"));
             return userOptional;
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Impossible to find user by phone number. Database access error:", e);
+            logger.log(Level.ERROR, "Impossible to find user by this number. Database access error:", e);
             throw new DaoException("Impossible to find user by phone number. Database access error:", e);
         }
     }

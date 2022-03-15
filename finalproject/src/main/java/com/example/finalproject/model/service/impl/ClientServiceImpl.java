@@ -87,12 +87,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void deleteByLogin(String login) throws ServiceException {
+    public boolean deleteByLogin(String login) throws ServiceException {
         try {
             if (!validator.isCorrectLogin(login)) {
                 throw new ServiceException("Invalid login for deleting " + login);
             }
             boolean result = clientDao.deleteByLogin(login);
+            return result;
         } catch (DaoException e) {
             logger.log(Level.ERROR, "Failed to delete client by login", e);
             throw new ServiceException("Failed to delete client by login " + login, e);

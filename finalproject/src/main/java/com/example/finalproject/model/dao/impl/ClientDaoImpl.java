@@ -185,11 +185,11 @@ public class ClientDaoImpl implements ClientDao {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT_BY_LOGIN)) {
             statement.setString(1, login);
-            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to delete client with such login: " + login, e);
             throw new DaoException("Impossible to delete client with such login: " + login, e);
         }
+        return false;
     }
 
     @Override

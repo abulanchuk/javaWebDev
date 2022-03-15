@@ -63,7 +63,7 @@ public interface ClientService <T extends CustomEntity>{
      * @param login the login
      * @throws ServiceException the service exception
      */
-    void deleteByLogin(String login) throws ServiceException;
+    boolean deleteByLogin(String login) throws ServiceException;
 
     /**
      * Insert new entity t.

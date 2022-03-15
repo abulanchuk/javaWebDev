@@ -2,7 +2,6 @@ package com.example.finalproject.model.dao;
 
 import com.example.finalproject.model.entity.Client;
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.model.entity.UserRole;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -87,8 +86,8 @@ public interface ClientDao extends BaseDao<Client> {
      * Delete by login boolean.
      *
      * @param login the client's login for deleting
-     * @return the successful result or not (boolean)
      * @throws DaoException the dao exception
+     * @return
      */
     boolean deleteByLogin(String login) throws DaoException;
 

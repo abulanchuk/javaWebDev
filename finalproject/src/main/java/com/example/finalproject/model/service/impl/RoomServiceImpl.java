@@ -63,7 +63,7 @@ public class RoomServiceImpl implements RoomService {
             RoomType roomType = RoomType.valueOf(roomTypeValue.toUpperCase(Locale.ROOT));
             int floor = Integer.parseInt(room.get(QueryNamedArguments.FLOOR));
             int roomNumber = Integer.parseInt(room.get(QueryNamedArguments.ROOM_NUMBER));
-            long idDiscount = Long.valueOf(room.get(QueryNamedArguments.ID_DISCOUNT));
+            long idDiscount = Long.parseLong(room.get(QueryNamedArguments.ID_DISCOUNT));
 
             String imagePath = room.get(QueryNamedArguments.IMAGE_URL);
             if (imagePath == null) {
