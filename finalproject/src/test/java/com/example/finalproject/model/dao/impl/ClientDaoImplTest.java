@@ -19,7 +19,13 @@ import static org.mockito.Mockito.when;
 public class ClientDaoImplTest {
     public static final long CLIENT_ID = 1;
     public static final long USER_ID = 13;
+    public static final String CLIENT_PASSPORT_NUMBER = "MP3752290";
+    public static final String CLIENT_NEW_PASSPORT_NUMBER = "MP3754011";
     public static final String CLIENT_EMAIL = "alica@gmail.com";
+    public static final String CLIENT_LOGIN = "alicaJein";
+    public static final String CLIENT_NEW_EMAIL = "lutik@gmail.com";
+    public static final BigDecimal HOW_MUCH_COSTS_ROOM = new BigDecimal(700);
+    public static final BigDecimal HOW_MUCH_MONEY_WANTS_TO_ADD = new BigDecimal(700);
     private static final boolean EXPECTED_ROWS_UPDATED = true;
     private Client actual;
 
@@ -82,6 +88,10 @@ public class ClientDaoImplTest {
 
     @Test
     public void testDeleteByLogin() throws DaoException{
+        when(clientDaoMock.deleteByLogin(CLIENT_LOGIN))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.deleteByLogin(CLIENT_LOGIN);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 
     @Test
@@ -90,6 +100,10 @@ public class ClientDaoImplTest {
 
     @Test
     public void testDeleteById() throws DaoException{
+        when(clientDaoMock.deleteById(USER_ID))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.deleteById(USER_ID);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 
     @Test
@@ -98,17 +112,33 @@ public class ClientDaoImplTest {
 
     @Test
     public void testUpdateEmail() throws DaoException{
+        when(clientDaoMock.updateEmail(USER_ID, CLIENT_NEW_EMAIL))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.updateEmail(USER_ID, CLIENT_NEW_EMAIL);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 
     @Test
     public void testUpdateCashInBankAccount() throws DaoException{
+        when(clientDaoMock.updateCashInBankAccount(USER_ID, HOW_MUCH_MONEY_WANTS_TO_ADD))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.updateCashInBankAccount(USER_ID, HOW_MUCH_MONEY_WANTS_TO_ADD);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 
     @Test
     public void testWithdrawalCashFromBankAccount() throws DaoException{
+        when(clientDaoMock.withdrawalCashFromBankAccount(USER_ID, HOW_MUCH_COSTS_ROOM))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.withdrawalCashFromBankAccount(USER_ID, HOW_MUCH_COSTS_ROOM);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 
     @Test
     public void testUpdatePassportNumber() throws DaoException{
+        when(clientDaoMock.updatePassportNumber(CLIENT_PASSPORT_NUMBER, CLIENT_NEW_PASSPORT_NUMBER))
+                .thenReturn(EXPECTED_ROWS_UPDATED);
+        boolean actual = clientDaoMock.updatePassportNumber(CLIENT_PASSPORT_NUMBER, CLIENT_NEW_PASSPORT_NUMBER);
+        assertThat(actual).isEqualTo(EXPECTED_ROWS_UPDATED);
     }
 }
