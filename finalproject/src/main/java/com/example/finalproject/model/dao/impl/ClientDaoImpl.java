@@ -39,8 +39,7 @@ public class ClientDaoImpl implements ClientDao {
                 users.id_user, login, password, role, name, surname, phone_number
             FROM clients INNER JOIN users ON users.id_user = clients.id_user
             WHERE clients.email =?""";
-    private static final String SQL_UPDATE_CLIENT = """
-            UPDATE clients, users SET name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND users.id_user = ?""";
+    private static final String SQL_UPDATE_CLIENT = "UPDATE clients, users SET name = ?, surname = ?, phone_number = ?, email =?, password_number=? WHERE users.id_user =clients.id_user AND users.id_user = ?";
     private static final String SQL_DELETE_CLIENT_BY_ID = """
             DELETE users, clients, orders FROM users 
             INNER JOIN clients ON users.id_user = clients.id_user 
@@ -49,20 +48,13 @@ public class ClientDaoImpl implements ClientDao {
             DELETE users, clients, orders FROM users 
             LEFT JOIN clients ON users.id_user = clients.id_user 
             LEFT JOIN orders ON orders.order_id_client = clients.id_client WHERE users.login = ? AND users.role = 'CLIENT' """;
-    private static final String SQL_INSERT_USER = """
-            INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
-    private static final String SQL_INSERT_NEW_CLIENT = """
-            INSERT INTO clients (password_number, email, bank_account, id_user) VALUES (?,?,?,?)""";
-    private static final String SQL_UPDATE_EMAIL = """
-            UPDATE clients SET email = ? WHERE id_user = ?""";
-    private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = """
-            UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_user = ?""";
-    private static final String SQL_WITHDRAWAL_CASH_IN_BANK_ACCOUNT = """
-            UPDATE clients SET bank_account = bank_account - ? WHERE clients.id_user = ?""";
-    private static final String SQL_UPDATE_PASSPORT_NUMBER = """
-            UPDATE clients SET password_number = ? WHERE password_number = ?""";
-    private static final String SQL_UPDATE_PASSWORD = """
-            UPDATE users SET password = ? WHERE password = ? and id_user = ?""";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_INSERT_NEW_CLIENT ="INSERT INTO clients (password_number, email, bank_account, id_user) VALUES (?,?,?,?)";
+    private static final String SQL_UPDATE_EMAIL = "UPDATE clients SET email = ? WHERE id_user = ?";
+    private static final String SQL_UPDATE_CASH_IN_BANK_ACCOUNT = "UPDATE clients SET bank_account = bank_account + ? WHERE clients.id_user = ?";
+    private static final String SQL_WITHDRAWAL_CASH_IN_BANK_ACCOUNT = "UPDATE clients SET bank_account = bank_account - ? WHERE clients.id_user = ?";
+    private static final String SQL_UPDATE_PASSPORT_NUMBER = "UPDATE clients SET password_number = ? WHERE password_number = ?";
+    private static final String SQL_UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE password = ? and id_user = ?";
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static ClientDaoImpl instance;
     private ClientCreator clientCreator = new ClientCreator();
@@ -108,7 +100,7 @@ public class ClientDaoImpl implements ClientDao {
                 clientOptional = Optional.of(client);
             }
             logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
-                    + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
+                    + ((clientOptional.isPresent()) ? "Client" + id + " was found" : " Client with id " + id + " don't exist"));
             return clientOptional;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
@@ -128,12 +120,12 @@ public class ClientDaoImpl implements ClientDao {
                     clientOptional = Optional.of(client);
                 }
             }
-            logger.log(Level.INFO, "findById method from ClientDaoImpl was completed successfully."
-                    + ((clientOptional.isPresent()) ? " Client with id " + id + " was found" : " Client with id " + id + " don't exist"));
+            logger.log(Level.INFO, "findByIdUser method from ClientDaoImpl was completed successfully."
+                    + ((clientOptional.isPresent()) ? " Client with id " + id + " founded" : " Client with id " + id + " do not exist"));
             return clientOptional;
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Impossible to find client by id. Database access error:", e);
-            throw new DaoException("Impossible to find client by id. Database access error:", e);
+            logger.log(Level.ERROR, "Impossible to find client by id_user. Database access error:", e);
+            throw new DaoException("Impossible to find client by id_user. Database access error:", e);
         }
     }
 

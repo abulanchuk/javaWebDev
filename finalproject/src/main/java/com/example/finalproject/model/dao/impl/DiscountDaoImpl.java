@@ -18,18 +18,12 @@ import java.util.Optional;
 public class DiscountDaoImpl implements DiscountDao {
     static final Logger logger = LogManager.getLogger(DiscountDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String SQL_SELECT_ALL_DISCOUNTS = """
-            SELECT id_discount, percent FROM discounts""";
-    private static final String SQL_SELECT_DISCOUNT_BY_ID = """
-            SELECT id_discount, percent FROM discounts WHERE id_discount = ?""";
-    private static final String SQL_DELETE_DISCOUNT_BY_ID = """
-            DELETE FROM discounts WHERE id_discount = ?""";
-    private static final String SQL_INSERT_DISCOUNT = """
-            INSERT INTO discounts (percent) VALUES (?)""";
-    private static final String SQL_UPDATE_DISCOUNT_BY_ID = """
-            UPDATE discounts SET percent = ? WHERE percent = ?""";
-    private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = """
-            SELECT id_discount, percent FROM discounts WHERE percent = ?""";
+    private static final String SQL_SELECT_ALL_DISCOUNTS = "SELECT id_discount, percent FROM discounts";
+    private static final String SQL_SELECT_DISCOUNT_BY_ID = "SELECT id_discount, percent FROM discounts WHERE id_discount = ?";
+    private static final String SQL_DELETE_DISCOUNT_BY_ID = "DELETE FROM discounts WHERE id_discount = ?";
+    private static final String SQL_INSERT_DISCOUNT = "INSERT INTO discounts (percent) VALUES (?)";
+    private static final String SQL_UPDATE_DISCOUNT_BY_ID = "UPDATE discounts SET percent = ? WHERE percent = ?";
+    private static final String SQL_SELECT_DISCOUNTS_BY_PERCENT = "SELECT id_discount, percent FROM discounts WHERE percent = ?";
     private DiscountCreator discountCreator = new DiscountCreator();
 
     @Override

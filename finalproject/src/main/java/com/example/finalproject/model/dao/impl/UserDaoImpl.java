@@ -19,36 +19,21 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String SQL_SELECT_ALL_USERS = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users""";
-    private static final String SQL_SELECT_USER_BY_ID = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE id_user =?""";
-    private static final String SQL_DELETE_USER_BY_ID = """
-            DELETE users FROM users WHERE id_user = ?""";
-    private static final String SQL_INSERT_USER = """
-            INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
-    private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
-            UPDATE users SET password = ? WHERE login = ? AND password =?""";
-    private static final String SQL_UPDATE_USER = """
-            UPDATE users SET  password = ?, name = ?, surname = ?, phone_number = ? WHERE id_user = ?""";
-    private static final String SQL_UPDATE_LOGIN = """
-            UPDATE users SET login = ? WHERE login = ? AND id_user =? """;
-    private static final String SQL_SELECT_USERS_BY_ROLE = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE role = ?""";
-    private static final String SQL_SELECT_USERS_BY_SURNAME = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE surname = ?""";
-    private static final String SQL_UPDATE_SURNAME = """
-            UPDATE users SET surname = ? WHERE id_user = ?""";
-    private static final String SQL_UPDATE_NAME = """
-            UPDATE users SET name = ? WHERE id_user = ?""";
-    private static final String SQL_UPDATE_PHONE_NUMBER = """
-            UPDATE users SET phone_number = ? WHERE id_user = ?""";
-    private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE phone_number = ?""";
-    private static final String SQL_SELECT_USER_BY_LOGIN = """
-            SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE login = ?""";
-    private static final String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = """
-            SELECT id_user, login, password, role, name, surname, phone_number WHERE login = ? AND password = ?""";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT id_user, login, password, role, name, surname, phone_number FROM users";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE id_user =?";
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE users FROM users WHERE id_user = ?";
+    private static final String SQL_INSERT_USER = " INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = "UPDATE users SET password = ? WHERE login = ? AND password =?";
+    private static final String SQL_UPDATE_USER = " UPDATE users SET  password = ?, name = ?, surname = ?, phone_number = ? WHERE id_user = ?";
+    private static final String SQL_UPDATE_LOGIN = "UPDATE users SET login = ? WHERE login = ? AND id_user =? ";
+    private static final String SQL_SELECT_USERS_BY_ROLE = " SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE role = ?";
+    private static final String SQL_SELECT_USERS_BY_SURNAME = "SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE surname = ?";
+    private static final String SQL_UPDATE_SURNAME = "UPDATE users SET surname = ? WHERE id_user = ?";
+    private static final String SQL_UPDATE_NAME = "UPDATE users SET name = ? WHERE id_user = ?";
+    private static final String SQL_UPDATE_PHONE_NUMBER = "UPDATE users SET phone_number = ? WHERE id_user = ?";
+    private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = "SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE phone_number = ?";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE login = ?";
+    private static final String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT id_user, login, password, role, name, surname, phone_number FROM users WHERE login = ? AND password = ?";
     private UserCreator userCreator = new UserCreator();
     private static UserDaoImpl instance;
 

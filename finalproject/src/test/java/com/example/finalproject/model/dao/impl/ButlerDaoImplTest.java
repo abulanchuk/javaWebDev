@@ -1,7 +1,6 @@
 package com.example.finalproject.model.dao.impl;
 
 import com.example.finalproject.exception.DaoException;
-import com.example.finalproject.model.dao.ClientDao;
 import com.example.finalproject.model.entity.Butler;
 import com.example.finalproject.model.entity.User;
 import com.example.finalproject.model.entity.UserRole;
@@ -16,7 +15,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class ButlerDaoImplTest {
+ class ButlerDaoImplTest {
     public static final long BUTLER_ID = 2;
     public static final long USER_ID = 13;
     public static final byte NEW_RATING = 5;
@@ -45,14 +44,14 @@ public class ButlerDaoImplTest {
 
 
     @Test
-    public void testFindAll() throws DaoException {
+     void testFindAll() throws DaoException {
         when(butlerDaoMock.findAll()).thenReturn(expectedButlers);
         List<Butler> actual = butlerDaoMock.findAll();
         assertThat(actual).containsExactly(firstButler, secondButler);
     }
 
     @Test
-    public void testFindById() throws DaoException {
+     void testFindById() throws DaoException {
         when(butlerDaoMock.findById(BUTLER_ID)).thenReturn(Optional.ofNullable(expectedButler));
         Optional<Butler> actualOptionalUser = butlerDaoMock.findById(BUTLER_ID);
         if (actualOptionalUser.isPresent()) {
@@ -62,7 +61,7 @@ public class ButlerDaoImplTest {
     }
 
     @Test
-    public void testDeleteById() throws DaoException {
+     void testDeleteById() throws DaoException {
         when(butlerDaoMock.deleteById(BUTLER_ID))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = butlerDaoMock.deleteById(BUTLER_ID);
@@ -70,14 +69,14 @@ public class ButlerDaoImplTest {
     }
 
     @Test
-    public void testInsertNewEntity() throws DaoException {
+     void testInsertNewEntity() throws DaoException {
         when(butlerDaoMock.insertNewEntity(firstButler)).thenReturn(expectedButler);
         User actual = butlerDaoMock.insertNewEntity(firstButler);
         assertThat(actual).isEqualTo(expectedButler);
     }
 
     @Test
-    public void testUpdateRatingById() throws DaoException {
+     void testUpdateRatingById() throws DaoException {
         when(butlerDaoMock.updateRatingById(BUTLER_ID, NEW_RATING))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = butlerDaoMock.updateRatingById(BUTLER_ID, NEW_RATING);
@@ -85,7 +84,7 @@ public class ButlerDaoImplTest {
     }
 
     @Test
-    public void testFindByIdUser() throws DaoException {
+     void testFindByIdUser() throws DaoException {
         when(butlerDaoMock.findByIdUser(USER_ID)).thenReturn(Optional.ofNullable(expectedButler));
         Optional<Butler> actualOptionalUser = butlerDaoMock.findByIdUser(USER_ID);
         if (actualOptionalUser.isPresent()) {
@@ -95,7 +94,7 @@ public class ButlerDaoImplTest {
     }
 
     @Test
-    public void testDeleteByLogin() throws DaoException {
+     void testDeleteByLogin() throws DaoException {
         when(butlerDaoMock.deleteByLogin(BUTLER_LOGIN))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = butlerDaoMock.deleteByLogin(BUTLER_LOGIN);

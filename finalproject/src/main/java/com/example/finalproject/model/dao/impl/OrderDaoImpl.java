@@ -29,18 +29,12 @@ public class OrderDaoImpl implements OrderDao {
             SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
             INNER JOIN clients ON orders.order_id_client = clients.id_client
             INNER JOIN users ON clients.id_user = users.id_user WHERE orders.id_order = ?""";
-    private static final String SQL_DELETE_ORDER_BY_ID = """
-            DELETE FROM orders WHERE orders.id_order = ?""";
-    private static final String SQL_INSERT_ORDER = """
-            INSERT INTO orders (id_butler, start_date, finish_date, is_paid, is_active, order_id_client, total_price) VALUES (?,?,?,?,?,?,?)""";
-    private static final String SQL_UPDATE_START_TIME = """
-            UPDATE orders SET start_date = ? WHERE start_date = ?""";
-    private static final String SQL_UPDATE_FINISH_TIME = """
-            UPDATE orders SET finish_date = ? WHERE finish_date = ?""";
-    private static final String SQL_UPDATE_PAYMENT_STATUS = """
-            UPDATE orders SET is_paid = ? WHERE id_order = ?""";
-    private static final String SQL_UPDATE_ACTIVE_STATUS = """
-            UPDATE orders SET is_active = ? WHERE id_order = ?""";
+    private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM orders WHERE orders.id_order = ?";
+    private static final String SQL_INSERT_ORDER = "INSERT INTO orders (id_butler, start_date, finish_date, is_paid, is_active, order_id_client, total_price) VALUES (?,?,?,?,?,?,?)";
+    private static final String SQL_UPDATE_START_TIME = "UPDATE orders SET start_date = ? WHERE start_date = ?";
+    private static final String SQL_UPDATE_FINISH_TIME = "UPDATE orders SET finish_date = ? WHERE finish_date = ?";
+    private static final String SQL_UPDATE_PAYMENT_STATUS = "UPDATE orders SET is_paid = ? WHERE id_order = ?";
+    private static final String SQL_UPDATE_ACTIVE_STATUS = "UPDATE orders SET is_active = ? WHERE id_order = ?";
     private static final String SQL_SELECT_PAID_ORDERS = """
             SELECT id_order, name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
@@ -49,13 +43,12 @@ public class OrderDaoImpl implements OrderDao {
             SELECT id_order,name, surname, phone_number, email, password_number, start_date, finish_date, is_paid, is_active, total_price FROM orders
              INNER JOIN clients ON orders.order_id_client = clients.id_client
              INNER JOIN users ON clients.id_user = users.id_user WHERE orders.is_paid <1 """;
-    private static final String SQL_SELECT_ID_BUTLER_WITH_MIN_NUMBERS_OF_ORDERS = "with orders_counts as (\n" +
-            "\tSELECT id_butler, COUNT(*) as cnt FROM orders WHERE is_active = 1 group by id_butler\n" +
-            ")\n" +
-            "SELECT id_butler from orders_counts WHERE orders_counts.cnt = (select MIN(cnt) from orders_counts) ORDER BY id_butler ASC\n" +
-            "LIMIT 1";
-    private static final String SQL_SELECT_ORDERS_BY_ACTIVE_STATUS = """
-            SELECT id_butler, id_order, is_paid, is_active, start_date, finish_date, total_price FROM orders WHERE is_active = ?""";
+    private static final String SQL_SELECT_ID_BUTLER_WITH_MIN_NUMBERS_OF_ORDERS = """
+            with orders_counts as 
+            (SELECT id_butler, COUNT(*) as cnt FROM orders WHERE is_active = 1 group by id_butler)
+            SELECT id_butler from orders_counts WHERE orders_counts.cnt = (select MIN(cnt) from orders_counts) ORDER BY id_butler ASC
+            LIMIT 1""";
+    private static final String SQL_SELECT_ORDERS_BY_ACTIVE_STATUS = "SELECT id_butler, id_order, is_paid, is_active, start_date, finish_date, total_price FROM orders WHERE is_active = ?";
     private static final String SQL_SELECT_ORDERS_BY_BUTLER = """
             SELECT start_date, finish_date, order_id_client, id_butler, is_paid, is_active, total_price FROM orders
              INNER JOIN butlers ON orders.id_butler = butlers.id_butler

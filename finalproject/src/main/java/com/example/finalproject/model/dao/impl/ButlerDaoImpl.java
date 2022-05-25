@@ -43,13 +43,11 @@ public class ButlerDaoImpl implements ButlerDao {
             LEFT JOIN butlers ON users.id_user = butlers.id_user 
             LEFT JOIN orders ON orders.id_butler = butlers.id_butler
             WHERE users.login = ? AND users.role = 'BUTLER' """;
-    private static final String SQL_INSERT_USER = """
-            INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)""";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, role, name, surname, phone_number) VALUES (?,?,?,?,?,?)";
     private static final String SQL_INSERT_NEW_BUTLER = """
             INSERT INTO butlers (id_user, rating)
             VALUES (?, ?)""";
-    private static final String SQL_UPDATE_RATING = """
-            UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?""";
+    private static final String SQL_UPDATE_RATING = "UPDATE butlers SET butlers.rating = ? WHERE butlers.id_butler = ?";
     private ButlerCreator butlerCreator = new ButlerCreator();
     private static ButlerDaoImpl instance;
 

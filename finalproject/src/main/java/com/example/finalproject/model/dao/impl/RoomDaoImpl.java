@@ -21,24 +21,15 @@ import java.util.Optional;
 public class RoomDaoImpl implements RoomDao {
     private static final Logger logger = LogManager.getLogger(RoomDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String SQL_SELECT_ALL_ROOMS = """
-            SELECT id_room, price, room_type, floor, room_number, image_url FROM rooms""";
-    private static final String SQL_SELECT_ROOM_BY_ID = """
-            SELECT id_room, price, room_type, floor, room_number, image_url FROM rooms WHERE id_room = ?""";
-    private static final String SQL_DELETE_ROOM_BY_ID = """
-            DELETE FROM rooms WHERE id_room = ?""";
-    private static final String SQL_INSERT_ROOM = """
-            INSERT INTO rooms (price, room_type, floor, room_number, id_discount, image_url) VALUES (?,?,?,?,?,?)""";
-    private static final String SQL_UPDATE_ROOM_PRICE_BY_NUMBER_OF_ROOM = """
-            UPDATE rooms SET price = ? WHERE room_number = ?""";
-    private static final String SQL_SELECT_ROOM_BY_FLOOR = """
-            SELECT id_room, price,floor, room_type, room_number, image_url FROM rooms WHERE floor = ?""";
-    private static final String SQL_SELECT_ROOM_BY_FLOOR_AND_TYPE = """
-            SELECT id_room, price,floor, room_type, room_number,id_discount, image_url FROM rooms WHERE floor = ? AND room_type = ?""";
-    private static final String SQL_SELECT_FLOOR_BY_NUMBER_OF_ROOM = """
-            SELECT floor FROM rooms WHERE room_number = ?""";
-    private static final String SQL_SELECT_ALL_ROOMS_BY_PRICE = """
-            SELECT id_room, price, room_type, floor, room_number, id_discount, image_url FROM rooms WHERE price < ?""";
+    private static final String SQL_SELECT_ALL_ROOMS = "SELECT id_room, price, room_type, floor, room_number, image_url FROM rooms";
+    private static final String SQL_SELECT_ROOM_BY_ID = "SELECT id_room, price, room_type, floor, room_number, image_url FROM rooms WHERE id_room = ?";
+    private static final String SQL_DELETE_ROOM_BY_ID = " DELETE FROM rooms WHERE id_room = ?";
+    private static final String SQL_INSERT_ROOM = "INSERT INTO rooms (price, room_type, floor, room_number, id_discount, image_url) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_UPDATE_ROOM_PRICE_BY_NUMBER_OF_ROOM = "UPDATE rooms SET price = ? WHERE room_number = ?";
+    private static final String SQL_SELECT_ROOM_BY_FLOOR = "SELECT id_room, price,floor, room_type, room_number, image_url FROM rooms WHERE floor = ?";
+    private static final String SQL_SELECT_ROOM_BY_FLOOR_AND_TYPE = "SELECT id_room, price,floor, room_type, room_number,id_discount, image_url FROM rooms WHERE floor = ? AND room_type = ?";
+    private static final String SQL_SELECT_FLOOR_BY_NUMBER_OF_ROOM = "SELECT floor FROM rooms WHERE room_number = ?";
+    private static final String SQL_SELECT_ALL_ROOMS_BY_PRICE = "SELECT id_room, price, room_type, floor, room_number, id_discount, image_url FROM rooms WHERE price < ?";
     private RoomCreator roomCreator = new RoomCreator();
 
     @Override

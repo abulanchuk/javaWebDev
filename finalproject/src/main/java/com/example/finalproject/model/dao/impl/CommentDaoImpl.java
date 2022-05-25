@@ -18,16 +18,11 @@ import java.util.Optional;
 public class CommentDaoImpl implements CommentDao {
     private static final Logger logger = LogManager.getLogger(CommentDaoImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String SQL_SELECT_ALL_COMMENTS = """
-            SELECT id_comment, content FROM comments""";
-    private static final String SQL_SELECT_COMMENT_BY_ID = """
-            SELECT id_comment, content FROM comments WHERE id_comment = ?""";
-    private static final String SQL_DELETE_COMMENT_BY_ID = """
-            DELETE FROM comments WHERE id_comment = ?""";
-    private static final String SQL_INSERT_NEW_COMMENT = """
-            INSERT INTO comments (id_butler, content) VALUES (?,?)""";
-    private static final String SQL_UPDATE_COMMENT = """
-            UPDATE discounts SET content = ? WHERE id_comment = ?""";
+    private static final String SQL_SELECT_ALL_COMMENTS = "SELECT id_comment, content FROM comments";
+    private static final String SQL_SELECT_COMMENT_BY_ID = "SELECT id_comment, content FROM comments WHERE id_comment = ?";
+    private static final String SQL_DELETE_COMMENT_BY_ID = "DELETE FROM comments WHERE id_comment = ?";
+    private static final String SQL_INSERT_NEW_COMMENT = "INSERT INTO comments (id_butler, content) VALUES (?,?)";
+    private static final String SQL_UPDATE_COMMENT = "UPDATE comments SET content = ? WHERE id_comment = ?";
     private CommentCreator commentCreator = new CommentCreator();
 
     @Override

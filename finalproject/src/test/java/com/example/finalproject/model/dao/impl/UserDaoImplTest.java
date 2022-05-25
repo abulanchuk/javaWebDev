@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImplTest {
+ class UserDaoImplTest {
     public static final long USER_ID = 17;
     private static final boolean EXPECTED_ROWS_UPDATED = true;
     private static final String LOGIN_TO_UPDATE = "johnpost";
@@ -52,14 +52,14 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void testFindAll() throws DaoException {
+     void testFindAll() throws DaoException {
         when(userDaoMock.findAll()).thenReturn(expectedUsers);
         List<User> actual = userDaoMock.findAll();
         assertThat(actual).containsExactly(firstUser, secondUser);
     }
 
     @Test
-    public void testFindById() throws DaoException {
+     void testFindById() throws DaoException {
         when(userDaoMock.findById(USER_ID)).thenReturn(Optional.ofNullable(expectedUser));
         Optional<User> actualOptionalUser = userDaoMock.findById(USER_ID);
         if (actualOptionalUser.isPresent()) {
@@ -69,28 +69,28 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void testFindAllUsersByRole() throws DaoException {
+     void testFindAllUsersByRole() throws DaoException {
         when(userDaoMock.findAllUsersByRole(UserRole.CLIENT)).thenReturn(expectedUsers);
         List<User> actual = userDaoMock.findAllUsersByRole(UserRole.CLIENT);
         assertThat(actual).containsExactly(firstUser, secondUser);
     }
 
     @Test
-    public void testFindAllUsersWithSuchSurname() throws DaoException {
+     void testFindAllUsersWithSuchSurname() throws DaoException {
         when(userDaoMock.findAllUsersWithSuchSurname(SURNAME)).thenReturn(expectedUsers);
         List<User> actual = userDaoMock.findAllUsersWithSuchSurname(SURNAME);
         assertThat(actual).containsExactly(firstUser, secondUser);
     }
 
     @Test
-    public void testInsertNewEntity() throws DaoException {
+     void testInsertNewEntity() throws DaoException {
         when(userDaoMock.insertNewEntity(firstUser)).thenReturn(expectedUser);
         User actual = userDaoMock.insertNewEntity(firstUser);
         assertThat(actual).isEqualTo(expectedUser);
     }
 
     @Test
-    public void testUpdateLogin() throws DaoException {
+     void testUpdateLogin() throws DaoException {
         when(userDaoMock.updateLogin(expectedUser.getLogin(), LOGIN_TO_UPDATE, USER_ID))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = userDaoMock.updateLogin(expectedUser.getLogin(), LOGIN_TO_UPDATE, USER_ID);
@@ -98,7 +98,7 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void testUpdateSurname() throws DaoException {
+     void testUpdateSurname() throws DaoException {
         when(userDaoMock.updateSurname(expectedUser.getIdUser(),expectedUser.getSurname()))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = userDaoMock.updateSurname(expectedUser.getIdUser(),expectedUser.getSurname());
@@ -106,7 +106,7 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void testUpdatePasswordByLogin() throws DaoException{
+     void testUpdatePasswordByLogin() throws DaoException{
         when(userDaoMock.updatePasswordByLogin(expectedUser.getLogin(), expectedUser.getPassword(), PASSWORD_TO_UPDATE))
                 .thenReturn(EXPECTED_ROWS_UPDATED);
         boolean actual = userDaoMock.updatePasswordByLogin(expectedUser.getLogin(), expectedUser.getPassword(), PASSWORD_TO_UPDATE);
