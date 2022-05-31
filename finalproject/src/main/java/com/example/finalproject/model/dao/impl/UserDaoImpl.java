@@ -79,7 +79,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
             logger.log(Level.DEBUG, "findById method from UserDaoImpl was completed successfully."
-                    + ((userOptional.isPresent()) ? " User with id " + id + " was found" : " User with id " + id + " don't exist"));
+                    + ((userOptional.isPresent()) ? " User with id " + id + " was founded" : " User with id " + id + " didn't exist"));
             return userOptional;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find user by id. Database access error:", e);
@@ -183,7 +183,7 @@ public class UserDaoImpl implements UserDao {
                     users.add(user);
                 }
             }
-            logger.log(Level.DEBUG, "findAllUsersByRole method by rooms was completed successfully. " + users.size() + " were found");
+            logger.log(Level.DEBUG, "findAllUsersByRole method by rooms was completed successfully. " + users.size() + " were founded");
             return users;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find users by role. Database access error:", e);
@@ -204,7 +204,7 @@ public class UserDaoImpl implements UserDao {
                     users.add(user);
                 }
             }
-            logger.log(Level.DEBUG, "findAllUsersWithSuchSurname method by rooms was completed successfully. " + users.size() + " were found");
+            logger.log(Level.DEBUG, "findAllUsersWithSuchSurname method by rooms was completed successfully. " + users.size() + " were founded");
             return users;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find users by such surname. Database access error:", e);
@@ -308,7 +308,7 @@ public class UserDaoImpl implements UserDao {
             return userOptional;
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Impossible to find user by this number. Database access error:", e);
-            throw new DaoException("Impossible to find user by phone number. Database access error:", e);
+            throw new DaoException("Impossible to find user by phone number.", e);
         }
     }
 
@@ -328,8 +328,8 @@ public class UserDaoImpl implements UserDao {
                     + ((userOptional.isPresent()) ? " User with login number " + login + " was found" : " User with login number " + login + " don't exist"));
             return userOptional;
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Impossible to find user by phone number. Database access error:", e);
-            throw new DaoException("Impossible to find user by phone number. Database access error:", e);
+            logger.log(Level.ERROR, "Impossible to find user by login. Database access error:", e);
+            throw new DaoException("Impossible to find user by login. Database access error:", e);
         }
     }
 
